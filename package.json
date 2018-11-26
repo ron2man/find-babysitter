@@ -1,0 +1,22 @@
+{
+  "name": "find-babysitter",
+  "version": "1.0.0",
+  "description": "\"# find-babysitter\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ron2man/find-babysitter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ron2man/find-babysitter/issues"
+  },
+  "homepage": "https://github.com/ron2man/find-babysitter#readme",
+  "dependencies": {
+    "@vue/cli-plugin-pwa": "^3.1.2"
+  }
+}
