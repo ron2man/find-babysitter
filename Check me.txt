@@ -1,0 +1,6 @@
+https://materializecss.com/getting-started.html
+https://materializecss.com/pickers.html
+
+https://nativescript-vue.org/en/docs/elements/components/date-picker/
+https://nativescript-vue.org/en/docs/elements/components/date-picker/
+https://nativescript-vue.org/en/docs/getting-started/quick-start/
