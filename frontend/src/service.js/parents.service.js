@@ -13,10 +13,12 @@ var parents = [
                 name:'עומר',
                 age:3,
             },
-
-
         ],
         phone: '0522345334',
+        adrress:{
+            district:'מרכז',
+            city:'בת ים',
+        },
         parentGender: 'אמא',
         languages:['עברית'],
         descritption:'יובלי ועומר שלנו ילדים מקסימים, אוהבים לשחק ומאוד נוחים.',
@@ -36,6 +38,10 @@ var parents = [
             }
         ],
         phone: '0544789300',
+        adrress:{
+            district:'מרכז',
+            city:'ראשון לציון',
+        },
         parentGender: 'אמא',
         languages:['עברית'],
         descritption:'מיקי ילד מהמם ברמות, לא בגלל שאני אמא שלו:)',
@@ -55,6 +61,10 @@ var parents = [
             }
         ],
         phone: '0544789300',
+        adrress:{
+            district:'דרום',
+            city:'באר שבע',
+        },
         parentGender: 'אמא',
         parentAge:36,
         children:[
