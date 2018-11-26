@@ -1,4 +1,4 @@
-import siterService from './services/siterService'
+import siterService from '../services/siterService'
 
 export default {
     state: {

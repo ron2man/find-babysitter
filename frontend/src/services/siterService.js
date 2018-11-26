@@ -232,7 +232,7 @@ function update(siter){
     return Promise.resolve(siterIdx)
 }
 
-module.export = {
+export default {
     query,
     getById,
     remove,

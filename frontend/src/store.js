@@ -5,8 +5,11 @@ import siterModule from './modules/siterModule'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  strict:true,
+  modules:{
+    siterModule
+  },
   state: {
-    siterModule,
   },
   mutations: {
 
