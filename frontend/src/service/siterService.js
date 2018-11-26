@@ -1,6 +1,6 @@
 var siters = [
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'אליס',
         age: 27,
         phone: '0506335433',
@@ -21,7 +21,7 @@ var siters = [
         imgUrl: '',
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'רוזי',
         age: 23,
         phone: '0504335343',
@@ -42,7 +42,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'עינב',
         age: 30,
         phone: '0582907732',
@@ -63,7 +63,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'אריאל',
         age: 19,
         phone: '0506773289',
@@ -84,7 +84,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'שירה',
         age: 24,
         phone: '0506345224',
@@ -105,7 +105,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'חגית',
         age: 24,
         phone: '0506345224',
@@ -126,7 +126,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'לילך',
         age: 27,
         phone: '0545689424',
@@ -147,7 +147,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'שמרית',
         age: 22,
         phone: '0506832883',
@@ -168,7 +168,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'דנה',
         age: 24,
         phone: '0506222411',
@@ -189,7 +189,7 @@ var siters = [
         imgUrl: ''
     },
     {
-        id:'makeId()',
+        id:makeId(),
         name: 'לולה',
         age: 20,
         phone: '0506833024',

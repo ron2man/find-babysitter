@@ -1,9 +1,23 @@
 
 
 
+function query(){
+return Promise.resolve(parents)
+}
+
+
+
+export default{
+    query
+}
+
+
+
 var parents = [
     {
-        id:'makeId()',
+        id:makeId(),
+        nickName:'אתי',
+        pwd:'123',
         name: 'אתי',
         parentAge:39,
         children:[
@@ -30,7 +44,9 @@ var parents = [
         imgUrl: '',
     },
     {
-        id:'makeId()',
+        id:makeId(),
+        nickName:'שובל',
+        pwd:'456',
         name: 'שובל',
         parentAge:36,
         children:[
@@ -53,7 +69,9 @@ var parents = [
         imgUrl: '',
     },
     {
-        id:'makeId()',
+        id:makeId(),
+        nickName:'טלי',
+        pwd:'789',
         name: 'טלי',
         age: 3,
         children:[
