@@ -26,8 +26,11 @@
 
 }
 header{
+  height:50px;
+  line-height: 50px;
+  padding: 0 15px;
   background-color: #bbc6d0;
-  padding: 15px;
+  // padding: 15px;
 h1{font-size:1.5em}
 }
 
