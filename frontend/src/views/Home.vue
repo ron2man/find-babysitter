@@ -21,6 +21,7 @@
     <section style="background-color:blue;">
       <h2>בואו ללמוד איך משתמשים באתר</h2>
     </section>
+    <HelloWorld></HelloWorld>
   </div>
 </template>
 
