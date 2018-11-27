@@ -3,6 +3,7 @@
     
 
     <!-- TO DO : MAKE THIS CODE - A FILTER CMP -->
+    <img alt="babysitter" src="../assets/babysitter.jpg">
     <form @submit.prevent="test">
         <input required type="search" placeholder="הזן את מקום המגורים">
 
@@ -30,7 +31,6 @@
     <!-- TO DO : MAKE THIS CODE - A FILTER CMP -->
 
     <section>
-    <img alt="babysitter" src="../assets/babysitter.jpg">
     <h2>2589 שמרטפים זמינים עכשיו</h2>
     </section>
     
@@ -69,7 +69,11 @@ export default {
 .home {
   background-color: lightblue;
   direction: rtl;
-
+    img {
+    width: 100%;
+    height: 175px;
+    object-fit: cover;
+  }
   form {
     width: 80%;
     padding: 30px 0;
@@ -98,11 +102,7 @@ export default {
   section{
     min-height: 300px;
 
-  img {
-    width: 100%;
-    height: 175px;
-    object-fit: cover;
-  }
+
   @media (min-width: 767px){
     img{
       height: 400px;
