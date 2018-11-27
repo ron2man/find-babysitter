@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
-import SiterFilter from './components/SiterFilter.vue'
+import SitterList from './components/SitterList.vue'
 import Sign from './views/Sign.vue'
 
 Vue.use(Router)
@@ -35,9 +35,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/baby/filter',
-      name: 'filter',
-      component: SiterFilter
+      path: '/baby/list',
+      name: 'list',
+      component: SitterList
     }
   ]
 })

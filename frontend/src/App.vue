@@ -4,8 +4,8 @@
       <h1 class="logo">BabySitter</h1>
       <nav>Ξ</nav>
       <!-- <div id="nav">
-        <router-link to="/">Home</router-link>| -->
-        <!-- <router-link to="/about">About</router-link> -->
+      <router-link to="/">Home</router-link>|-->
+      <!-- <router-link to="/about">About</router-link> -->
       <!-- </div> -->
     </header>
     <main>
@@ -15,23 +15,32 @@
   </div>
 </template>
 
+<script>
+export default {
+  created() {
+    this.$store.dispatch({ type: "getsitersList" });
+  }
+}
+</script>
+
 
 <style lang="scss" scoped>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   // color: #2c3e50;
-
 }
-header{
-  height:50px;
+header {
+  height: 50px;
   line-height: 50px;
   padding: 0 15px;
   background-color: #bbc6d0;
   // padding: 15px;
-h1{font-size:1.5em}
+  h1 {
+    font-size: 1.5em;
+  }
 }
 
 #nav {
