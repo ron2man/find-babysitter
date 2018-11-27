@@ -4,11 +4,12 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
-const userService = require('./services/user-service')
+// const userService = require('./services/user-service')
 
-const addWorkerRoutes = require('./routes/worker-route')
+const addSitterRoutes = require('./routes/sitterRoute')
 
 const app = express()  
+
 app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
@@ -27,8 +28,8 @@ app.get('/', (req, res) => {
 })
 
 
-addWorkerRoutes(app)
-addParentsRoutes(app)
+addSitterRoutes(app)
+// addParentsRoutes(app)
 
 app.post('/singup', (req, res) => {
   const nickname = req.body.nickname

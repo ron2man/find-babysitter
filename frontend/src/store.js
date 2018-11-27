@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import userModule from './store/user.module.js'
+import userModule from './modules/userModule.js'
 import siterModule from './modules/siterModule'
 
 Vue.use(Vuex)
@@ -12,12 +12,11 @@ export default new Vuex.Store({
     siterModule
   },
   state: {
-  
+    filter:{}
   },
   mutations: {
 
   },
   actions: {
-
-  }
+      }
 })
