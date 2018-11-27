@@ -16,9 +16,7 @@ data(){
 created(){
     this.interval = setInterval(()=>{
        var rdm = Math.floor(Math.random()*9)
-        console.log(rdm)
         this.deals += rdm;
-    console.log(this.deals)
     },3000);
 },
 destroyed(){
