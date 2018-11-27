@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ron2man/find-babysitter#readme",
   "dependencies": {
-    "@vue/cli-plugin-pwa": "^3.1.2"
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "@vue/cli-plugin-pwa": "^3.1.2",
+    "axios": "^0.18.0"
   }
 }

@@ -1,13 +1,15 @@
 
 
 <template>
-  <section>
-    <h1>login page</h1>
-    <form @submit.prevent="checkUser">
+  <section class="login-container flex column">
+    <h1 class="login-title">Login to registrants</h1>
+    <form @submit.prevent="checkUser" class="flex column">
       <input type="text" placeholder="Insert nick name" v-model="typedDetails.nickName">
       <input type="text" placeholder="Insert password" v-model="typedDetails.pwd">
+      <a href="#" class="pwd-forgot">Forgot password?</a>
       <button>login</button>
       <span v-if="isWrong">worng credinatls</span>
+      <p class="sign-in">not yet registered?<router-link to="/sign" class="pwd-forgot" >sign in</router-link></p>
     </form>
   </section>
 </template>
@@ -37,13 +39,9 @@ methods:{
           } else {
             this.isWrong = false
             this.$router.push('/');
-
             }  
-          
       })
-    
     },
-
 },
 
 computed:{
@@ -58,6 +56,6 @@ computed:{
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

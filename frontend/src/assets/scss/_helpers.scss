@@ -7,11 +7,30 @@
     justify-content: space-between; 
 }
 
+.align-space-around{
+    align-content: space-around;
+}
+
+
 .flex-space-around{
     justify-content: space-around; 
 }
 
 .flex-space-evenly{
     justify-content: space-evenly; 
+}
+
+.column{
+    flex-direction: column;
+}
+
+
+.wrap{
+    flex-wrap: wrap;
+
+// FONT HELPERS
+.bold {
+    font-weight: bold;
+
 }
 
