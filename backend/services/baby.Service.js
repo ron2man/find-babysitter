@@ -1,51 +1,51 @@
-const mongoService = require('./mongo-service') 
+const mongoService = require('./mongo.service') 
 
 const ObjectId = require('mongodb').ObjectId;
 
 function query() {
-    return mongoService.connect()
+    return mongoService.connectToDb()
         .then(db => {
-            const collection = db.collection('worker');
+            const collection = db.collection('sitter');
             return collection.find({}).toArray()
         })
 }
 
-function getById(workerId) {
-    workerId = new ObjectId(workerId)
-    return mongoService.connect()
+function getById(sitterId) {
+    sitterId = new ObjectId(sitterId)
+    return mongoService.connectToDb()
         .then(db => {
-            const collection = db.collection('worker');
-            return collection.findOne({ _id: workerId })
+            const collection = db.collection('sitter');
+            return collection.findOne({ _id: sitterId })
         })
 }
 
 function remove(){
-    workerId = new ObjectId(workerId)
-    return mongoService.connect()
+    sitterId = new ObjectId(sitterId)
+    return mongoService.connectToDb()
         .then(db => {
-            const collection = db.collection('worker');
-            return collection.remove({ _id: workerId })
+            const collection = db.collection('sitter');
+            return collection.remove({ _id: sitterId })
         })
 }
 
-function add(worker){
-    return mongoService.connect()
+function add(sitter){
+    return mongoService.connectToDb()
         .then(db => {
-            const collection = db.collection('worker');
-            return collection.insertOne(worker)
+            const collection = db.collection('sitter');
+            return collection.insertOne(sitter)
                 .then(result => {
-                    worker._id = result.insertedId;
+                    sitter._id = result.insertedId;
                     return car;
                 })
         })
 }
 
-function update(worker){
-    worker._id = new ObjectId(worker._id)
-    return mongoService.connect()
+function update(sitter){
+    sitter._id = new ObjectId(sitter._id)
+    return mongoService.connectToDb()
         .then(db => {
-            const collection = db.collection('worker');
-            return collection.updateOne({ _id: worker._id }, { $set: worker })
+            const collection = db.collection('sitter');
+            return collection.updateOne({ _id: sitter._id }, { $set: sitter })
                 .then(result => {
                     return result;
                 })

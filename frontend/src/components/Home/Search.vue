@@ -59,6 +59,7 @@ methods: {
 form{
     width: 90%;
     margin: 0 auto;
+    padding-bottom:15px;
   }
   .inputs {
     width:100%;

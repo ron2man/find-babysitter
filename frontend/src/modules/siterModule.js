@@ -6,11 +6,11 @@ export default {
         currentSiter:{},
     },
     mutations: {
-        setsiters(state,siters){
-            state.currentSiter = siters
+        setsiters(state,{siters}){
+            state.siters = siters
         },
         setCurrentSiter(state,siter){
-            state.siter = siter
+            state.currentSiter = siter
         },
         removeSiter(state, siterIdx){
             state.siters.splice(siterIdx,1)
@@ -23,8 +23,10 @@ export default {
     actions: {
         getsitersList(context){
             return siterService.query()
-                .then(siters => context.commit('setsiters',siters))
-            },
+                .then(siters => {
+                    context.commit({type:'setsiters',siters})
+            })
+        },
         getById(context,id){
             return siterService.getById(id)
                 .then(siter => context.commit('setCurrentSiter',siter))
@@ -36,7 +38,11 @@ export default {
         updateSiter(context,siter){
             return siterService.updateSiter(siter)
                 .then(siter => context.commit('updateSiter',siter))
-        }
+        },
+        setFilter(filter){
+            siterService.query(filter)
+              .then(siters => context.commit('setsiters',siters))
+                },    
     },
     getters: {
         getSiters: (state) => {return state.siters},
