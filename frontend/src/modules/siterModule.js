@@ -36,7 +36,11 @@ export default {
         updateSiter(context,siter){
             return siterService.updateSiter(siter)
                 .then(siter => context.commit('updateSiter',siter))
-        }
+        },
+        setFilter(filter){
+            siterService.query(filter)
+              .then(siters => context.commit('setsiters',siters))
+                },    
     },
     getters: {
         getSiters: (state) => {return state.siters},
