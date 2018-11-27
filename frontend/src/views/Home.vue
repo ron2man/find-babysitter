@@ -1,18 +1,14 @@
 <template>
   <div class="home">
-
     <!-- START HERO SECTION -->
     <section class="hero">
       <img alt="babysitter" src="../assets/babysitter.jpg">
-    <Search></Search>
+      <Search></Search>
     </section>
     <!-- END HERO SECTION -->
-
-
-    <section>
-      <h2>2589 שמרטפים זמינים עכשיו</h2>
-    </section>
-
+    <!-- START SECOND SECTION -->
+    <TopSitters></TopSitters>
+    <!-- END SECOND SECTION -->
     <section style="background-color:blue;">
       <h2>בואו ללמוד איך משתמשים באתר</h2>
     </section>
@@ -23,22 +19,28 @@
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
 import Search from "@/components/Home/Search.vue";
+import TopSitters from "@/components/Home/TopSitters.vue";
+
+
 
 export default {
   name: "home",
   components: {
     HelloWorld,
     Search,
+    TopSitters
   }
 
 };
 </script>
 
 <style lang="scss" scoped>
+section {
+  margin-bottom:5%;
+}
 .home {
-  background-color: lightblue;
-
   .hero{
+  background-color: lightblue;
     img {
       width: 100%;
     height: 175px;
@@ -50,10 +52,7 @@ export default {
      margin-bottom:20px;
    } 
   }
-  
-
-
   }
-
+  
 }
 </style>
