@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <header class="flex flex-space-between">
+      <div><i class="fas fa-user"></i></div>
       <h1 class="logo">BabySitter</h1>
-      <nav>Ξ</nav>
+      <nav><i class="fas fa-bars"></i></nav>
       <!-- <div id="nav">
       <router-link to="/">Home</router-link>|-->
       <!-- <router-link to="/about">About</router-link> -->

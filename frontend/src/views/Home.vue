@@ -6,7 +6,16 @@
       <Search></Search>
     </section>
     <!-- END HERO SECTION -->
+    
     <!-- START SECOND SECTION -->
+    <TopSitters></TopSitters>
+    <!-- END SECOND SECTION -->
+    
+    <!-- START THIRD SECTION -->
+    <HowManyUsed></HowManyUsed>
+    <!-- END THIRD SECTION -->
+
+        <!-- START SECOND SECTION -->
     <TopSitters></TopSitters>
     <!-- END SECOND SECTION -->
     <section style="background-color:blue;">
@@ -20,6 +29,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 import Search from "@/components/Home/Search.vue";
 import TopSitters from "@/components/Home/TopSitters.vue";
+import HowManyUsed from "@/components/Home/HowManyUsed.vue";
 
 
 
@@ -28,7 +38,8 @@ export default {
   components: {
     HelloWorld,
     Search,
-    TopSitters
+    TopSitters,
+    HowManyUsed
   }
 
 };
