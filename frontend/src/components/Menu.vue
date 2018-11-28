@@ -1,53 +1,28 @@
 <template>
-  <div>
-    <date-pick v-model="date" :hasInputElement="false" :isDateDisabled="isFutureDate"></date-pick>
-
-    
-  </div>
-  <!-- <date-pick v-model="date"></date-pick> -->
-  <!-- <date-pick v-model="date"></date-pick> -->
+  <label>
+    <input type="checkbox">
+    <span class="menu">
+      <span class="hamburger"></span>
+    </span>
+    <ul>
+      <li>
+        <a href="#">Home</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Work</a>
+      </li>
+    </ul>
+  </label>
 </template>
 
 <script>
-import DatePick from "vue-date-pick";
-import "vue-date-pick/dist/vueDatePick.css";
-
-export default {
-  components: { DatePick },
-  data: () => ({
-    date: ""
-  }),
-  methods: {
-    isFutureDate(date) {
-      const currentDate = new Date();
-      return date < currentDate;
-    }
-  }
-};
+export default {};
 </script>
 
-
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
-
-// *,
-// *:before,
-// *:after {
-//   box-sizing: border-box;
-// }
-
-// html {
-//   font-size: 18px;
-// }
-
-// body {
-//   font-family: "Cutive Mono", serif;
-//   font-size: 1.2em;
-//   line-height: 1.6;
-//   background: #CCC;
-//   overflow-x: hidden;
-// }
-
 label {
   .menu {
     position: absolute;
@@ -56,10 +31,10 @@ label {
     z-index: 100;
     width: 200px;
     height: 200px;
-    background: #FFF;
+    background: #fff;
     border-radius: 50% 50% 50% 50%;
-    transition: .5s ease-in-out;
-    box-shadow: 0 0 0 0 #FFF, 0 0 0 0 #FFF;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0 0 0 0 #fff, 0 0 0 0 #fff;
     cursor: pointer;
   }
   .hamburger {
@@ -71,10 +46,10 @@ label {
     background: #000;
     display: block;
     transform-origin: center;
-    transition: .5s ease-in-out;
+    transition: 0.5s ease-in-out;
     &:after,
     &:before {
-      transition: .5s ease-in-out;
+      transition: 0.5s ease-in-out;
       content: "";
       position: absolute;
       display: block;
@@ -84,7 +59,7 @@ label {
     }
     &:before {
       top: -10px;
-    } 
+    }
     &:after {
       bottom: -10px;
     }
@@ -93,7 +68,7 @@ label {
     display: none;
   }
   input:checked + .menu {
-    box-shadow: 0 0 0 100vw #FFF, 0 0 0 100vh #FFF;
+    box-shadow: 0 0 0 100vw #fff, 0 0 0 100vh #fff;
     border-radius: 0;
     .hamburger {
       transform: rotate(45deg);
@@ -107,21 +82,21 @@ label {
       }
     }
   }
-  
+
   input:checked + .menu + ul {
     opacity: 1;
   }
-  
+
   ul {
     z-index: 200;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     opacity: 0;
-    transition: .25s 0s ease-in-out;
+    transition: 0.25s 0s ease-in-out;
   }
-  
+
   a {
     margin-bottom: 1em;
     display: block;
@@ -129,6 +104,4 @@ label {
     text-decoration: none;
   }
 }
-
-
 </style>
