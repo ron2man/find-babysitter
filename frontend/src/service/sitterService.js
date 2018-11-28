@@ -248,18 +248,10 @@ function query() {
     return Promise.resolve(sitters)
 }
 
-<<<<<<< HEAD
 function getById(nickName){
     const sitter = sitters.find(sitter => {
        return sitter.nickName === nickName})
     return Promise.resolve(sitter)
-=======
-function getById(nickName) {
-    const siter = sitters.find(siter => {
-        return siter.nickName === nickName
-    })
-    return Promise.resolve(siter)
->>>>>>> 03e02fd38a066d21b5c2ada95a1ad91257cb210f
 }
 
 function remove(id) {

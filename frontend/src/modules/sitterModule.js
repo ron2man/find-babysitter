@@ -4,24 +4,13 @@ import sitterService from '../service/sitterService.js'
 export default {
     state: {
         sitters: [],
-<<<<<<< HEAD
-        currentSitter:{}
-=======
         // filter: null
 
->>>>>>> 03e02fd38a066d21b5c2ada95a1ad91257cb210f
     },
     mutations: {
         setSitters(state, { sitters }) {
             state.sitters = sitters
         },
-<<<<<<< HEAD
-        setCurrentSitter (state, sitter){
-            state.currentSitter = sitter
-        },
-=======
-
->>>>>>> 03e02fd38a066d21b5c2ada95a1ad91257cb210f
         removeSitter(state, sitterIdx) {
             state.sitters.splice(sitterIdx, 1)
         },
