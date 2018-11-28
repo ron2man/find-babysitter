@@ -10,6 +10,7 @@
           class="s1earch-location"
           onfocus="value = ''"
           type="text"
+          
         >
       </div>
       <!-- ADRESS INPUT END -->
@@ -45,7 +46,6 @@
         <button>Search</button>
       </div>
     </div>
-    <router-link to="/baby/list">link</router-link>
   </form>
 </template>
 
@@ -77,7 +77,9 @@ export default {
   },
   methods: {
     setFilter() {
+      
       this.$store.dispatch("setFilter", this.filter);
+      this.$router.push({ path: '/baby/list' })
     }
   },
   created() {
@@ -99,9 +101,11 @@ export default {
 
       this.filter.location.lat = lat;
       this.filter.location.lon = lon;
-      this.filter.location.address = `${ac[1].long_name} ${ac[0].long_name} ${
-        ac[2].long_name
-      } ${ac[4].long_name}`;
+      this.filter.location.address = this.$refs.autocomplete.value;
+      
+      // this.filter.location.address = `${ac[1].long_name} ${ac[0].long_name} ${
+      //   ac[2].long_name
+      // } ${ac[4].long_name}`;
       // console.log(
       //   `The user picked ${city} with the coordinates ${lat}, ${lon}`
       //   , ac

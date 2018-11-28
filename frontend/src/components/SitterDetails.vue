@@ -1,5 +1,5 @@
 <template>
-  <section class="details-sitter">
+  <section v-if="sitter" class="details-sitter">
     <!-- //link back to list -->
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
@@ -8,7 +8,7 @@
       >
       <div class="summery-detail-container">
         <p class="sitter-name">{{sitter.nickName}}</p>
-        <p>{{sitter.adrress}} | {{sitter.age}}</p>
+        <p>{{sitter.adrress.city}} | {{sitter.age}}</p>
       </div>
     </div>
     <div class="btn-container">
@@ -38,12 +38,12 @@
       </div>
       <h2 class="about-head">Credentials</h2>
       <div class="font-awsome-box">
-          <div class="icon-box"><i class="fas fa-id-card item-awsome"></i><span>Has driver License</span></div>
-          <div class="icon-box"><i class="fas fa-car item-awsome"></i><span>Has car</span></div>
-          <div class="icon-box"><i class="fas fa-smoking item-awsome"></i><span>Smoking</span></div>
-          <div class="icon-box"><i class="fas fa-briefcase-medical item-awsome"></i><span>Medical treatment</span></div>
-          <div class="icon-box"><i class="fas fa-file item-awsome"></i><span>Have recomendation</span></div>
-          <div class="icon-box"><i class="fas fa-broom item-awsome"></i><span>Clean</span></div>
+          <div class="icon-box" :class="{black: sitter.license}"><i class="fas fa-id-card item-awsome"></i><span>Has driver License</span></div>
+          <div class="icon-box" :class="{black: sitter.vehicle}"><i class="fas fa-car item-awsome"></i><span>Has car</span></div>
+          <div class="icon-box" :class="{black: sitter.smoking}"><i class="fas fa-smoking item-awsome"></i><span>Smoking</span></div>
+          <div class="icon-box" :class="{black: sitter.medical}"><i class="fas fa-briefcase-medical item-awsome"></i><span>Medical treatment</span></div>
+          <div class="icon-box" :class="{black: sitter.recomandation}"><i class="fas fa-file item-awsome"></i><span>Have recomendation</span></div>
+          <div class="icon-box" :class="{black: sitter.smoking}"><i class="fas fa-broom item-awsome"></i><span>Clean</span></div>
         </div>
     </div>
   </section>
@@ -51,21 +51,16 @@
 
 <script>
 export default {
-  date() {
-    return {};
-  },
   created() {
     const nickName = this.$route.params.nickName;
-    this.$store.dispatch({ type: "getById", nickName });
+    this.$store.dispatch({ type: "getById", nickName })
   },
-  computed: {
-    sitter() {
-        console.log()
-
-      return this.$store.getters.getCurrentSiter;
-    },
+      computed:{
+        sitter(){
+           return this.$store.getters.getCurrentSitter
+        }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -176,11 +171,11 @@ img {
     border: 1px solid black;
     line-height: 40px;
     text-align: left;
+    color:rgb(185, 185, 185);
 }
 
 .item-awsome{
 margin: 0 30px;
-color:rgb(185, 185, 185);
 }
 
 .black{

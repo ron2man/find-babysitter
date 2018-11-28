@@ -248,11 +248,10 @@ function query() {
     return Promise.resolve(sitters)
 }
 
-function getById(nickName) {
-    const siter = sitters.find(siter => {
-        return siter.nickName === nickName
-    })
-    return Promise.resolve(siter)
+function getById(nickName){
+    const sitter = sitters.find(sitter => {
+       return sitter.nickName === nickName})
+    return Promise.resolve(sitter)
 }
 
 function remove(id) {

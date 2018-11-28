@@ -5,13 +5,12 @@ export default {
     state: {
         sitters: [],
         // filter: null
-
+        currentSitter:{}
     },
     mutations: {
         setSitters(state, { sitters }) {
             state.sitters = sitters
         },
-
         removeSitter(state, sitterIdx) {
             state.sitters.splice(sitterIdx, 1)
         },
@@ -24,6 +23,9 @@ export default {
         },
         setTheFilter(state, filter) {
             state.filter = filter;
+        },
+        setCurrentSitter(state,sitter){
+            state.currentSitter = sitter
         }
 
     },
@@ -34,9 +36,11 @@ export default {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
-        getById(context, id) {
-            return sitterService.getById(id)
-                .then(sitter => context.commit('setCurrentSitter', sitter))
+        getById(context, {nickName}) {
+            return sitterService.getById(nickName)
+                .then(sitter => {
+                    context.commit('setCurrentSitter', sitter)
+                })
         },
         removeSitter(context, id) {
             return sitterService.removeSitter(id)
@@ -63,7 +67,7 @@ export default {
     },
     getters: {
         getSitters: (state) => { return state.sitters },
-        getCurrentSitter: (state) => { return state.currentSitter },
+        getCurrentSitter: (state) => { return state.currentSitter},
         // filter(state) {
         //     return JSON.parse(JSON.stringify(state.filter));
         // },
