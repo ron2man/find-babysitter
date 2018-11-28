@@ -12,11 +12,17 @@ export default new Vuex.Store({
     siterModule
   },
   state: {
-    filter:{}
+    filter: {location:{lat:'',lng:''},date:'',startTime:'',endTime:'',radius:'10'}
   },
   mutations: {
-
+    setFilter(state, payload) {
+      state.filter
+     console.log(payload)
+    }
   },
   actions: {
-      }
+    setFilter(context, payload) {
+      context.commit('setFilter', payload)
+    }
+  }
 })

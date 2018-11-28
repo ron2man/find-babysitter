@@ -1,10 +1,10 @@
 
 const MongoClient = require('mongodb').MongoClient;
 
+const url = 'mongodb://ron2man:ron123@ds119374.mlab.com:19374/babysitter_db';
+// const url = 'mongodb://localhost:27017';
 
-const url = 'mongodb://localhost:27017';
-
-const dbName = 'baby_db';
+const dbName = 'babysitter_db';
 
 var dbConnection = null;
 
