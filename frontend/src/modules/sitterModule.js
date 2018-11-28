@@ -1,3 +1,4 @@
+import sitterServiceBack from '../service/sitterServiceBack.js'
 import sitterService from '../service/sitterService.js'
 
 
@@ -5,7 +6,7 @@ export default {
     state: {
         sitters: [],
         // filter: null
-        currentSitter:{}
+        currentSitter: null
     },
     mutations: {
         setSitters(state, { sitters }) {
@@ -31,13 +32,13 @@ export default {
     },
     actions: {
         getsittersList(context) {
-            return sitterService.query()
+            return sitterServiceBack.query()
                 .then(sitters => {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
-        getById(context, {nickName}) {
-            return sitterService.getById(nickName)
+        getById(context, {id}) {
+            return sitterServiceBack.getById(id)
                 .then(sitter => {
                     context.commit('setCurrentSitter', sitter)
                 })

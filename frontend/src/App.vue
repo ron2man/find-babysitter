@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-      <Menu></Menu>
+    <!-- <Menu></Menu> -->
+    <!-- START HEADER -->
     <header class="flex flex-space-between">
-      <div><i class="fas fa-user"></i></div>
-      <h1 class="logo">BabySitter</h1>
-      <nav><i class="fas fa-bars"></i></nav>
-      <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|-->
-      <!-- <router-link to="/about">About</router-link> -->
-      <!-- </div> -->
+      <div>
+        <i class="fas fa-user"></i>
+      </div>
+      <h1 class="logo">
+        <router-link to="/">BabySitter</router-link>
+      </h1>
+      <nav>
+        <i class="fas fa-bars"></i>
+      </nav>
     </header>
+    <!-- END HEADER -->
     <main>
       <router-view/>
     </main>
+    
     <footer></footer>
   </div>
 </template>
 
 <script>
-import Menu from './components/Menu.vue'
+import Menu from "./components/Menu.vue";
 export default {
-  components:{
-    Menu,
+  components: {
+    Menu
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
   }
-}
+};
 </script>
 
 
@@ -46,6 +51,9 @@ header {
   // padding: 15px;
   h1 {
     font-size: 1.5em;
+    a {
+      text-decoration: none;
+    }
   }
 }
 

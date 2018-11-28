@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import userModule from './modules/userModule.js'
 import sitterModule from './modules/sitterModule.js'
 import authService from '../src/service/authService.js'
-import sitterService from '../src/service/sitterService.js'
 
 
 
