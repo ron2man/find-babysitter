@@ -63,11 +63,11 @@ export default {
         location: { lon: "", lat: "" },
         date: "",
         startTime: {
-          HH: "13",
+          HH: "20",
           mm: "00"
         },
         endTime: {
-          HH: "13",
+          HH: "21",
           mm: "00"
         },
         radius: 15
@@ -80,6 +80,8 @@ export default {
     }
   },
   mounted() {
+    // if (this.$store.state.isFiltered) this.filter = this.$store.state.filter;
+
     // GOOGLE AUTOCOMPLETE
     this.autocomplete = new google.maps.places.Autocomplete(
       this.$refs.autocomplete,
