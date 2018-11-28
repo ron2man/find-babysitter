@@ -248,9 +248,16 @@ function query(){
     return Promise.resolve(sitters)
 }
 
+<<<<<<< HEAD:frontend/src/services/siterService.js
+function getById(nickName){
+    const siter = siters.find(siter => {
+       return siter.nickName === nickName})
+    return Promise.resolve(siter)
+=======
 function getById(id){
     const sitter = sitters.find(sitter => sitter.id === id)
     return Promise.resolve(sitter)
+>>>>>>> b73046a366715ea1b5ed273bd1a0c38c0d796744:frontend/src/service/sitterService.js
 }
 
 function remove(id){

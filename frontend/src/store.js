@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import userModule from './modules/userModule.js'
 import sitterModule from './modules/sitterModule.js'
 import authService from '../src/service/authService.js'
+import sitterService from '../src/service/sitterService.js'
+
 
 
 Vue.use(Vuex)
@@ -19,7 +21,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setCurrUser(state, payload) {
-      state.user = payload
+      state.currUser = payload
     },
     setTheFilter(state, filter) {
       state.filter = filter;

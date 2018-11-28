@@ -1,5 +1,4 @@
 import sitterService from '../service/sitterService.js'
-import authService from '../service/authService.js'
 
 
 export default {
