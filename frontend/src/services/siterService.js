@@ -248,8 +248,9 @@ function query(){
     return Promise.resolve(siters)
 }
 
-function getById(id){
-    const siter = siters.find(siter => siter.id === id)
+function getById(nickName){
+    const siter = siters.find(siter => {
+       return siter.nickName === nickName})
     return Promise.resolve(siter)
 }
 

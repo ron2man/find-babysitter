@@ -38,6 +38,7 @@
     <div class="awsomes-card">
       <i class="fas fa-eye eye-icon"></i> 560
     </div>
+    <button class="btn-add" @click="goToDetails(sitter.nickName)">Details</button>
   </div>
 </template>
 
@@ -45,6 +46,9 @@
 export default {
   props: ["sitter"],
   methods: {
+    goToDetails(nickName){
+      this.$router.push(`/baby/${nickName}`)
+    }
     },
     computed:{
     getLength() {
@@ -57,7 +61,7 @@ export default {
     }
   },
   created() {
-    console.log(this.sitter.description.length);
+    console.log(this.sitter);
     console.log("dudi");
   }
 };

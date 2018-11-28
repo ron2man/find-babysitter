@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SitterList from './components/SitterList.vue'
 import Sign from './views/Sign.vue'
+import SitterDetails from './components/SitterDetails.vue'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/baby/list',
       name: 'list',
       component: SitterList
+    },
+    {
+      path: '/baby/:nickName',
+      name: 'sitterDetails',
+      component: SitterDetails
     }
   ]
 })

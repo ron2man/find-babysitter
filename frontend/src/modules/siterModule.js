@@ -27,8 +27,8 @@ export default {
                     context.commit({type:'setsiters',siters})
             })
         },
-        getById(context,id){
-            return siterService.getById(id)
+        getById(context,{nickName}){
+            return siterService.getById(nickName)
                 .then(siter => context.commit('setCurrentSiter', siter))
         },
         removeSiter(context, id) {
