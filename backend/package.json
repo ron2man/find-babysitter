@@ -7,7 +7,7 @@
     "puki": "ping google.com",
     "showFiles": "dir",
     "doit": "nodemon server.js",
-    "start": "cls"
+    "start": "node server.js"
   },
   "author": "Me",
   "license": "ISC",

@@ -14,12 +14,18 @@ export default new Vuex.Store({
     sitterModule
   },
   state: {
-    filter: {},
-    currUser: {}
+    currUser: {},
+    isFiltered: false,
+    filter: { location: { lat: '', lng: '' }, date: '', startTime: '', endTime: '', radius: '10' }
   },
   mutations: {
     setCurrUser(state, payload) {
       state.user = payload
+    },
+    setFilter(state, payload) {
+      console.log(payload)
+      state.filter = payload;
+      // state.isFiltered = true;
     }
 
   },
@@ -31,7 +37,9 @@ export default new Vuex.Store({
           localStorage.setItem('loggedInUser', JSON.stringify(user))
           return user
         })
+    },
+    setFilter(context, payload) {
+      context.commit('setFilter', payload)
     }
   }
-
 })

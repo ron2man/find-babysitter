@@ -1,55 +1,45 @@
 <template>
-  <form @submit.prevent="test">
-    <input ref="autocomplete" 
-        placeholder="Search" 
-        class="search-location"
-        onfocus="value = ''" 
-        type="text" />
+  <form @submit.prevent="setFilter">
     <div class="search">
-      <!-- ADRESS INPUT -->
+      <!-- ADRESS INPUT START -->
       <div class="inputs adress">
         <label for="text">&#32;</label>
-        <!-- <label for="adress">Your Adress:</label> -->
         <input
-          v-model="search.where"
-          required
-          type="search"
-          name="adress"
-          placeholder="Where do you live?"
+          ref="autocomplete"
+          placeholder="Search"
+          class="s1earch-location"
+          onfocus="value = ''"
+          type="text"
         >
       </div>
-
+      <!-- ADRESS INPUT END -->
       <!-- DATE AND TIME INPUTS -->
       <div class="date-and-time flex">
+        <!-- INPUT DATE START -->
         <div class="inputs date">
-          <label for="date">When</label>
-          <date-pick v-model="date" :displayFormat="'DD.MM.YYYY'"></date-pick>
-          <!-- <input required v-model="search.date" ref="today" id="date" type="date"> -->
+          <label for="date"></label>
+          <date-pick v-model="filter.date" input-class="test" :displayFormat="'DD.MM.YYYY'"></date-pick>
         </div>
+        <!-- INPUT DATE END -->
         <div class="inputs time-start">
           <label for="time-start">From</label>
-          <!-- <input ref="thistime" v-model="search.timeStart" type="time"> -->
           <vue-timepicker
             format="HH:mm"
             :minute-interval="30"
             hide-clear-button
-            v-model="yourTimeValue"
+            v-model="filter.startTime"
           ></vue-timepicker>
         </div>
         <div class="inputs time-end">
           <label for="time-end">Till</label>
           <vue-timepicker
-            name="time-end"
             format="HH:mm"
             :minute-interval="30"
             hide-clear-button
-            v-model="yourTimeValue"
+            v-model="filter.endTime"
           ></vue-timepicker>
-
-          <!-- <input ref type="time" v-model="search.timeEnd"> -->
         </div>
       </div>
-
       <div class="inputs button">
         <label for="button"></label>
         <button>Search</button>
@@ -69,47 +59,72 @@ export default {
   },
   data() {
     return {
-      yourTimeValue: {
-        HH: "13",
-        mm: "00"
-      },
-      date: "2019-01-01",
-      search: { where: "", date: "", timeStart: "", timeEnd: "00:00" }
+      filter: {
+        location: { lon: "", lat: "" },
+        date: "",
+        startTime: {
+          HH: "20",
+          mm: "00"
+        },
+        endTime: {
+          HH: "21",
+          mm: "00"
+        },
+        radius: 15
+      }
     };
   },
   methods: {
-    test() {
-      console.log("this search params -", this.search);
+    setFilter() {
+      this.$store.dispatch("setFilter", this.filter);
     }
   },
   mounted() {
-    let today = new Date().toISOString().substr(0, 10);
-    this.search.date = today;
+    // if (this.$store.state.isFiltered) this.filter = this.$store.state.filter;
 
-    let now = new Date().toString().substr(16, 5);
-    this.search.timeStart = now;
-
-  // GOOGLE AUTOCOMPLETE
-      this.autocomplete = new google.maps.places.Autocomplete(
-      (this.$refs.autocomplete),
-      {types: ['geocode']}
+    // GOOGLE AUTOCOMPLETE
+    this.autocomplete = new google.maps.places.Autocomplete(
+      this.$refs.autocomplete,
+      { types: ["geocode"] }
     );
 
-    this.autocomplete.addListener('place_changed', () => {
+    this.autocomplete.addListener("place_changed", () => {
       let place = this.autocomplete.getPlace();
       let ac = place.address_components;
       let lat = place.geometry.location.lat();
       let lon = place.geometry.location.lng();
       let city = ac[0]["short_name"];
 
-      console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
+      this.filter.location.lat = lat;
+      this.filter.location.lon = lon;
+      // console.log(
+      //   `The user picked ${city} with the coordinates ${lat}, ${lon}`
+      //   , ac
+      // );
     });
-
   }
 };
 </script>
 
 <style lang="scss" scoped>
+* > input {
+  text-align: center;
+  font-size: 1.2em;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.search {
+  background-color: white;
+  input,
+  input:focus {
+    border: 0;
+    outline: none;
+  }
+}
+
 .search-location {
   display: block;
   width: 60vw;
@@ -131,21 +146,17 @@ form {
 .inputs {
   width: 100%;
   margin-bottom: 10px;
-  height: 50px;
+
+  // height: 50px;
 }
 .inputs > * {
-  display: block;
+  // display: block;
   width: 100%;
 }
 input[type="search"] {
   height: 32px;
 }
 
-input {
-  text-align: center;
-  font-size: 1.2em;
-  height: 30px;
-}
 label {
   height: 16px;
   text-align: initial;
@@ -159,6 +170,7 @@ button {
   .search {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
   }
   .button {
     width: 30%;
