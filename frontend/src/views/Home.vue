@@ -21,13 +21,11 @@
     <section style="background-color:blue;">
       <h2>בואו ללמוד איך משתמשים באתר</h2>
     </section>
-    <HelloWorld></HelloWorld>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import Search from "@/components/Home/Search.vue";
 import TopSitters from "@/components/Home/TopSitters.vue";
 import HowManyUsed from "@/components/Home/HowManyUsed.vue";
@@ -37,7 +35,6 @@ import HowManyUsed from "@/components/Home/HowManyUsed.vue";
 export default {
   name: "home",
   components: {
-    HelloWorld,
     Search,
     TopSitters,
     HowManyUsed
