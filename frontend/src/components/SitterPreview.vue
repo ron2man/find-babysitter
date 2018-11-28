@@ -24,7 +24,7 @@
         </p>
       </div>
       <div class="action-container flex column">
-        <div class="action-item" @click="goToDetails(sitter.nickName)">
+        <div class="action-item" @click="goToDetails(sitter._id)">
           <p>View details</p>
           <div>
             <i class="far fa-user"></i>

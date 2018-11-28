@@ -1,3 +1,4 @@
+import sitterServiceBack from '../service/sitterServiceBack.js'
 import sitterService from '../service/sitterService.js'
 
 
@@ -31,13 +32,13 @@ export default {
     },
     actions: {
         getsittersList(context) {
-            return sitterService.query()
+            return sitterServiceBack.query()
                 .then(sitters => {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
-        getById(context, {nickName}) {
-            return sitterService.getById(nickName)
+        getById(context, {id}) {
+            return sitterServiceBack.getById(id)
                 .then(sitter => {
                     context.commit('setCurrentSitter', sitter)
                 })

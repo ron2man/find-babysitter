@@ -11,6 +11,7 @@ function query() {
 }
 
 function getById(sitterId) {
+    console.log(sitterId)
     sitterId = new ObjectId(sitterId)
     return mongoService.connectToDb()
         .then(db => {

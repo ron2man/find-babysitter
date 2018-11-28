@@ -7,7 +7,7 @@
         src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
       >
       <div class="summery-detail-container">
-        <p class="sitter-name">{{sitter.nickName}}</p>
+        <p class="sitter-name">{{sitter.name}}</p>
         <p>{{sitter.adrress.city}} | {{sitter.age}}</p>
       </div>
     </div>
@@ -27,7 +27,7 @@
         <p class="date">{{sitter.joinedAt}}</p>
         <div class="rank">
           <i class="fas fa-medal"></i>
-          <p class="qualification-expa">{{sitter.expaAbout}}</p>
+          <p class="qualification-expa">{{sitter.about}}</p>
         </div>
         <div class="about-details">
           <p class="about-details-item">Looking for: {{sitter.time}}</p>
@@ -35,7 +35,11 @@
           <span class="head-span">education:</span>
           <p class="about-details-item">highschool</p>
           <span class="head-span">Language:</span>
-          <p class="about-details-item">english russian</p>
+          <span
+            class="about-details-item"
+            v-for="language in sitter.languages"
+            :key="language"
+          >{{language}}</span>
         </div>
       </div>
       <h2 class="about-head">Credentials</h2>
@@ -68,7 +72,7 @@
     </div>
     <h2 class="about-head">Reviews</h2>
     <div class="reviews-box">
-      <p class="review" v-for="review in sitter.reviews">"{{review.txt}}"</p>
+      <p class="review" v-for="review in sitter.reviews" :key="review">"{{review.txt}}"</p>
       <i class="fas fa-star orange stars" v-for="n in getNumberOfStars" :key="n"></i>
     </div>
   </section>
@@ -77,22 +81,25 @@
 <script>
 export default {
   created() {
-    const nickName = this.$route.params.nickName;
-    this.$store.dispatch({ type: "getById", nickName });
+    const id = this.$route.params.id;
+    this.$store.dispatch({ type: "getById", id });
+  },
+  methods: {
+    getNumberOfStars() {
+      var ratingSum = this.sitter.reviews.reduce(function(acc, { rating }) {
+        return acc + rating;
+      }, 0);
+      ratingSum = parseInt(ratingSum / this.sitter.reviews.length);
+      return ratingSum;
+    }
   },
   computed: {
     sitter() {
       return this.$store.getters.getCurrentSitter;
-    },
-      getNumberOfStars(){
-        var ratingSum = this.sitter.reviews.reduce(function(acc,{rating}){
-          return acc+rating
-        },0)
-      ratingSum = parseInt(ratingSum /this.sitter.reviews.length)
-      return ratingSum;
-}
-}
+      console.log(this.$store.getters.getCurrentSitter)
+    }
   }
+};
 </script>
 
 <style scoped lang="scss">
@@ -240,20 +247,20 @@ img {
   margin-bottom: 20px;
 }
 
-.orange{
-  color:orange;
+.orange {
+  color: orange;
 }
 
-.medal{
+.medal {
   line-height: 22px;
 }
 
-.fa-medal:before{
+.fa-medal:before {
   line-height: 60px;
-    font-size: 40px;
+  font-size: 40px;
 }
 
-.stars{
+.stars {
   margin-bottom: 20px;
 }
 </style>

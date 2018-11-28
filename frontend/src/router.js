@@ -41,7 +41,7 @@ export default new Router({
       component: SitterList
     },
     {
-      path: '/baby/:nickName',
+      path: '/baby/:id',
       name: 'sitterDetails',
       component: SitterDetails
     }
