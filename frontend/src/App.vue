@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <Menu></Menu>
     <header class="flex flex-space-between">
       <div><i class="fas fa-user"></i></div>
       <h1 class="logo">BabySitter</h1>
@@ -17,7 +18,11 @@
 </template>
 
 <script>
+import Menu from './components/Menu.vue'
 export default {
+  components:{
+    Menu,
+  },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
   }
