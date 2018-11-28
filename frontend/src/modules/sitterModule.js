@@ -5,12 +5,15 @@ import authService from '../service/authService.js'
 export default {
     state: {
         sitters: [],
+        currentSitter:{}
     },
     mutations: {
         setSitters(state, { sitters }) {
             state.sitters = sitters
         },
-      
+        setCurrentSitter (state, sitter){
+            state.currentSitter = sitter
+        },
         removeSitter(state, sitterIdx) {
             state.sitters.splice(sitterIdx, 1)
         },
@@ -29,8 +32,8 @@ export default {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
-        getById(context, id) {
-            return sitterService.getById(id)
+        getById(context, {nickName}) {
+            return sitterService.getById(nickName)
                 .then(sitter => context.commit('setCurrentSitter', sitter))
         },
         removeSitter(context, id) {

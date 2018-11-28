@@ -1,5 +1,5 @@
 <template>
-  <section class="details-sitter">
+  <section v-if="this.currentUser" class="details-sitter">
     <!-- //link back to list -->
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
@@ -7,8 +7,8 @@
         src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
       >
       <div class="summery-detail-container">
-        <p class="sitter-name">{{sitter.nickName}}</p>
-        <p>{{sitter.adrress}} | {{sitter.age}}</p>
+        <p class="sitter-name">{{this.currentUser.nickName}}</p>
+        <p>{{this.currentUser.adrress.city}} | {{this.currentUser.age}}</p>
       </div>
     </div>
     <div class="btn-container">
@@ -24,26 +24,26 @@
     <div class="about">
       <h2 class="about-head">About</h2>
       <div class="about-box">
-        <p class="date">{{sitter.joinedAt}}</p>
+        <p class="date">{{this.currentUser.joinedAt}}</p>
         <div class="rank">
           <i class="fas fa-medal"></i>
-          <p class="qualification-expa">{{sitter.expaAbout}}</p>
+          <p class="qualification-expa">{{this.currentUser.expaAbout}}</p>
         </div>
         <div class="about-details">
           <p class="about-details-item">Looking for: dklskdsjd</p>
-          <p class="about-details-item description">{{sitter.description}}</p>
+          <p class="about-details-item description">{{this.currentUser.description}}</p>
           <span class="head-span">education:</span><p class="about-details-item"> highschool</p>
           <span class="head-span">Language:</span><p class="about-details-item"> english russian</p>
         </div>
       </div>
       <h2 class="about-head">Credentials</h2>
       <div class="font-awsome-box">
-          <div class="icon-box"><i class="fas fa-id-card item-awsome"></i><span>Has driver License</span></div>
-          <div class="icon-box"><i class="fas fa-car item-awsome"></i><span>Has car</span></div>
-          <div class="icon-box"><i class="fas fa-smoking item-awsome"></i><span>Smoking</span></div>
-          <div class="icon-box"><i class="fas fa-briefcase-medical item-awsome"></i><span>Medical treatment</span></div>
-          <div class="icon-box"><i class="fas fa-file item-awsome"></i><span>Have recomendation</span></div>
-          <div class="icon-box"><i class="fas fa-broom item-awsome"></i><span>Clean</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.license}"><i class="fas fa-id-card item-awsome"></i><span>Has driver License</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.vehicle}"><i class="fas fa-car item-awsome"></i><span>Has car</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.smoking}"><i class="fas fa-smoking item-awsome"></i><span>Smoking</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.medical}"><i class="fas fa-briefcase-medical item-awsome"></i><span>Medical treatment</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.recomandation}"><i class="fas fa-file item-awsome"></i><span>Have recomendation</span></div>
+          <div class="icon-box" :class="{black: this.currentUser.smoking}"><i class="fas fa-broom item-awsome"></i><span>Clean</span></div>
         </div>
     </div>
   </section>
@@ -51,21 +51,17 @@
 
 <script>
 export default {
-  date() {
-    return {};
+  data() {
+    return {
+      currentUser:null
+    };
   },
   created() {
     const nickName = this.$route.params.nickName;
-    this.$store.dispatch({ type: "getById", nickName });
+    this.$store.dispatch({ type: "getById", nickName })
+    this.currentUser = this.$store.getters.getCurrentSitter
   },
-  computed: {
-    sitter() {
-        console.log()
-
-      return this.$store.getters.getCurrentSiter;
-    },
   }
-};
 </script>
 
 <style scoped lang="scss">
@@ -176,11 +172,11 @@ img {
     border: 1px solid black;
     line-height: 40px;
     text-align: left;
+    color:rgb(185, 185, 185);
 }
 
 .item-awsome{
 margin: 0 30px;
-color:rgb(185, 185, 185);
 }
 
 .black{

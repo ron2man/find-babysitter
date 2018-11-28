@@ -14,7 +14,6 @@ import Search from './Home/Search.vue'
 export default {
       computed: {
     sitters() {
-        console.log(this.$store.getters.getSitters)
       return this.$store.getters.getSitters;
     }
 },
