@@ -70,8 +70,6 @@ export default {
     }
   },
   created() {
-    console.log(this.sitter);
-    console.log("dudi");
   }
 };
 </script>
