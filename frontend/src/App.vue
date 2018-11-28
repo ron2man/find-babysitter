@@ -19,7 +19,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch({ type: "getsitersList" });
+    this.$store.dispatch({ type: "getsittersList" });
   }
 }
 </script>

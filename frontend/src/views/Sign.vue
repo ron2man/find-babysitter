@@ -3,15 +3,15 @@
 
 <template>
   <section class="sign-container">
-    <form @submit.prevent="setUser">
+    <form @submit.prevent="setNewSitter">
         <h1 class="sign-title">Sign up</h1>
         <div class="name-container flex wrap flex-space-around align-space-around">
         <input type="text" placeholder="Insert name" v-model="sitter.name">
         <input type="text" placeholder="Insert last name" v-model="sitter.lName">
         <input type="text" placeholder="Choose nickname" v-model="sitter.nickName">
         <input type="text" placeholder="Insert password" v-model="sitter.pwd">
-        <input type="text" placeholder="Insert city adrress" v-model="sitter.city">
-        <input type="text" placeholder="Insert Street adrress" v-model="sitter.street">
+        <input type="text" placeholder="Insert city adrress" v-model="sitter.adrress.city">
+        <input type="text" placeholder="Insert Street adrress" v-model="sitter.adrress.street">
       </div>
       <section class="extra-container flex wrap">
         <div class="prefs-container flex column flex-space-around">
@@ -188,8 +188,8 @@ export default {
     };
   },
   methods: {
-    setUser() {
-      this.$store.dispatch({ type: 'setUser', user: this.newUser });
+    setNewSitter() {
+      this.$store.dispatch({ type: 'setNewSitter', newSitter: this.sitter });
     }
   }
 };

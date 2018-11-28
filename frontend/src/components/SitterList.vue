@@ -7,18 +7,18 @@
 
 <script>
 import SitterPreview from './SitterPreview'
-import SiterFilter from './SiterFilter'
+import SitterFilter from './SitterFilter'
 
 export default {
       computed: {
     sitters() {
-        console.log(this.$store.getters.getSiters)
-      return this.$store.getters.getSiters;
+        console.log(this.$store.getters.getSitters)
+      return this.$store.getters.getSitters;
     }
 },
 components:{
     SitterPreview,
-    SiterFilter
+    SitterFilter
 }
 }
 </script>
