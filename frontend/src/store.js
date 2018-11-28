@@ -17,19 +17,15 @@ export default new Vuex.Store({
   },
   state: {
     currUser: {},
-    isFiltered: false,
-    filter: { location: { lat: '', lng: '' }, date: '', startTime: '', endTime: '', radius: '10' }
+    filter: null
   },
   mutations: {
     setCurrUser(state, payload) {
       state.currUser = payload
     },
-    setFilter(state, payload) {
-      console.log(payload)
-      state.filter = payload;
-      // state.isFiltered = true;
-    },
-
+    setTheFilter(state, filter) {
+      state.filter = filter;
+    }
 
   },
   actions: {
@@ -41,15 +37,14 @@ export default new Vuex.Store({
           return user
         })
     },
-    setFilter(context, payload) {
-      context.commit('setFilter', payload)
-    },
-    setNewSitter({ commit }, { newSitter }) {
-      return sitterService.addNewSitter(newSitter)
-        .then(theSitter => {
-          commit({ type: 'setCurrUser', theSitter })
-          return theSitter
-        })
-    },
+    setFilter(context, filter) {
+      var newFilter = JSON.parse(JSON.stringify(filter)) 
+      context.commit('setTheFilter', newFilter)
+    }
+  },
+  getters: {
+    filter(state) {
+      return JSON.parse(JSON.stringify(state.filter));
+    }
   }
 })
