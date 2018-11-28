@@ -30,21 +30,46 @@
           <p class="qualification-expa">{{sitter.expaAbout}}</p>
         </div>
         <div class="about-details">
-          <p class="about-details-item">Looking for: dklskdsjd</p>
+          <p class="about-details-item">Looking for: {{sitter.time}}</p>
           <p class="about-details-item description">{{sitter.description}}</p>
-          <span class="head-span">education:</span><p class="about-details-item"> highschool</p>
-          <span class="head-span">Language:</span><p class="about-details-item"> english russian</p>
+          <span class="head-span">education:</span>
+          <p class="about-details-item">highschool</p>
+          <span class="head-span">Language:</span>
+          <p class="about-details-item">english russian</p>
         </div>
       </div>
       <h2 class="about-head">Credentials</h2>
       <div class="font-awsome-box">
-          <div class="icon-box" :class="{black: sitter.license}"><i class="fas fa-id-card item-awsome"></i><span>Has driver License</span></div>
-          <div class="icon-box" :class="{black: sitter.vehicle}"><i class="fas fa-car item-awsome"></i><span>Has car</span></div>
-          <div class="icon-box" :class="{black: sitter.smoking}"><i class="fas fa-smoking item-awsome"></i><span>Smoking</span></div>
-          <div class="icon-box" :class="{black: sitter.medical}"><i class="fas fa-briefcase-medical item-awsome"></i><span>Medical treatment</span></div>
-          <div class="icon-box" :class="{black: sitter.recomandation}"><i class="fas fa-file item-awsome"></i><span>Have recomendation</span></div>
-          <div class="icon-box" :class="{black: sitter.smoking}"><i class="fas fa-broom item-awsome"></i><span>Clean</span></div>
+        <div class="icon-box" :class="{black: sitter.license}">
+          <i class="fas fa-id-card item-awsome"></i>
+          <span>Has driver License</span>
         </div>
+        <div class="icon-box" :class="{black: sitter.vehicle}">
+          <i class="fas fa-car item-awsome"></i>
+          <span>Has car</span>
+        </div>
+        <div class="icon-box" :class="{black: sitter.smoking}">
+          <i class="fas fa-smoking item-awsome"></i>
+          <span>Smoking</span>
+        </div>
+        <div class="icon-box" :class="{black: sitter.medical}">
+          <i class="fas fa-briefcase-medical item-awsome"></i>
+          <span>Medical treatment</span>
+        </div>
+        <div class="icon-box" :class="{black: sitter.recomandation}">
+          <i class="fas fa-file item-awsome"></i>
+          <span>Has recomendation</span>
+        </div>
+        <div class="icon-box" :class="{black: sitter.clen}">
+          <i class="fas fa-broom item-awsome"></i>
+          <span>Clean</span>
+        </div>
+      </div>
+    </div>
+    <h2 class="about-head">Reviews</h2>
+    <div class="reviews-box">
+      <p class="review" v-for="review in sitter.reviews">"{{review.txt}}"</p>
+      <i class="fas fa-star orange stars" v-for="n in getNumberOfStars" :key="n"></i>
     </div>
   </section>
 </template>
@@ -53,21 +78,24 @@
 export default {
   created() {
     const nickName = this.$route.params.nickName;
-    this.$store.dispatch({ type: "getById", nickName })
+    this.$store.dispatch({ type: "getById", nickName });
   },
-      computed:{
-        sitter(){
-           return this.$store.getters.getCurrentSitter
-        }
-  }
+  computed: {
+    sitter() {
+      return this.$store.getters.getCurrentSitter;
+    },
+      getNumberOfStars(){
+        var ratingSum = this.sitter.reviews.reduce(function(acc,{rating}){
+          return acc+rating
+        },0)
+      ratingSum = parseInt(ratingSum /this.sitter.reviews.length)
+      return ratingSum;
 }
+}
+  }
 </script>
 
 <style scoped lang="scss">
-.details-sitter{
-    text-transform: capitalize;
-}
-
 .router {
   background-color: blue;
   display: block;
@@ -137,48 +165,95 @@ img {
 .qualification-expa {
   width: 210px;
   margin-bottom: 20px;
+  line-height: 22px;
 }
 
-.about-details{
-    text-align: left;
-    margin-left: 10px;
+.about-details {
+  text-align: left;
+  margin-left: 10px;
 }
 
-.about-details-item{
-    margin-bottom: 20px;
-    margin-top: 5px;
+.about-details-item {
+  margin-bottom: 20px;
+  margin-top: 5px;
 }
 
-.head-span{
-    font-weight: bold;
+.head-span {
+  font-weight: bold;
 }
 
-.description{
-    line-height: 22px;
+.description {
+  line-height: 22px;
 }
 
-.about-box{
-    margin-bottom: 20px;
+.about-box {
+  margin: 5px;
+  margin-bottom: 20px;
 }
 
-.font-awsome-box{
-    width: 97%;
-    margin: 5px;
+.font-awsome-box {
+  width: 97%;
+  margin: 5px;
 }
 
-.icon-box{
-    height: 40px;
-    border: 1px solid black;
-    line-height: 40px;
-    text-align: left;
-    color:rgb(185, 185, 185);
+.icon-box {
+  height: 40px;
+  border: 1px solid black;
+  line-height: 40px;
+  text-align: left;
+  color: rgb(185, 185, 185);
 }
 
-.item-awsome{
-margin: 0 30px;
+.item-awsome {
+  margin: 0 30px;
 }
 
-.black{
-    color:black;
+.black {
+  color: black;
+}
+
+.contact-btn {
+  background-color: blue;
+  color: white;
+  border: 0;
+}
+
+.fav-btn {
+  color: white;
+  background-color: red;
+  border: 0;
+}
+
+.about {
+  margin-bottom: 20px;
+}
+
+.reviews-box {
+  padding: 0 20px;
+  padding-top: 20px;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.review {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.orange{
+  color:orange;
+}
+
+.medal{
+  line-height: 22px;
+}
+
+.fa-medal:before{
+  line-height: 60px;
+    font-size: 40px;
+}
+
+.stars{
+  margin-bottom: 20px;
 }
 </style>

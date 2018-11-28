@@ -5,7 +5,7 @@ export default {
     state: {
         sitters: [],
         // filter: null
-        currentSitter:{}
+        currentSitter: null
     },
     mutations: {
         setSitters(state, { sitters }) {
