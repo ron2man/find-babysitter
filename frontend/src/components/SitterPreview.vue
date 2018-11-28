@@ -23,6 +23,16 @@
           {{sitter.position}}
         </p>
       </div>
+      <div class="action-container flex column" @click="goToDetails(sitter.nickName)">
+          <div class="action-item">
+           <p>View details</p> 
+          <div><i class="far fa-user"></i></div>
+            </div>
+          <div class="action-item">
+           <p>Message</p> 
+            <div><i class="far fa-comments"></i></div>
+            </div>
+      </div>
     </div>
     <div class="stars-container">
       <i class="fas fa-star"></i>
@@ -38,7 +48,6 @@
     <div class="awsomes-card">
       <i class="fas fa-eye eye-icon"></i> 560
     </div>
-    <button class="btn-add" @click="goToDetails(sitter.nickName)">Details</button>
   </div>
 </template>
 
@@ -46,7 +55,7 @@
 export default {
   props: ["sitter"],
   methods: {
-    goToDetails(nickName){
+    goToDetails(nickName){      
       this.$router.push(`/baby/${nickName}`)
     }
     },
@@ -116,5 +125,18 @@ img {
 
 .stars-container {
   margin-bottom: 10px;
+}
+
+.action-container{
+  margin-left: 30px;
+}
+
+.action-item{
+  height: 50px;
+  width: 90px;
+  border:solid 1px rgb(117, 145, 155);
+  text-align: center;
+  margin-bottom: 5px;
+  line-height: 22px;
 }
 </style>

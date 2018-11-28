@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import userModule from './modules/userModule.js'
 import sitterModule from './modules/sitterModule.js'
 import authService from '../src/service/authService.js'
+import sitterService from '../src/service/sitterService.js'
+
 
 
 Vue.use(Vuex)
@@ -15,17 +17,14 @@ export default new Vuex.Store({
   },
   state: {
     currUser: {},
-    isFiltered: false,
-    filter: { location: { lat: '', lng: '' }, date: '', startTime: '', endTime: '', radius: '10' }
+    filter: null
   },
   mutations: {
     setCurrUser(state, payload) {
-      state.user = payload
+      state.currUser = payload
     },
-    setFilter(state, payload) {
-      console.log(payload)
-      state.filter = payload;
-      // state.isFiltered = true;
+    setTheFilter(state, filter) {
+      state.filter = filter;
     }
 
   },
@@ -38,8 +37,14 @@ export default new Vuex.Store({
           return user
         })
     },
-    setFilter(context, payload) {
-      context.commit('setFilter', payload)
+    setFilter(context, filter) {
+      var newFilter = JSON.parse(JSON.stringify(filter)) 
+      context.commit('setTheFilter', newFilter)
+    }
+  },
+  getters: {
+    filter(state) {
+      return JSON.parse(JSON.stringify(state.filter));
     }
   }
 })

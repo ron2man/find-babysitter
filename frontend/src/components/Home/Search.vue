@@ -6,7 +6,7 @@
         <label for="text">&#32;</label>
         <input
           ref="autocomplete"
-          placeholder="Search"
+          :placeholder="filter.location.address"
           class="s1earch-location"
           onfocus="value = ''"
           type="text"
@@ -45,6 +45,7 @@
         <button>Search</button>
       </div>
     </div>
+    <router-link to="/baby/list">link</router-link>
   </form>
 </template>
 
@@ -60,8 +61,8 @@ export default {
   data() {
     return {
       filter: {
-        location: { lon: "", lat: "" },
-        date: "",
+        location: { lon: "", lat: "", address: "Where Do You Live?" },
+        date: "2019-1-1",
         startTime: {
           HH: "20",
           mm: "00"
@@ -79,9 +80,10 @@ export default {
       this.$store.dispatch("setFilter", this.filter);
     }
   },
+  created() {
+    if (this.$store.getters.filter) this.filter = this.$store.getters.filter;
+  },
   mounted() {
-    // if (this.$store.state.isFiltered) this.filter = this.$store.state.filter;
-
     // GOOGLE AUTOCOMPLETE
     this.autocomplete = new google.maps.places.Autocomplete(
       this.$refs.autocomplete,
@@ -97,6 +99,9 @@ export default {
 
       this.filter.location.lat = lat;
       this.filter.location.lon = lon;
+      this.filter.location.address = `${ac[1].long_name} ${ac[0].long_name} ${
+        ac[2].long_name
+      } ${ac[4].long_name}`;
       // console.log(
       //   `The user picked ${city} with the coordinates ${lat}, ${lon}`
       //   , ac
