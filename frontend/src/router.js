@@ -5,6 +5,12 @@ import Login from './views/Login.vue'
 import SitterList from './components/SitterList.vue'
 import Sign from './views/Sign.vue'
 import SitterDetails from './components/SitterDetails.vue'
+import ParentProfile from './components/ParentProfile.vue'
+import ParentDetails from './components/ParentDetails.vue'
+import ChatContact from './components/ChatContact.vue'
+import scedualeZone from './components/scedualeZone.vue'
+
+
 
 Vue.use(Router)
 
@@ -41,9 +47,19 @@ export default new Router({
       component: SitterList
     },
     {
+      path: '/baby/profile/parent/:parentId',
+      name: 'parentProfile',
+      component: ParentProfile,
+      children: [
+        { path: 'details', name: 'details', component: ParentDetails },
+        { path: 'contact', name: 'contact', component: ChatContact },
+        { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+      ]
+    },
+    {
       path: '/baby/:nickName',
       name: 'sitterDetails',
       component: SitterDetails
-    }
+    },
   ]
 })
