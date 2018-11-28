@@ -10,6 +10,8 @@ const addSitterRoutes = require('./routes/sitterRoute')
 
 const app = express()  
 
+app.use(express.static('public'));
+
 app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
