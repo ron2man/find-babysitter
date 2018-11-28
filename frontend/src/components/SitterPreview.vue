@@ -23,7 +23,7 @@
           {{sitter.position}}
         </p>
       </div>
-      <div class="action-container flex column">
+      <div class="action-container flex column" @click="goToDetails(sitter.nickName)">
           <div class="action-item">
            <p>View details</p> 
           <div><i class="far fa-user"></i></div>
@@ -48,7 +48,6 @@
     <div class="awsomes-card">
       <i class="fas fa-eye eye-icon"></i> 560
     </div>
-    <button class="btn-add" @click="goToDetails(sitter.nickName)">Details</button>
   </div>
 </template>
 
@@ -56,7 +55,7 @@
 export default {
   props: ["sitter"],
   methods: {
-    goToDetails(nickName){
+    goToDetails(nickName){      
       this.$router.push(`/baby/${nickName}`)
     }
     },
