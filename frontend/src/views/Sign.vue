@@ -188,9 +188,9 @@ export default {
     };
   },
   methods: {
-    // setUser() {
-    //   this.$store.dispatch({ type: 'setUser', user: this.newUser });
-    // }
+    setUser() {
+      this.$store.dispatch({ type: 'setUser', user: this.newUser });
+    }
   }
 };
 </script>
