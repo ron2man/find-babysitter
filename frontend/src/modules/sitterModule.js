@@ -5,12 +5,14 @@ import authService from '../service/authService.js'
 export default {
     state: {
         sitters: [],
+        // filter: null
+
     },
     mutations: {
         setSitters(state, { sitters }) {
             state.sitters = sitters
         },
-      
+
         removeSitter(state, sitterIdx) {
             state.sitters.splice(sitterIdx, 1)
         },
@@ -20,7 +22,11 @@ export default {
         },
         setNewSitter(state, payload) {
             state.currentSitter = payload
+        },
+        setTheFilter(state, filter) {
+            state.filter = filter;
         }
+
     },
     actions: {
         getsittersList(context) {
@@ -41,7 +47,7 @@ export default {
             return sitterService.updateSitter(sitter)
                 .then(sitter => context.commit('updateSitter', sitter))
         },
-        setFilter(context, filter) {
+        setFilterSitter(context, filter) {
             sitterService.query(filter)
                 .then(sitters => context.commit('setSitters', sitters))
         },
@@ -50,11 +56,18 @@ export default {
             return sitterService.addNewSitter(newSitter)
                 .then(theSitter => commit({ type: 'setNewSitter', theSitter }))
         },
-      
+        // setFilter(context, filter) {
+        //     var newFilter = JSON.parse(JSON.stringify(filter))
+        //     context.commit('setTheFilter', newFilter)
+        // },
+
     },
     getters: {
         getSitters: (state) => { return state.sitters },
         getCurrentSitter: (state) => { return state.currentSitter },
+        // filter(state) {
+        //     return JSON.parse(JSON.stringify(state.filter));
+        // },
     }
 }
 
