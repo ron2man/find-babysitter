@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="test">
+  <form @submit.prevent="setFilter">
     <div class="search">
       <!-- ADRESS INPUT START -->
       <div class="inputs adress">
@@ -13,37 +13,31 @@
         >
       </div>
       <!-- ADRESS INPUT END -->
-      
       <!-- DATE AND TIME INPUTS -->
       <div class="date-and-time flex">
         <!-- INPUT DATE START -->
         <div class="inputs date">
-          <!-- <label for="date">When</label> -->
           <label for="date"></label>
-          <date-pick v-model="search.date" input-class="test" :displayFormat="'DD.MM.YYYY'"></date-pick>
+          <date-pick v-model="filter.date" input-class="test" :displayFormat="'DD.MM.YYYY'"></date-pick>
         </div>
         <!-- INPUT DATE END -->
         <div class="inputs time-start">
           <label for="time-start">From</label>
-          <!-- <input ref="thistime" v-model="search.timeStart" type="time"> -->
           <vue-timepicker
             format="HH:mm"
             :minute-interval="30"
             hide-clear-button
-            v-model="yourTimeValue"
+            v-model="filter.startTime"
           ></vue-timepicker>
         </div>
         <div class="inputs time-end">
           <label for="time-end">Till</label>
           <vue-timepicker
-            name="time-end"
             format="HH:mm"
             :minute-interval="30"
             hide-clear-button
-            v-model="yourTimeValue"
+            v-model="filter.endTime"
           ></vue-timepicker>
-
-          <!-- <input ref type="time" v-model="search.timeEnd"> -->
         </div>
       </div>
       <div class="inputs button">
@@ -65,25 +59,28 @@ export default {
   },
   data() {
     return {
-      yourTimeValue: {
-        HH: "13",
-        mm: "00"
-      },
-      date: "2019-01-01",
-      search: { where: "", date: "When", timeStart: "", timeEnd: "00:00" }
+      filter: {
+        location: { lon: "", lat: "" },
+        date: "",
+        startTime: {
+          HH: "20",
+          mm: "00"
+        },
+        endTime: {
+          HH: "21",
+          mm: "00"
+        },
+        radius: 15
+      }
     };
   },
   methods: {
-    test() {
-      // console.log("this search params -", this.search);
-      this.$store.dispatch('setFilter',this.yourTimeValue)
+    setFilter() {
+      this.$store.dispatch("setFilter", this.filter);
     }
   },
   mounted() {
-
-
-    let now = new Date().toString().substr(16, 5);
-    this.search.timeStart = now;
+    // if (this.$store.state.isFiltered) this.filter = this.$store.state.filter;
 
     // GOOGLE AUTOCOMPLETE
     this.autocomplete = new google.maps.places.Autocomplete(
@@ -98,10 +95,12 @@ export default {
       let lon = place.geometry.location.lng();
       let city = ac[0]["short_name"];
 
-      console.log(
-        `The user picked ${city} with the coordinates ${lat}, ${lon}`
-        , ac
-      );
+      this.filter.location.lat = lat;
+      this.filter.location.lon = lon;
+      // console.log(
+      //   `The user picked ${city} with the coordinates ${lat}, ${lon}`
+      //   , ac
+      // );
     });
   }
 };
@@ -114,7 +113,7 @@ export default {
   height: 30px;
   padding: 0;
   margin: 0;
-  border:0;
+  border: 0;
   outline: none;
 }
 .search {
@@ -157,7 +156,6 @@ form {
 input[type="search"] {
   height: 32px;
 }
-
 
 label {
   height: 16px;

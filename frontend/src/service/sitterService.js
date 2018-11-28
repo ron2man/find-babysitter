@@ -8,7 +8,7 @@ function makeId(length = 3) {
     return txt;
 }
 
-var siters = [
+var sitters = [
     {
         id:makeId(),
         nickName:'alis',
@@ -245,30 +245,44 @@ var siters = [
 
 
 function query(){
-    return Promise.resolve(siters)
+    return Promise.resolve(sitters)
 }
 
+<<<<<<< HEAD:frontend/src/services/siterService.js
 function getById(nickName){
     const siter = siters.find(siter => {
        return siter.nickName === nickName})
     return Promise.resolve(siter)
+=======
+function getById(id){
+    const sitter = sitters.find(sitter => sitter.id === id)
+    return Promise.resolve(sitter)
+>>>>>>> b73046a366715ea1b5ed273bd1a0c38c0d796744:frontend/src/service/sitterService.js
 }
 
 function remove(id){
-    const siterIdx = siters.findIndex(siter => siter.id === id)
-    siters.splice(siterIdx,1)
-    return Promise.resolve(siterIdx)
+    const sitterIdx = sitters.findIndex(sitter => sitter.id === id)
+    sitters.splice(sitterIdx,1)
+    return Promise.resolve(sitterIdx)
 }
 
-function update(siter){
-    const siterIdx = siters.findIndex(currSiter => currSiter.id === siter.id)
-    siter.splice(siterIdx,1,siter)
-    return Promise.resolve(siterIdx)
+function update(sitter){
+    const sitterIdx = sitters.findIndex(currSitter => currSitter.id === sitter.id)
+    sitter.splice(sitterIdx,1,sitter)
+    return Promise.resolve(sitterIdx)
+}
+
+function addNewSitter(newSitter){    
+    sitters.push(newSitter)
+    console.log(sitters);
+    
+    return Promise.resolve(newSitter)
 }
 
 export default {
     query,
     getById,
     remove,
-    update
+    update,
+    addNewSitter
 }

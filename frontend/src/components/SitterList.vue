@@ -1,5 +1,6 @@
 <template>
 <section class="list">
+    <search></search>
     <hr>
         <sitter-preview v-for="sitter in sitters" :sitter="sitter" :key="sitter.id"></sitter-preview>
 </section>
@@ -7,18 +8,20 @@
 
 <script>
 import SitterPreview from './SitterPreview'
-import SiterFilter from './SiterFilter'
+import SitterFilter from './SitterFilter'
+import Search from './Home/Search.vue'
 
 export default {
       computed: {
     sitters() {
-        console.log(this.$store.getters.getSiters)
-      return this.$store.getters.getSiters;
+        console.log(this.$store.getters.getSitters)
+      return this.$store.getters.getSitters;
     }
 },
 components:{
     SitterPreview,
-    SiterFilter
+    Search,
+    SitterFilter
 }
 }
 </script>
