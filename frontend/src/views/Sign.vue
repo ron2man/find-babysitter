@@ -4,8 +4,8 @@
 <template>
   <section class="sign-container">
     <form @submit.prevent="setNewSitter">
-        <h1 class="sign-title">Sign up</h1>
-        <div class="name-container flex wrap flex-space-around align-space-around">
+      <h1 class="sign-title">Sign up</h1>
+      <div class="name-container flex wrap flex-space-around align-space-around">
         <input type="text" placeholder="Insert name" v-model="sitter.name">
         <input type="text" placeholder="Insert last name" v-model="sitter.lName">
         <input type="text" placeholder="Choose nickname" v-model="sitter.nickName">
@@ -189,7 +189,11 @@ export default {
   },
   methods: {
     setNewSitter() {
-      this.$store.dispatch({ type: 'setNewSitter', newSitter: this.sitter });
+      this.$store
+        .dispatch({ type: "setNewSitter", newSitter: this.sitter })
+        .then(user => {
+          if (user) this.$router.push("/");
+        });
     }
   }
 };

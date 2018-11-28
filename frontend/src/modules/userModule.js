@@ -1,4 +1,3 @@
-import authService from '../service/authService.js'
 
 export default {
 
@@ -7,12 +6,14 @@ export default {
     },
 
     mutations: {
+     
    
     },
     getters: {
 
     },
     actions: {
+     
   
     }
 }

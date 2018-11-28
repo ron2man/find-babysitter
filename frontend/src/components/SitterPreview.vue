@@ -23,6 +23,16 @@
           {{sitter.position}}
         </p>
       </div>
+      <div class="action-container flex column">
+          <div class="action-item">
+           <p>View details</p> 
+          <div><i class="far fa-user"></i></div>
+            </div>
+          <div class="action-item">
+           <p>Message</p> 
+            <div><i class="far fa-comments"></i></div>
+            </div>
+      </div>
     </div>
     <div class="stars-container">
       <i class="fas fa-star"></i>
@@ -116,5 +126,18 @@ img {
 
 .stars-container {
   margin-bottom: 10px;
+}
+
+.action-container{
+  margin-left: 30px;
+}
+
+.action-item{
+  height: 50px;
+  width: 90px;
+  border:solid 1px rgb(117, 145, 155);
+  text-align: center;
+  margin-bottom: 5px;
+  line-height: 22px;
 }
 </style>

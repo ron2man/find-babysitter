@@ -1,5 +1,4 @@
 import sitterService from '../service/sitterService.js'
-import authService from '../service/authService.js'
 
 
 export default {
@@ -18,9 +17,6 @@ export default {
             const sitterIdx = state.sitters.findIndex(currSitter => currSitter.id === sitter.id)
             state.sitters.splice(sitterIdx, 1, 1)
         },
-        setNewSitter(state, payload) {
-            state.currentSitter = payload
-        }
     },
     actions: {
         getsittersList(context) {
@@ -45,12 +41,6 @@ export default {
             sitterService.query(filter)
                 .then(sitters => context.commit('setSitters', sitters))
         },
-
-        setNewSitter({ commit }, { newSitter }) {
-            return sitterService.addNewSitter(newSitter)
-                .then(theSitter => commit({ type: 'setNewSitter', theSitter }))
-        },
-      
     },
     getters: {
         getSitters: (state) => { return state.sitters },
