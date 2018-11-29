@@ -2,10 +2,16 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3003/baby'
 
-function query(filter = {name:''}) {
+function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams
-    params.set('name', filter.name)
-    return axios.get(`${BASE_URL}`).then(res => res.data)
+    params.append('username', filter.username)
+    params.set('license', filter.license)
+
+    // params.name = filter.name
+    // params.filter = filter
+    console.log('params',params,'filter',filter)
+    // params.set('name', filter.name)
+    return axios.get(`${BASE_URL}?${params}`).then(res => res.data)
 }
 
 function getById(id){

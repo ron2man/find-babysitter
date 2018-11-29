@@ -3,9 +3,11 @@ const babyService = require('../services/baby.Service')
 
 function addSitterRoutes(app){
     // LIST
-    app.get('/baby', (req, res) => {
+    app.get('/baby?', (req, res) => {
+        // console.log('query',req.query)
+        // console.log('params',req.params)
         //filter = req.query
-        babyService.query()
+        babyService.query(req.query)
             .then(sitters => res.json(sitters))
             
     })

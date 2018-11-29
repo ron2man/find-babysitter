@@ -10,6 +10,7 @@ function makeId(length = 3) {
 
 var sitters = [
     {
+        type: 'sitter',
         username: 'alice',
         pwd: '123',
         fullName: 'alice cooper',
@@ -39,6 +40,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'rozi',
         pwd: '123',
         fullName: 'rozi martsipan',
@@ -68,6 +70,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'einav',
         pwd: '123',
         fullName: 'einav ahshav',
@@ -97,6 +100,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'ariel',
         pwd: '123',
         fullName: 'ariel bilishug',
@@ -126,6 +130,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'shira',
         pwd: '123',
         fullName: 'shira rizbaum',
@@ -155,6 +160,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'chagit',
         pwd: '123',
         fullName: 'chagit bardugo',
@@ -184,6 +190,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'lilach',
         pwd: '123',
         fullName: 'lilach malihi',
@@ -213,6 +220,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'shimrit',
         pwd: '123',
         fullName: 'shimrit bar zohar',
@@ -242,6 +250,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'dudi',
         pwd: '123',
         fullName: 'dudi ben dayan',
@@ -272,6 +281,7 @@ var sitters = [
         historyMsgs:[]
     },
     {
+        type: 'sitter',
         username: 'lola',
         pwd: '123',
         fullName: 'lola bunny',
@@ -299,7 +309,7 @@ var sitters = [
         imgUrl: 'https://i.etsystatic.com/iusa/c73a87/38438664/iusa_400x400.38438664_kd3u.jpg',
         reviews:[{txt:'amazing babysitter the kids love her!',rating:4},{txt:'couldnt ask for better babysitter',rating:4},{txt:'does amazing job',rating:3}],
         historyMsgs:[]
-    },
+    }
 ]
 
 
