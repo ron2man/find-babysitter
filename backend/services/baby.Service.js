@@ -2,11 +2,15 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query() {
+function query(filter) {
+    console.log(filter)
+    // console.log(JSON.parse(filter.license))
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
             return collection.find({}).toArray()
+            // return collection.find({$and:[{"username" : filter.username},{"license":JSON.parse(filter.license)}]}).toArray()
+            // return collection.find({$and:[{"license" : !!filter.license}]}).toArray()
         })
 }
 
