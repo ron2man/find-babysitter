@@ -8,11 +8,11 @@
       <div class="details-container">
         <p class="detail">
           <span class="text-span">Area:</span>
-          {{sitter.adrress.district}}
+          {{sitter.adress.district}}
         </p>
         <p class="detail">
           <span class="text-span">Adress:</span>
-          {{sitter.adrress.city}}
+          {{sitter.adress.city}}
         </p>
         <p class="detail">
           <span class="text-span">Experience:</span>
@@ -59,8 +59,8 @@
 export default {
   props: ["sitter"],
   methods: {
-    goToDetails(nickName) {
-      this.$router.push(`/baby/${nickName}`);
+    goToDetails(id) {
+      this.$router.push(`/baby/${id}`);
     },
     sendMessage(nickName) {
       this.$store.dispatch({type:'checkLogin', nickName})
