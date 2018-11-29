@@ -16,24 +16,22 @@ export default {
   components: {
     BasicVueChat
   },
-  created(){
-      var userName = this.$store.state.currUser.username
-      console.log(parentId);
-      this.$socket.emit('firstChat',userName)
+  created() {
+    var userName = this.$store.state.currUser.username;
+    this.$socket.emit("firstChat", userName);
   },
   sockets: {
-      shoot(msg) {
-          console.log(msg)
-      },
-      connection(parent,user){
-          this.$socket.join(`${parent}${user}`)
-      },
-
+    shoot(msg) {
+      console.log(msg);
+    },
+    connection(parentname, sittername) {
+      this.$socket.join(`${parentname}${sittername}`);
+    }
   },
   methods: {
-      shoot() {
-          this.$socket.emit('shoot', 'dudigai')
-      }
+    shoot() {
+      this.$socket.emit("shoot", "dudigai");
+    }
   }
 };
 </script>

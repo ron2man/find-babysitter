@@ -3,15 +3,15 @@ import sitterService from '../service/sitterService.js'
 
 
 
-function login({ nickName, pwd }) {
+function login({ nickName, pwd }) {    
     var parent = parentService.query()
         .then(users => users.find(user => {
-            return nickName === user.nickName && pwd === user.pwd
+            return nickName === user.username && pwd === user.pwd
         }))
 
     var sitter = sitterService.query()
         .then(sitters => sitters.find(sitter => {
-            return nickName === sitter.nickName && pwd === sitter.pwd
+            return nickName === sitter.username && pwd === sitter.pwd
         }))
 
        return Promise.all([parent, sitter]).then(potenUsers=>{

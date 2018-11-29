@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import userModule from './modules/userModule.js'
 import sitterModule from './modules/sitterModule.js'
 import authService from '../src/service/authService.js'
+// import { setServers } from 'dns';
 
 
 
@@ -31,6 +32,8 @@ export default new Vuex.Store({
     checkUser({ commit }, { details }) {
       return authService.login(details)
         .then(user => {
+          console.log(user);
+          
           commit('setCurrUser', user)
           localStorage.setItem('loggedInUser', JSON.stringify(user))
           return user
@@ -40,7 +43,7 @@ export default new Vuex.Store({
       var newFilter = JSON.parse(JSON.stringify(filter)) 
       context.commit('setTheFilter', newFilter)
     },
-    checkLogin(context,{nickName}){
+    checkLogin(context,{username}){
         var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))        
         if (!userFromStorage) return false
         // || currUser.nickName !== context.state.currUser.nickName :consider join this condition
@@ -52,6 +55,6 @@ export default new Vuex.Store({
   getters: {
     filter(state) {
       return JSON.parse(JSON.stringify(state.filter));
-    }
+    },
   }
 })

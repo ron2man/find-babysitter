@@ -30,7 +30,7 @@
             <i class="far fa-user"></i>
           </div>
         </div>
-        <div class="action-item" @click="sendMessage(sitter.nickName)">
+        <div class="action-item" @click="sendMessage(sitter.username)">
           <p>Message</p>
           <div>
             <i class="far fa-comments"></i>
@@ -62,11 +62,12 @@ export default {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
-    sendMessage(nickName) {
-      this.$store.dispatch({type:'checkLogin', nickName})
+    sendMessage(userName) {
+      console.log(userName);
+      this.$store.dispatch({type:'checkLogin', userName})
         .then(user=>{
           if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${'lala'}/`)
+          else this.$router.push(`profile/parent/${userName}/`)
         })
     }
   },
@@ -80,8 +81,7 @@ export default {
       }
     }
   },
-  created() {
-  }
+ 
 };
 </script>
 

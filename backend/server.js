@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
     io.emit('shoot', msg);
   })
   socket.on('firstChat',roomname =>
-  socket.join(`${roomname}`)
+  socket.join(`${roomname}`))
 
   
 });

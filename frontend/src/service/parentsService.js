@@ -15,8 +15,9 @@ export default{
 
 var parents = [
     {
+        type: 'parent',
         id:makeId(),
-        nickName:'eti',
+        username:'eti',
         pwd:'123',
         name: 'eti',
         children:[
@@ -42,8 +43,9 @@ var parents = [
         imgUrl: '../img/odedfamily.png',
     },
     {
+        type: 'parent',
         id:makeId(),
-        nickName:'shoval',
+        username:'shoval',
         pwd:'456',
         name: 'shoval',
         children:[
@@ -65,8 +67,9 @@ var parents = [
         imgUrl: '../img/shovalfamily.png',
     },
     {
+        type: 'parent',
         id:makeId(),
-        nickName:'tali',
+        username:'tali',
         pwd:'789',
         name: 'tali',
         age: 3,
