@@ -3,12 +3,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const app = express()  
+const http = require('http').Server(app);
+var io = require('socket.io')(http, {origins:'http://localhost:8080'});
 
 // const userService = require('./services/user-service')
 
 const addSitterRoutes = require('./routes/sitterRoute')
 
-const app = express()  
 
 app.use(express.static('public'));
 
@@ -49,7 +51,16 @@ app.put('/login', (req, res) => {
 })
 
 
+io.on('connection', function (socket) {
+  socket.on('shoot', msg => {
+    io.emit('shoot', msg);
+  })
+  socket.on('firstChat',roomname =>
+  socket.join(`${roomname}`)
+
+  
+});
 
 
 const PORT = process.env.PORT || 3003;
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
+http.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))

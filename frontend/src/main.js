@@ -4,7 +4,17 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import './assets/scss/main.scss'
+import VueSocketIO from 'vue-socket.io'
 
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://localhost:3003/',
+    vuex: {
+        store,
+        actionPrefix: 'SOCKET_',
+        mutationPrefix: 'SOCKET_'
+    }
+}))
 
 
 
