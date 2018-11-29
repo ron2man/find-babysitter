@@ -40,7 +40,7 @@
     <!-- DATE AND TIME INPUTS STARTS-->
     <!-- BUTTON INPUTS STARTS-->
     <div class="inputs button">
-      <button>Search</button>
+      <button @click="setFilter">Search</button>
     </div>
     <!-- BUTTON INPUTS END-->
   </div>
@@ -78,6 +78,8 @@ export default {
   methods: {
     setFilter() {
       this.$store.dispatch("setFilter", this.filter);
+      // console.log(this.$route.params)
+      // if (this.router.params)
       this.$router.push({ path: "/baby/list" });
     }
   },
