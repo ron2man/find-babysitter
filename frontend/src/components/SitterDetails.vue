@@ -4,11 +4,11 @@
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
       <img
-        src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
+        :src="sitter.imgUrl"
       >
       <div class="summery-detail-container">
-        <p class="sitter-name">{{sitter.name}}</p>
-        <p>{{sitter.adrress.city}} | {{sitter.age}}</p>
+        <p class="sitter-name">{{sitter.fullName}}</p>
+        <p>{{sitter.adress.city}} | {{sitter.age}}</p>
       </div>
     </div>
     <div class="btn-container">
@@ -123,6 +123,7 @@ export default {
 img {
   height: 120px;
   margin: 30px;
+  border-radius: 50%;
 }
 
 .sitter-name {

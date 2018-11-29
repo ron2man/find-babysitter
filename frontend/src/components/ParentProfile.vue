@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="tabs-container flex flex-space-around">
-      <router-link class="item-route align-self-center" to="details">Details</router-link>
-      <router-link class="item-route align-self-center" to="contact"></router-link>
-      <router-link class="item-route align-self-center" to="sceduale">sceduale</router-link>
+      <router-link class="item-route align-self-center" to="contact">Chat</router-link>
+      <router-link class="item-route align-self-center" to="details">Sceduale</router-link>
+      <router-link class="last-item-route align-self-center" to="sceduale">Album</router-link>
     </div>
     <router-view/>
   </section>
@@ -40,14 +40,13 @@ created(){
 
 
 <style lang="scss" scoped>
-.summery-detail-container{
-    font-size: 25px;
-    font-weight: bold;
+.summery-detail-container {
+  font-size: 25px;
+  font-weight: bold;
 }
 
-
 .back-route {
-  background-color: #3D9970;
+  background-color: #3d9970;
   display: block;
   color: white;
   height: 40px;
@@ -68,30 +67,24 @@ img {
   margin: 30px;
 }
 
-.tabs-container{
-    font-size: 30px;
-    // background:rgb(185, 185, 185);
-    height: 50px;
-    //  align-items: flex-start;
-    // text-align: center;
-    // cursor: default;
-    color: buttontext;
-    background-color: buttonface;
-    // box-sizing: border-box;
-    padding: 2px 6px 3px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: buttonface;
-    // border-image: initial;
+.tabs-container {
+  font-size: 30px;
+  height: 50px;
+  color: buttontext;
+  background-color: buttonface;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonface;
 }
 
-.item-route{
-    text-decoration: none;
-    border-right:solid 1px gray;
-    padding:0 10px;
-
-    
+.item-route {
+  text-decoration: none;
+  border-right: solid 1px gray;
+  padding: 0 10px;
 }
 
-
+.last-item-route {
+  text-decoration: none;
+}
 </style>

@@ -2,7 +2,7 @@
 <section class="list">
     <search></search>
     <hr>
-        <sitter-preview v-for="sitter in sitters" :sitter="sitter" :key="sitter.id"></sitter-preview>
+        <sitter-preview v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
 </section>
 </template>
 
