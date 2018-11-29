@@ -65,7 +65,7 @@ export default {
     sendMessage(nickName) {
       this.$store.dispatch({type:'checkLogin', nickName})
         .then(user=>{
-          if(!user)this.$router.push("/sign")
+          if(!user)this.$router.push("/login")
           else this.$router.push(`profile/parent/${'lala'}/`)
         })
     }

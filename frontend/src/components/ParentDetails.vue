@@ -1,5 +1,5 @@
 <template>
-    <h1>send msg</h1>
+    <h1>Sceduale zone</h1>
  
 </template>
 
