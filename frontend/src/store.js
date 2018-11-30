@@ -40,8 +40,8 @@ export default new Vuex.Store({
       var newFilter = JSON.parse(JSON.stringify(filter)) 
       context.commit('setTheFilter', newFilter)
     },
-    checkLogin(context,{username}){
-        var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))        
+    checkLogin(){
+        var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
         if (!userFromStorage) return false
         // || currUser.nickName !== context.state.currUser.nickName :consider join this condition
         else {

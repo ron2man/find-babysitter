@@ -50,15 +50,17 @@ app.put('/login', (req, res) => {
     })
 })
 
+// socket
 
 io.on('connection', function (socket) {
-  socket.on('shoot', msg => {
-    io.emit('shoot', msg);
+  console.log('a user connected');
+  socket.on('SendMsg', details => {
+    io.to(details.detalis).emit('SendMsg', details.msg);
   })
-  socket.on('firstChat',roomname =>
-  socket.join(`${roomname}`))
-
-  
+  socket.on('firstChat',roomname => {
+  socket.join(roomname)
+  io.to(roomname).emit('SendMsg','helloo new user in the room');
+})
 });
 
 

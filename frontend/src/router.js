@@ -9,7 +9,8 @@ import ParentProfile from './components/ParentProfile.vue'
 import UserDetails from './components/UserDetails.vue'
 import ChatContact from './components/ChatContact.vue'
 import scedualeZone from './components/scedualeZone.vue'
-import SitterZone from './components/SitterZone.vue'
+import SitterProfile from './components/SitterProfile.vue'
+import Notifications from './components/Notifications.vue'
 
 
 
@@ -35,16 +36,6 @@ export default new Router({
       component: Sign
     },
     {
-      path: '/baby/profile/sitter/:sitterName',
-      name: 'sitter',
-      component: SitterZone,
-      children: [
-        { path: 'details', name: 'details', component: UserDetails },
-        { path: 'contact', name: 'contact', component: ChatContact },
-        { path: 'sceduale', name: 'sceduale', component: scedualeZone }
-      ]
-    },
-    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -68,7 +59,17 @@ export default new Router({
       ]
     },
     {
-      path: '/baby/:nickName',
+      path: '/baby/profile/sitter/:sitterName',
+      name: 'sitterProfile',
+      component: SitterProfile,
+      children: [
+        { path: 'Notifications', name: 'notifications', component: Notifications },
+        { path: 'details', name: 'details', component: UserDetails },
+        { path: 'contact', name: 'contact', component: ChatContact },
+        { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+      ]
+    },
+    {
       path: '/baby/:id',
       name: 'sitterDetails',
       component: SitterDetails

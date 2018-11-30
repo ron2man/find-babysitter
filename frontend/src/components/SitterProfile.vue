@@ -1,20 +1,16 @@
-
-
-
-
 <template>
   <section>
-    <router-link class="back-route" to="/login">logout</router-link>
     <div class="profile-header-container">
       <img
         src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
       >
-      <div class="summery-detail-container" v-if="userName">
-        <h1>hello {{userName}} !</h1>
+      <div class="summery-detail-container"  v-if="this.userName">
+        <h1>Send  {{this.userName}} a message</h1>
         <!-- <p class="sitter-name"> hello{{parent.nickName}}</p> -->
       </div>
     </div>
     <div class="tabs-container flex flex-space-around">
+      <router-link class="item-route align-self-center" to="notifications">Notifications</router-link>
       <router-link class="item-route align-self-center" to="contact">Chat</router-link>
       <router-link class="item-route align-self-center" to="details">Sceduale</router-link>
       <router-link class="last-item-route align-self-center" to="sceduale">Album</router-link>
@@ -25,17 +21,16 @@
 
 <script>
 export default {
-    data(){
+  data() {
     return {
-        currSitter:null,
-        userName:''
-    }
-},
+      currSitter: null,
+      userName:''
+    };
+  },
 
-created(){
-   this.userName= this.$route.params.sitterName
-    
-    }
+  created() {
+    this.userName = this.$route.params.sitterName;
+  }
 };
 </script>
 

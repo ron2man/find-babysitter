@@ -35,15 +35,13 @@ export default {
           type: "checkUser",
           details: this.typedDetails
         })
-        .then(user => {                    
+        .then(user => {         
           if (!user) {
             this.isWrong = true;
           } else {
             this.isWrong = false;
-            
             if(user.type==='parent') this.$router.push("/")
-            else if (user.type==='sitter') this.$router.push("/baby/profile/sitter/" + `${user.username}`)
-
+            else if (user.type==='sitter') this.$router.push(`/baby/profile/sitter/${user.username}/notifications`)
           }
         });
     }

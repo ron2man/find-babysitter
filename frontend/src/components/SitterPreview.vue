@@ -1,6 +1,6 @@
 <template>
   <div class="sitter-card">
-    <div class="card-header">{{sitter.name}}</div>
+    <div class="card-header">{{sitter.fullName}}</div>
     <div class="details">
       <img
         src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
@@ -64,11 +64,10 @@ export default {
     },
     sendMessage(sitter) {
       const loggedUser = JSON.parse(localStorage.getItem('loggedInUser'));
-      const userName = loggedUser.username
-      this.$store.dispatch({type:'checkLogin', userName})
-        .then(user=>{
+      this.$store.dispatch({type:'checkLogin'})
+        .then(user => {
           if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${userName}${sitter.username}/contact`)
+          else this.$router.push(`profile/parent/${sitter.username}/contact`)
         })
     }
   },
