@@ -2,20 +2,28 @@
   <div class="home">
     <!-- START HERO SECTION -->
     <section class="hero">
-      <img alt="babysitter" src="../assets/babysitter.jpg">
-      <Search></Search>
+      <h2>
+        <i class="fas fa-child"></i> Find a BabySitter -
+        <br class="show-in-mobile">by Location, Date and Time:
+      </h2>
     </section>
     <!-- END HERO SECTION -->
-    
+
+    <!-- START SEARCH SECTION -->
+    <section class="search">
+      <Search2></Search2>
+    </section>
+    <!-- END SEARCH SECTION -->
+
+
+
     <!-- START SECOND SECTION -->
     <TopSitters></TopSitters>
     <!-- END SECOND SECTION -->
-    
     <!-- START THIRD SECTION -->
     <HowManyUsed></HowManyUsed>
     <!-- END THIRD SECTION -->
-
-        <!-- START SECOND SECTION -->
+    <!-- START SECOND SECTION -->
     <TopSitters></TopSitters>
     <!-- END SECOND SECTION -->
     <section style="background-color:blue;">
@@ -27,41 +35,72 @@
 <script>
 // @ is an alias to /src
 import Search from "@/components/Home/Search.vue";
+import Search2 from "@/components/Home/Search2.vue";
 import TopSitters from "@/components/Home/TopSitters.vue";
 import HowManyUsed from "@/components/Home/HowManyUsed.vue";
-
-
 
 export default {
   name: "home",
   components: {
     Search,
+    Search2,
     TopSitters,
     HowManyUsed
   }
-
 };
 </script>
 
 <style lang="scss" scoped>
-section {
-  margin-bottom:5%;
+@media (min-width: 767px) {
+  .show-in-mobile {
+    display: none;
+  }
 }
-.home {
-  .hero{
-  background-color: lightblue;
-    img {
-      width: 100%;
-    height: 175px;
-    object-fit: cover;
+
+.hero {
+  position: relative;
+  height: calc(100vh - 400px);
+  background: linear-gradient(
+      rgba(87, 11, 185, 0.15),
+      rgba(87, 11, 185, 0.15),
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.95)
+    ),
+    url(../assets/babysitter.jpg);
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+        background-position: center;
+  // background-position: top right -100px;
+
+  // text-align: center;
+
+  h2 {
+    color: white;
+    position: absolute;
+    bottom: 0;
+    font-size: 1.3em;
+    line-height: 1.3em;
+    width: 100%;
+    text-align: center;
   }
-  @media  (min-width: 767px) {
-   img{
-     height: 400px;
-     margin-bottom:20px;
-   } 
+
+  @media (min-width: 767px) {
+
+      // background-position: center;
+
+
+    h2 {
+      font-size: 1.7em;
+      line-height: 1.7em;
+    }
   }
-  }
-  
+}
+
+.search {
+  padding: 15px;
+  background: black;
 }
 </style>

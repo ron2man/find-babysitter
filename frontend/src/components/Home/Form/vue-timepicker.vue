@@ -75,7 +75,13 @@ export default {
         return true;
       }
       return false;
-    }
+    },
+    reverseHours(){
+      return this.hours.reverse()
+    },
+    reverseMinutes(){
+      return this.minutes.reverse()
+    },
   },
 
   watch: {
@@ -442,18 +448,22 @@ export default {
     <div class="dropdown" v-show="showDropdown">
       <div class="select-list">
         <ul class="hours">
-          <li class="hint" v-text="hourType"></li>
+          <li class="hint" >Hours</li>
+          <!-- <li class="hint" v-text="hourType"></li> -->
           <li
-            v-for="hr in hours"
+            v-for="hr in reverseHours"
+            :key="hr"
             v-text="hr"
             :class="{active: hour === hr}"
             @click.stop="select('hour', hr)"
           ></li>
         </ul>
         <ul class="minutes">
-          <li class="hint" v-text="minuteType"></li>
+          <li class="hint">Minutes</li>
+          <!-- <li class="hint" v-text="minuteType"></li> -->
           <li
-            v-for="m in minutes"
+            v-for="m in reverseMinutes"
+            :key="m"
             v-text="m"
             :class="{active: minute === m}"
             @click.stop="select('minute', m)"
@@ -483,13 +493,27 @@ export default {
 </template>
 
 <style scoped>
+
+  input[type="text"],
+  input[type="password"] {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1.2em;
+    color: rgb(136, 136, 136);
+    outline: none;
+    text-align: center;
+  }
+
 /* @import './style/vue-timepicker.css'; */
 .time-picker {
   /* border:0; */
   display: inline-block;
   position: relative;
   font-size: 1em;
-  width: 10em;
+  /* width: 10em; */
   font-family: sans-serif;
   vertical-align: middle;
 }
@@ -498,13 +522,13 @@ export default {
   box-sizing: border-box;
 }
 
-.time-picker input.display-time {
+/* .time-picker input.display-time {
   border: 0px solid #d2d2d2;
   width: 10em;
   height: 2.2em;
   padding: 0.3em 0.5em;
   font-size: 1em;
-}
+} */
 
 .time-picker .clear-btn {
   position: absolute;

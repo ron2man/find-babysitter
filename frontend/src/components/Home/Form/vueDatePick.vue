@@ -674,7 +674,19 @@ function areSameDates(date1, date2) {
 <style lang="scss">
 
     $vdpColor: #7485c2 !default;
-
+  input[type="text"],
+  input[type="password"],
+  button {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1.2rem;
+    color: rgb(136, 136, 136);
+    outline: none;
+    text-align: center;
+  }
 @keyframes vdpSlideFromLeft {
     from { opacity: 0; transform: translate3d(-0.5em,0,0); }
     to { opacity: 1; transform: translate3d(0,0,0); }
