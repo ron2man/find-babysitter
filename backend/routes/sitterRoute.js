@@ -16,6 +16,13 @@ function addSitterRoutes(app){
             .then(sitter => res.json(sitter))
     })
 
+    app.get('/baby/:username', (req, res) => {
+        const username = req.params.username;
+        babyService.getByUsername(username)
+            .then(sitter => res.json(sitter))
+    })
+
+
     // DELETE
     app.delete('/baby/:id', (req, res) => {
         const sitterId = req.params.id;

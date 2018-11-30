@@ -21,6 +21,15 @@ function getById(sitterId) {
         })
 }
 
+function getByUsername(username) {
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('sitters');
+            return collection.findOne({ username: username })
+        })
+}
+
+
 function remove(){
     sitterId = new ObjectId(sitterId)
     return mongoService.connectToDb()
@@ -60,5 +69,6 @@ module.exports = {
     getById,
     remove,
     add,
-    update
+    update,
+    getByUsername
 }

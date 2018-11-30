@@ -17,6 +17,11 @@ function getById(id){
     return axios.get(`${BASE_URL}/${id}`).then(res => res.data)
 }
 
+function getByUsername(username){
+    return axios.get(`${BASE_URL}/${username}`).then(res => res.data)
+}
+
+
 // function remove(id) {
 //     const sitterIdx = sitters.findIndex(sitter => sitter.id === id)
 //     sitters.splice(sitterIdx, 1)
@@ -32,6 +37,7 @@ function getById(id){
 export default {
     query,
     getById,
+    getByUsername
     // remove,
     // update,
 }

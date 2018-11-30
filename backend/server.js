@@ -55,7 +55,8 @@ app.put('/login', (req, res) => {
 io.on('connection', function (socket) {
   console.log('a user connected');
   socket.on('SendMsg', details => {
-    io.to(details.detalis).emit('SendMsg', details.msg);
+    console.log(details)
+    io.to(details.details).emit('SendMsg',details.msg);
   })
   socket.on('firstChat',roomname => {
   socket.join(roomname)
