@@ -1,5 +1,5 @@
 <template>
-  <section v-if="sitter" class="details-sitter">
+  <section v-if="currSitter._id === this.$route.params.id" class="details-sitter">
     <!-- //link back to list -->
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
@@ -72,7 +72,7 @@
     </div>
     <h2 class="about-head">Reviews</h2>
     <div class="reviews-box">
-      <p class="review" v-for="review in sitter.reviews" :key="review">"{{review.txt}}"</p>
+      <p class="review" v-for="review in sitter.reviews" :key="review.txt">"{{review.txt}}"</p>
       <i class="fas fa-star orange stars" v-for="n in getNumberOfStars" :key="n"></i>
     </div>
   </section>
@@ -80,9 +80,15 @@
 
 <script>
 export default {
+    data(){
+      return {
+        currSitter:''
+      }
+    },
   created() {
     const id = this.$route.params.id;
-    this.$store.dispatch({ type: "getById", id });
+    this.$store.dispatch({ type: "getById", id })
+      .then(sitter => this.currSitter = sitter)
   },
   methods: {
     getNumberOfStars() {
@@ -96,7 +102,6 @@ export default {
   computed: {
     sitter() {
       return this.$store.getters.getCurrentSitter;
-      console.log(this.$store.getters.getCurrentSitter)
     }
   }
 };

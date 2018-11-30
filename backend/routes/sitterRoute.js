@@ -4,9 +4,6 @@ const babyService = require('../services/baby.Service')
 function addSitterRoutes(app){
     // LIST
     app.get('/baby?', (req, res) => {
-        // console.log('query',req.query)
-        // console.log('params',req.params)
-        //filter = req.query
         babyService.query(req.query)
             .then(sitters => res.json(sitters))
             
@@ -15,7 +12,6 @@ function addSitterRoutes(app){
     // SINGLE - GET Full details including reviews
     app.get('/baby/:id', (req, res) => {
         const sitterId = req.params.id;
-        console.log(sitterId)
         babyService.getById(sitterId)
             .then(sitter => res.json(sitter))
     })

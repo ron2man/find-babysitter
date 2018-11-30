@@ -4,7 +4,7 @@ import sitterService from '../service/sitterService.js'
 
 export default {
     state: {
-        sitters: null,
+        sitters: [],
         // filter: null
         currentSitter: null
     },
@@ -28,7 +28,6 @@ export default {
         setCurrentSitter(state,sitter){
             state.currentSitter = sitter
         }
-
     },
     actions: {
         getsittersList(context) {
@@ -41,6 +40,7 @@ export default {
             return sitterServiceBack.getById(id)
                 .then(sitter => {
                     context.commit('setCurrentSitter', sitter)
+                    return sitter
                 })
         },
         removeSitter(context, id) {

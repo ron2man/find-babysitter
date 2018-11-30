@@ -9,7 +9,6 @@ function query(filter = {username:'shira',license: true}) {
 
     // params.name = filter.name
     // params.filter = filter
-    console.log('params',params,'filter',filter)
     // params.set('name', filter.name)
     return axios.get(`${BASE_URL}?${params}`).then(res => res.data)
 }

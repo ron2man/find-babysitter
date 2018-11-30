@@ -3,8 +3,6 @@ const mongoService = require('./mongo.service')
 const ObjectId = require('mongodb').ObjectId;
 
 function query(filter) {
-    console.log(filter)
-    // console.log(JSON.parse(filter.license))
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
@@ -15,7 +13,6 @@ function query(filter) {
 }
 
 function getById(sitterId) {
-    console.log(sitterId)
     sitterId = new ObjectId(sitterId)
     return mongoService.connectToDb()
         .then(db => {
