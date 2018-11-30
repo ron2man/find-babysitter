@@ -37,7 +37,8 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
+  // font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -47,11 +48,13 @@ header {
   height: 50px;
   line-height: 50px;
   padding: 0 15px;
-  background-color: #bbc6d0;
+  background-color: #9054ef;
+  color:white;
   // padding: 15px;
   h1 {
     font-size: 1.5em;
-    a {
+    a, a:active, a:hover {
+      color:white;
       text-decoration: none;
     }
   }
