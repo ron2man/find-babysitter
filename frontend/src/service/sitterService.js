@@ -339,7 +339,6 @@ function update(sitter) {
 
 function addNewSitter(newSitter) {
     sitters.push(newSitter)
-
     return Promise.resolve(newSitter)
 }
 
