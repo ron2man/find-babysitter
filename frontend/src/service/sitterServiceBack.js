@@ -13,6 +13,7 @@ function query(filter = {username:'shira',license: true}) {
     return axios.get(`${BASE_URL}?${params}`).then(res => res.data)
 }
 
+
 function getById(id){
     return axios.get(`${BASE_URL}/${id}`).then(res => res.data)
 }

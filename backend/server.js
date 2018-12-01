@@ -3,13 +3,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const app = express()  
+const app = express()
 const http = require('http').Server(app);
-var io = require('socket.io')(http, {origins:'http://localhost:8080'});
+var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
 
 // const userService = require('./services/user-service')
 
 const addSitterRoutes = require('./routes/sitterRoute')
+const addUserRoutes = require('./routes/userRoute')
 
 
 app.use(express.static('public'));
@@ -17,7 +18,7 @@ app.use(express.static('public'));
 app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
-}));                        
+}));
 app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(session({
@@ -33,30 +34,10 @@ app.get('/', (req, res) => {
 
 
 addSitterRoutes(app)
+addUserRoutes(app)
 // addParentsRoutes(app)
 
-app.post('/singup', (req, res) => {
-  const nickname = req.body.nickname
-  userService.addUser({ nickname })
-    .then(user => res.json(user))
-})
 
-app.put('/login', (req, res) => {
-  const nickname = req.body.nickname
-  userService.checkLogin({ nickname })
-    .then(user => {
-      req.session.user = user
-      res.json(user)
-    })
-})
-app.put('/login', (req, res) => {
-  const nickname = req.body.nickname
-  userService.checkLogin({ nickname })
-    .then(user => {
-      req.session.user = user
-      res.json(user)
-    })
-})
 
 // socket
 
@@ -64,11 +45,11 @@ io.on('connection', function (socket) {
   console.log('a user connected');
   socket.on('SendMsg', details => {
     console.log(details)
-    io.to(details.details).emit('SendMsg',details.msg);
+    io.to(details.details).emit('SendMsg', details.msg);
   })
-  socket.on('firstChat',roomname => {
-  socket.join(roomname)
-})
+  socket.on('firstChat', roomname => {
+    socket.join(roomname)
+  })
 });
 
 

@@ -22,8 +22,8 @@ export default new Vuex.Store({
     filter: null
   },
   mutations: {
-    setCurrUser(state, {user}) {
-      state.currUser = user
+    setCurrUser(state, payload) {  
+      state.currUser = payload
     },
     setTheFilter(state, filter) {
       state.filter = filter;
@@ -32,11 +32,10 @@ export default new Vuex.Store({
   actions: {
     
     checkUser({ commit }, { typedDetails }) {
-     console.log(typedDetails);
-     
-      
       return authService.login(typedDetails)
-              .then(user => {
+              .then(user => {      
+                console.log('user',user);
+                             
                   commit('setCurrUser', user)
                   localStorage.setItem('loggedInUser', JSON.stringify(user))
                   return user
