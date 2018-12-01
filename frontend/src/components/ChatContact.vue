@@ -48,11 +48,11 @@ export default {
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
         if (type === "parent") {
-          const sitter = this.$route.params.parentName;
-          this.$store.dispatch({ type: "sendNotification", sitter });
+          const user = this.$route.params.parentName;
+          this.$store.dispatch({ type: "sendNotification", user });
         } else {
-          const parent = this.$route.params.sitterName;
-          this.$store.dispatch({ type: "sendNotification", parent });
+          const user = this.$route.params.sitterName;
+          this.$store.dispatch({ type: "sendNotification", user });
         }
         this.counter++;
       }

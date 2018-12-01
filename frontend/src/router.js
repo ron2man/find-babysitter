@@ -63,7 +63,7 @@ export default new Router({
       name: 'sitterProfile',
       component: SitterProfile,
       children: [
-        { path: 'Notifications', name: 'notifications', component: Notifications },
+        { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
         { path: 'sceduale', name: 'sceduale', component: scedualeZone }

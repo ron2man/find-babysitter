@@ -63,7 +63,6 @@ export default {
       this.$router.push(`/baby/${id}`);
     },
     sendMessage(sitter) {
-      const loggedUser = JSON.parse(localStorage.getItem('loggedInUser'));
       this.$store.dispatch({type:'checkLogin'})
         .then(user => {
           if(!user)this.$router.push("/login")

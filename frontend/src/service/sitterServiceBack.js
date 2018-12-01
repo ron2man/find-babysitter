@@ -30,7 +30,8 @@ function updateUser(user){
 function createNotification(from){
     return {
         from,
-        isRead:false
+        isRead:false,
+        createdAt:Date.now()
     }
 }
 

@@ -5,6 +5,7 @@ import store from './store'
 import './registerServiceWorker'
 import './assets/scss/main.scss'
 import VueSocketIO from 'vue-socket.io'
+import moment from 'moment'
 
 Vue.use(new VueSocketIO({
     debug: true,
@@ -13,10 +14,12 @@ Vue.use(new VueSocketIO({
         store,
         actionPrefix: 'SOCKET_',
         mutationPrefix: 'SOCKET_'
-    }
+    },
 }))
 
-
+Vue.filter('relativeTime', (timestamp) => {
+    return moment(timestamp).fromNow();
+})
 
 Vue.config.productionTip = false
 
@@ -25,3 +28,11 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+module.exports = {
+    pluginOptions: {
+      moment: {
+        locales: ['en']
+      }
+    }
+  }
