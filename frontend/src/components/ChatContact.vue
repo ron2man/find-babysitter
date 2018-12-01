@@ -40,12 +40,10 @@ export default {
     } else {
       this.roomname = `${this.$route.params.sitterName}${this.loggedUser.username}`;
     }
-      console.log(this.roomname)
     this.firstChat();
   },
   sockets: {
     SendMsg(msg) {
-      console.log(msg)
       this.msgs.push(msg);
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
@@ -72,7 +70,6 @@ export default {
       this.$socket.emit("firstChat", this.roomname);
     },
     checkParentOrSitter() {
-      console.log(this.loggedUser,'p or sit')
       if (this.loggedUser.type === "parent") return "parent";
       else return "sitter";
     }

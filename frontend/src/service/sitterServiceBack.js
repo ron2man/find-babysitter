@@ -18,9 +18,20 @@ function getById(id){
 }
 
 function getByUsername(username){
-    return axios.get(`${BASE_URL}/${username}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/username/${username}`).then(res => res.data)
 }
 
+function updateUser(user){
+    return axios.put(`${BASE_URL}/${user._id}`,user)
+}
+
+
+function createNotification(from){
+    return {
+        from,
+        isRead:false
+    }
+}
 
 // function remove(id) {
 //     const sitterIdx = sitters.findIndex(sitter => sitter.id === id)
@@ -37,7 +48,9 @@ function getByUsername(username){
 export default {
     query,
     getById,
-    getByUsername
+    getByUsername,
+    createNotification,
+    updateUser
     // remove,
     // update,
 }

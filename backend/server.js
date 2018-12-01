@@ -60,7 +60,6 @@ io.on('connection', function (socket) {
   })
   socket.on('firstChat',roomname => {
   socket.join(roomname)
-  io.to(roomname).emit('SendMsg','helloo new user in the room');
 })
 });
 

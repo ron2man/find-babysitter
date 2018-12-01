@@ -16,9 +16,9 @@ function addSitterRoutes(app){
             .then(sitter => res.json(sitter))
     })
 
-    app.get('/baby/:username', (req, res) => {
+    app.get('/baby/username/:username', (req, res) => {
         const username = req.params.username;
-        babyService.getByUsername(username)
+        return babyService.getByUsername(username)
             .then(sitter => res.json(sitter))
     })
 
@@ -32,8 +32,8 @@ function addSitterRoutes(app){
 
     // CREATE
     app.post('/baby', (req, res) => {
-        const sitter = req.body;
-        babyService.add(car)
+        const user = req.body;
+        babyService.add(user)
             .then(sitter => {
                 res.json(sitter)
             })
@@ -41,8 +41,8 @@ function addSitterRoutes(app){
 
     // UPDATE
     app.put('/baby/:id', (req, res) => {
-        const sitter = req.body;
-        babyService.update(sitter)
+        const user = req.body;
+        return babyService.update(user)
             .then(sitter => res.json(sitter))
     })
 

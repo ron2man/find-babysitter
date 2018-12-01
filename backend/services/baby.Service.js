@@ -39,25 +39,14 @@ function remove(){
         })
 }
 
-function add(sitter){
+function update(user){
+    user._id = new ObjectId(user._id)
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
-            return collection.insertOne(sitter)
+            return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    sitter._id = result.insertedId;
-                    return car;
-                })
-        })
-}
-
-function update(sitter){
-    sitter._id = new ObjectId(sitter._id)
-    return mongoService.connectToDb()
-        .then(db => {
-            const collection = db.collection('sitters');
-            return collection.updateOne({ _id: sitter._id }, { $set: sitter })
-                .then(result => {
+                    console.log(result)
                     return result;
                 })
         })
@@ -68,7 +57,6 @@ module.exports = {
     query,
     getById,
     remove,
-    add,
     update,
     getByUsername
 }
