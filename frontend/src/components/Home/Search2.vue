@@ -103,6 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+  background: black;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: 1200px;

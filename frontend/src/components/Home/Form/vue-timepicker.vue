@@ -620,7 +620,7 @@ export default {
 
 .time-picker .dropdown ul li.active,
 .time-picker .dropdown ul li.active:hover {
-  background: #41b883;
+  background: #00d9bd;
   color: #fff;
 }
 
