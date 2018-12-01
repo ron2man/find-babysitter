@@ -15,20 +15,16 @@
     </section>
     <!-- END SEARCH SECTION -->
 
-
-
     <!-- START SECOND SECTION -->
-    <TopSitters></TopSitters>
+    <section class="top-sisters">
+      <TopSitters></TopSitters>
+    </section>
     <!-- END SECOND SECTION -->
     <!-- START THIRD SECTION -->
     <HowManyUsed></HowManyUsed>
     <!-- END THIRD SECTION -->
-    <!-- START SECOND SECTION -->
-    <TopSitters></TopSitters>
-    <!-- END SECOND SECTION -->
-    <section style="background-color:blue;">
-      <h2>בואו ללמוד איך משתמשים באתר</h2>
-    </section>
+
+
   </div>
 </template>
 
@@ -72,10 +68,8 @@ export default {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-        background-position: center;
-  // background-position: top right -100px;
+  background-position: center;
 
-  // text-align: center;
 
   h2 {
     color: white;
@@ -89,9 +83,6 @@ export default {
 
   @media (min-width: 767px) {
 
-      // background-position: center;
-
-
     h2 {
       font-size: 1.7em;
       line-height: 1.7em;
@@ -102,5 +93,11 @@ export default {
 .search {
   padding: 15px;
   background: black;
+  margin-bottom: 20px;
+}
+
+.top-sisters{
+  max-width:1200px;
+  margin: 0 auto;
 }
 </style>

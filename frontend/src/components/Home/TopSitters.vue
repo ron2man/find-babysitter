@@ -1,6 +1,7 @@
 <template>
   <section class="top-sitters">
-    <h2>Top Sitters</h2>
+    <h2 class="main-color">The Best Sitters</h2>
+    <h3 class="second-color">top rated sitters in the app</h3>
     <div class="sitter-container">
       <div class="sitter" v-for="sitter in sitters" :key="sitter.id">
         <img :src="sitter.img" alt>
@@ -34,7 +35,15 @@ data(){
 
 <style lang="scss" scoped>
 .top-sitters{
-    h2{font-size:2.5em;font-weight: bold;padding:15px}
+    h2{
+      font-size:2em;
+      font-weight: bold;
+      padding:5px 0;
+      }
+      h3{
+        font-size:1.2em;
+        margin-bottom:20px;
+      }
     .sitter-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -46,7 +55,7 @@ data(){
         padding: 0 15px;
       img{width:100%;object-fit: cover;}
       h3 {display: inline-block; padding:5px;font-size:1em}
-      p{text-align: left;padding-bottom:15px}
+      p{text-align: left;padding-bottom:15px;line-height: 1.4em}
     }
 
     .sitter:nth-child(5){display: none}
