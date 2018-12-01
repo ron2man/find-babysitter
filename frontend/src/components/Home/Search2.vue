@@ -190,6 +190,7 @@ button {
     background-color: #9054ef;
     color: white;
     border-radius: 10px;
+    padding: 0 25px;
   }
 
   .address {
