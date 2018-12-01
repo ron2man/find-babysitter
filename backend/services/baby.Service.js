@@ -13,36 +13,20 @@ function query(filter) {
 }
 
 
-function checkLoginP(typedDetails){
+function checkParentLogin(typedDetails) {
     return parent = mongoService.connectToDb()
-    .then(db => {
-        const collection = db.collection('parents');
-        // todo - find out why parents collection dosent come back with obj
-        // return collection.find({username :typedDetails.nickName}).toArray()
-        return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
-    })
+        .then(db => {
+            const collection = db.collection('parents');
+            return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
+        })
 }
 
-function checkLogin(typedDetails) {
-    // console.log('check typed', typedDetails);
-    // const parent = mongoService.connectToDb()
-    //     .then(db => {
-    //         const collection = db.collection('parents');
-    //         // todo - find out why parents collection dosent come back with obj
-    //         // return collection.find({username :typedDetails.nickName}).toArray()
-    //         return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
-    //     })
+function checkSitterLogin(typedDetails) {
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
             return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
         })
-    // return Promise.all([sitter, parent]).then(potenUsers => {
-    //     for (var i = 0; i < potenUsers.length; i++) {
-    //         if (potenUsers[i]) return potenUsers[i]
-    //     }
-    // })
-
 }
 
 
@@ -86,6 +70,22 @@ function update(user) {
         })
 }
 
+function addSitter(userdetails) {
+    var newUser = userdetails
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('sitters')
+            return collection.insert(userdetails)
+                .then(user => {
+                    newUser._id = user.insertedIds
+                    return newUser
+                })
+            })
+        
+
+}
+
+
 
 module.exports = {
     query,
@@ -93,6 +93,7 @@ module.exports = {
     remove,
     update,
     getByUsername,
-    checkLogin,
-    checkLoginP
+    checkSitterLogin,
+    checkParentLogin,
+    addSitter
 }

@@ -6,81 +6,51 @@
     <form @submit.prevent="setNewSitter">
       <h1 class="sign-title">Sign up</h1>
       <div class="name-container flex wrap flex-space-around align-space-around">
-        <input type="text" placeholder="Insert name" v-model="sitter.name">
-        <input type="text" placeholder="Insert last name" v-model="sitter.lName">
-        <input type="text" placeholder="Choose nickname" v-model="sitter.nickName">
-        <input type="text" placeholder="Insert password" v-model="sitter.pwd">
-        <input type="text" placeholder="Insert city adrress" v-model="sitter.adrress.city">
-        <input type="text" placeholder="Insert Street adrress" v-model="sitter.adrress.street">
+        <input type="text" placeholder="Insert name" v-model="sitter.fName" required>
+        <input type="text" placeholder="Insert last name" v-model="sitter.lName" required>
+        <input type="text" placeholder="Choose nickname" v-model="sitter.username" required>
+        <input type="text" placeholder="Insert password" v-model="sitter.pwd" required>
+        <input type="text" placeholder="Insert city adrress" v-model="sitter.adrress.city" required>
+        <input type="text" placeholder="Insert Street adrress" v-model="sitter.adrress.street" required>
       </div>
       <section class="extra-container flex wrap">
         <div class="prefs-container flex column flex-space-around">
-          <h4 class="title">type?</h4>
+          <h4 class="title">position?</h4>
 
-          <label>
-            nanny
-            <input type="checkbox" value="nanny" v-model="sitter.prefs.position.nanny">
-          </label>
-          <label>
-            opper
-            <input type="checkbox" value="oper" v-model="sitter.prefs.position.opper">
-          </label>
-          <label>
-            Cook
-            <input type="checkbox" value="Cook" checked v-model="sitter.prefs.position.ages">
-          </label>
+          <input list="position" placeholder="position" v-model="sitter.position">
+          <datalist id="position">
+            <option value="nanny"/>
+            <option value="opper"/>
+            <option value="Cook"/>
+          </datalist>
         </div>
 
         <div class="age-container flex column flex-space-around">
           <h4 class="title">What age?</h4>
-          <label>
-            Babies
-            <input
-              type="checkbox"
-              value="Cook"
-              checked
-              v-model="sitter.prefs.position.babies"
-            >
-          </label>
-          <label>
-            Toddlers
-            <input
-              type="checkbox"
-              name="pos4"
-              value="Cook"
-              checked
-              v-model="sitter.prefs.position.toddlers"
-            >
-          </label>
-          <label>
-            Children
-            <input
-              type="checkbox"
-              value="Cook"
-              checked
-              v-model="sitter.prefs.position.kindergarden"
-            >
-          </label>
+
+          <input list="ageprefs" placeholder="What age" v-model="sitter.ages">
+          <datalist id="ageprefs">
+            <option value="Babies"/>
+            <option value="Toddlers"/>
+            <option value="Children"/>
+            <option value="All of them"/>
+          </datalist>
         </div>
+
         <div class="lang-container flex column flex-space-around">
           <h4 class="title">languages</h4>
 
           <label>
             Hebrew
-            <input type="checkbox" value="he" v-model="sitter.prefs.languages.english">
+            <input type="checkbox" value="he" v-model="sitter.languages.english">
           </label>
           <label>
             English
-            <input type="checkbox" value="en" v-model="sitter.prefs.languages.hebrew">
+            <input type="checkbox" value="en" v-model="sitter.languages.hebrew">
           </label>
           <label>
             Russian
-            <input
-              type="checkbox"
-              value="ru"
-              checked
-              v-model="sitter.prefs.languages.russian"
-            >
+            <input type="checkbox" value="ru" checked v-model="sitter.languages.russian">
           </label>
         </div>
         <div class="trans-container flex column flex-space-around">
@@ -88,34 +58,34 @@
 
           <label>
             license
-            <input
-              type="checkbox"
-              name="pref1"
-              value="license"
-              v-model="sitter.prefs.trans.license"
-            >
+            <input type="checkbox" name="pref1" value="license" v-model="sitter.license">
           </label>
           <label>
             vehicle
-            <input
-              type="checkbox"
-              name="pref2"
-              value="Car"
-              v-model="sitter.prefs.trans.vehicle"
-            >
+            <input type="checkbox" name="pref2" value="Car" v-model="sitter.vehicle">
           </label>
         </div>
       </section>
 
+      <input list="time" placeholder="Scope of Position" v-model="sitter.ages">
+      <datalist id="time">
+        <option value="Part-time"/>
+        <option value="Full-time"/>
+      </datalist>
+
       <section class="about-container flex wrap flex-space-around align-space-around">
-        <input list="exp" placeholder="Exprerience" v-model="sitter.prefs.exprerience">
+        <textarea rows="4" cols="50" v-model="sitter.about">
+          About yourself
+        </textarea>
+        
+        <input list="exp" placeholder="Exprerience" v-model="sitter.exprerience">
         <datalist id="exp">
           <option value="inexperienced"/>
           <option value="Up to three years of experience"/>
           <option value="Over 3 years of experience"/>
         </datalist>
 
-        <input list="age" placeholder="Choose age" v-model="sitter.prefs.age">
+        <input list="age" placeholder="Choose age" v-model="sitter.age">
         <datalist id="age">
           <option value="16-18"/>
           <option value="18-20"/>
@@ -125,7 +95,7 @@
           <option value="Over 30"/>
         </datalist>
 
-        <input list="studies" placeholder="Studies" v-model="sitter.prefs.studies">
+        <input list="studies" placeholder="Studies" v-model="sitter.studies">
         <datalist id="studies">
           <option value="12 school years"/>
           <option value="BA"/>
@@ -138,15 +108,18 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "Sign",
   data() {
     return {
       sitter: {
-        name: "",
-        lName: "",
-        nickName: "",
+        type: "sitter",
+        username: "",
         pwd: "",
+        fName: "",
+        lName: "",
         age: "",
         phone: "",
         adrress: {
@@ -154,35 +127,30 @@ export default {
           city: "",
           street: ""
         },
-        prefs: {
-          position: {
-            nanny: "",
-            opper: "",
-            Cook: "",
-            ages: "",
-            babies: "",
-            toddlers: "",
-            kindergarden: ""
-          },
-          languages: {
-            english: "",
-            hebrew: "",
-            russian: ""
-          },
-          age: "",
-          exprerience: "",
-          description: "",
-          studies: "",
-          trans: {
-            license: "",
-            vehicle: ""
-          },
-          availabilty: {
-            shortCall: ""
-          }
+        position: "",
+        time: "",
+        ages: "",
+        languages: {
+          english: "",
+          hebrew: "",
+          russian: ""
         },
-        joinedAt: "",
+        exprerience: "",
+        description: "",
+        studies: "",
+        license: "",
+        vehicle: "",
+        // todo
+        shortCall: "",
+        smoking: "",
+        medical: "",
+        recomandation: "",
+        clean: "",
+        about: "",
+        joinedAt: moment().format("L"),
+        // todo - calc with filter last visited
         lastVisit: "",
+        // todo - option to uplaod img from the pfone
         imgUrl: ""
       }
     };
@@ -191,8 +159,8 @@ export default {
     setNewSitter() {
       this.$store
         .dispatch({ type: "setNewSitter", newSitter: this.sitter })
-        .then(user => {
-          if (user) this.$router.push("/");
+        .then(newSitter => {          
+          if (newSitter) this.$router.push(`/baby/profile/sitter/${newSitter.username}/notifications`)
         });
     }
   }

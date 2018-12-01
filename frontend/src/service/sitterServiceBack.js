@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3003/baby'
+// const BASE_URL = 'http://localhost:3003/baby'
+const BASE_URL = 'http://localhost:3003'
 
 function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams
@@ -35,6 +36,11 @@ function createNotification(from){
     }
 }
 
+function addNewSitter(newSitter) {
+   return axios.post(`${BASE_URL}/signup`,newSitter)
+        .then(res=>res.data)
+}
+
 // function remove(id) {
 //     const sitterIdx = sitters.findIndex(sitter => sitter.id === id)
 //     sitters.splice(sitterIdx, 1)
@@ -52,7 +58,8 @@ export default {
     getById,
     getByUsername,
     createNotification,
-    updateUser
+    updateUser,
+    addNewSitter
     // remove,
     // update,
 }
