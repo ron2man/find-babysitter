@@ -5,7 +5,7 @@
   </head>
   <body>
     <ul id="messages">
-      <li v-for="msg in msgs" :key="msg">{{msg}}</li>
+      <li v-for="msg in msgs" :key="msg.msg" :class="{sender: msg.from === loggedUser.username}">{{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}</li>
     </ul>
     <div class="input-box">
       <input id="m" autocomplete="off" v-model="msg">
@@ -51,7 +51,8 @@ export default {
   },
   sockets: {
     SendMsg(msg) {
-      this.msgs.push(msg);
+      const newMsg = this.createdMsg(msg)
+      this.msgs.push(newMsg);
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
         if (type === "parent") {
@@ -77,9 +78,9 @@ export default {
   },
   methods: {
     SendMsg(msg) {
-      const nickname = this.loggedUser.username;
-      const msgWithNick = nickname + ':' + this.msg
-      this.$socket.emit("SendMsg", { details: this.roomname, msgWithNick});
+      const from = this.loggedUser.username;
+      const time = Date.now()
+      this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
     },
     firstChat() {
@@ -88,6 +89,13 @@ export default {
     checkParentOrSitter() {
       if (this.loggedUser.type === "parent") return "parent";
       else return "sitter";
+    },
+    createdMsg(msg){
+      return {
+        from:this.loggedUser.username,
+        msg,
+        createdAt: Date.now()
+      }
     }
   }
 };
@@ -127,11 +135,20 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 #messages li {
   padding: 5px 10px;
+  text-align: left;
+  border:1px solid black;
+  border-radius: 10px;
+  margin:5px;
+  width: fit-content;
 }
-#messages li:nth-child(odd) {
-  background: #eee;
+
+.sender{
+    align-self: flex-end;
+      background-color: rgb(138, 138, 255);
 }
 </style>
