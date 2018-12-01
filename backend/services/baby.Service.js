@@ -96,3 +96,5 @@ module.exports = {
     checkLogin,
     checkLoginP
 }
+
+// historymsgs = {['etishimrit']:[]}

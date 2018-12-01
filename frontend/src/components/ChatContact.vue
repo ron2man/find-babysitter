@@ -26,19 +26,23 @@ export default {
       msg: "",
       msgs: [],
       counter: 0,
-      loggedUser:null
+      loggedUser: null
     };
   },
   components: {
     BasicVueChat
   },
   created() {
-    this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
+    this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
     const type = this.checkParentOrSitter();
     if (type === "parent") {
-      this.roomname = `${this.loggedUser.username}${this.$route.params.parentName}`;
+      this.roomname = `${this.loggedUser.username}${
+        this.$route.params.parentName
+      }`;
     } else {
-      this.roomname = `${this.$route.params.sitterName}${this.loggedUser.username}`;
+      this.roomname = `${this.$route.params.sitterName}${
+        this.loggedUser.username
+      }`;
     }
     this.firstChat();
   },
@@ -55,6 +59,13 @@ export default {
           this.$store.dispatch({ type: "sendNotification", user });
         }
         this.counter++;
+      }
+    },
+    getHistory(history) {
+      if (history.length) {
+        for (var i = 0; i < history.length; i++) {
+          this.msgs.push(history[i]);
+        }
       }
     },
     firstChat(roomname) {
