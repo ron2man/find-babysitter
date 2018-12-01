@@ -33,9 +33,7 @@ export default new Vuex.Store({
     
     checkUser({ commit }, { typedDetails }) {
       return authService.login(typedDetails)
-              .then(user => {      
-                console.log('user',user);
-                             
+              .then(user => {                                   
                   commit('setCurrUser', user)
                   localStorage.setItem('loggedInUser', JSON.stringify(user))
                   return user
@@ -48,7 +46,6 @@ export default new Vuex.Store({
     checkLogin(){
         var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
         if (!userFromStorage) return false
-        // || currUser.nickName !== context.state.currUser.nickName :consider join this condition
         else {
           return userFromStorage
         } 

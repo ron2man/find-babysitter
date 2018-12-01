@@ -19,8 +19,8 @@ export default {
             const sitterIdx = state.sitters.findIndex(currSitter => currSitter.id === sitter.id)
             state.sitters.splice(sitterIdx, 1, 1)
         },
-        setNewSitter(state, payload) {
-            state.currentSitter = payload
+        setNewSitter(state, {theSitter}) {
+            state.currentSitter = theSitter
         },
         setTheFilter(state, filter) {
             state.filter = filter;
@@ -57,8 +57,11 @@ export default {
         },
 
         setNewSitter({ commit }, { newSitter }) {
-            return sitterService.addNewSitter(newSitter)
-                .then(theSitter => commit({ type: 'setNewSitter', theSitter }))
+            return sitterServiceBack.addNewSitter(newSitter)
+                .then(theSitter =>{
+                    commit({ type: 'setNewSitter', theSitter })
+                    return theSitter
+                })
         },
         // setFilter(context, filter) {
         //     var newFilter = JSON.parse(JSON.stringify(filter))
