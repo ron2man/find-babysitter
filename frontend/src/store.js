@@ -30,8 +30,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    checkUser({ commit }, { details }) {
-      return authService.login(details)
+    
+    checkUser({ commit }, { typedDetails }) {
+     console.log(typedDetails);
+     
+      
+      return authService.login(typedDetails)
               .then(user => {
                   commit('setCurrUser', user)
                   localStorage.setItem('loggedInUser', JSON.stringify(user))

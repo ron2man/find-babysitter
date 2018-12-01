@@ -49,6 +49,14 @@ app.put('/login', (req, res) => {
       res.json(user)
     })
 })
+app.put('/login', (req, res) => {
+  const nickname = req.body.nickname
+  userService.checkLogin({ nickname })
+    .then(user => {
+      req.session.user = user
+      res.json(user)
+    })
+})
 
 // socket
 
