@@ -26,14 +26,17 @@ export default {
       msg: "",
       msgs: [],
       counter: 0,
-      loggedUser: null
+      loggedUser: null,
+      nickname: null
     };
   },
   components: {
     BasicVueChat
   },
   created() {
+    this.getHistory
     this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log(this.loggedUser)
     const type = this.checkParentOrSitter();
     if (type === "parent") {
       this.roomname = `${this.loggedUser.username}${
@@ -74,7 +77,9 @@ export default {
   },
   methods: {
     SendMsg(msg) {
-      this.$socket.emit("SendMsg", { details: this.roomname, msg });
+      const nickname = this.loggedUser.username;
+      const msgWithNick = nickname + ':' + this.msg
+      this.$socket.emit("SendMsg", { details: this.roomname, msgWithNick});
       this.msg = "";
     },
     firstChat() {

@@ -44,13 +44,17 @@ io.on('connection', function (socket) {
 
   socket.on('firstChat', roomname => {
     socket.join(roomname)
-    io.to(roomname).emit('getHistory', msgs[roomname]);
+    if(msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
   });
   
   socket.on('SendMsg', details => {
-    io.to(details.details).emit('SendMsg', details.msg);
-    if(!msgs[`${details.details}`]) msgs[`${details.details}`] = []
-    else msgs[`${details.details}`].push(details.msg)
+    console.log(details)
+    io.to(details.details).emit('SendMsg', details.msgWithNick);
+    if(!msgs[`${details.details}`]){
+      msgs[`${details.details}`] = []
+      msgs[`${details.details}`].push(details.msgWithNick)
+    } 
+    else msgs[`${details.details}`].push(details.msgWithNick)
   })
 
 })

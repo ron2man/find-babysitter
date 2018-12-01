@@ -26,7 +26,6 @@ export default {
             const noticeFrom = context.state.currNoticeUser.notifications.findIndex(notice => {
                 return notice.from === context.state.currLoggedUser.username
             })
-            console.log(context.state.currNoticeUser)
             const notification = sitterServiceBack.createNotification(context.state.currLoggedUser.username)
             let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
             if (noticeFrom === -1) copyUser.notifications.unshift(notification)
