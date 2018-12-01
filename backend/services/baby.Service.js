@@ -1,4 +1,4 @@
-const mongoService = require('./mongo.service') 
+const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -11,6 +11,40 @@ function query(filter) {
             // return collection.find({$and:[{"license" : !!filter.license}]}).toArray()
         })
 }
+
+
+function checkLoginP(typedDetails){
+    return parent = mongoService.connectToDb()
+    .then(db => {
+        const collection = db.collection('parents');
+        // todo - find out why parents collection dosent come back with obj
+        // return collection.find({username :typedDetails.nickName}).toArray()
+        return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
+    })
+}
+
+function checkLogin(typedDetails) {
+    // console.log('check typed', typedDetails);
+    // const parent = mongoService.connectToDb()
+    //     .then(db => {
+    //         const collection = db.collection('parents');
+    //         // todo - find out why parents collection dosent come back with obj
+    //         // return collection.find({username :typedDetails.nickName}).toArray()
+    //         return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
+    //     })
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('sitters');
+            return collection.find({ $and: [{ username: typedDetails.nickName }, { pwd: typedDetails.pwd }] }).toArray()
+        })
+    // return Promise.all([sitter, parent]).then(potenUsers => {
+    //     for (var i = 0; i < potenUsers.length; i++) {
+    //         if (potenUsers[i]) return potenUsers[i]
+    //     }
+    // })
+
+}
+
 
 function getById(sitterId) {
     sitterId = new ObjectId(sitterId)
@@ -30,7 +64,7 @@ function getByUsername(username) {
 }
 
 
-function remove(){
+function remove() {
     sitterId = new ObjectId(sitterId)
     return mongoService.connectToDb()
         .then(db => {
@@ -39,7 +73,7 @@ function remove(){
         })
 }
 
-function update(user){
+function update(user) {
     user._id = new ObjectId(user._id)
     return mongoService.connectToDb()
         .then(db => {
@@ -58,5 +92,7 @@ module.exports = {
     getById,
     remove,
     update,
-    getByUsername
+    getByUsername,
+    checkLogin,
+    checkLoginP
 }
