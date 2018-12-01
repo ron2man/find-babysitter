@@ -4,7 +4,7 @@ import sitterService from '../service/sitterService.js'
 
 export default {
     state: {
-        sitters: [],
+        sitters: null,
         // filter: null
         currentSitter: null
     },

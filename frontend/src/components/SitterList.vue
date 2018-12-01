@@ -59,7 +59,7 @@
     </div>
     <hr>
 
-    <sitter-preview v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
+    <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
   </section>
 </template>
 
@@ -70,10 +70,12 @@ import Search2 from "./Home/Search2.vue";
 import SitterCard from "./List/SitterCard.vue";
 
 export default {
-  computed: {
+  methods:{
     sitters() {
       return this.$store.getters.getSitters;
     }
+  },
+  computed: {
   },
   components: {
     SitterPreview,
