@@ -1,7 +1,7 @@
 import axios from 'axios';
 
+const BASE_URL = 'http://localhost:3003/baby'
 // const BASE_URL = 'http://localhost:3003/baby'
-const BASE_URL = 'http://localhost:3003'
 
 function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams

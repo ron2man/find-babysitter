@@ -5,7 +5,7 @@
   </head>
   <body>
     <ul id="messages">
-      <li v-for="msg in msgs" :key="msg">{{msg}}</li>
+      <li v-for="msg in msgs" :key="msg.msg" :class="{sender: msg.from === loggedUser.username}">{{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}</li>
     </ul>
     <div class="input-box">
       <input id="m" autocomplete="off" v-model="msg">
@@ -26,25 +26,33 @@ export default {
       msg: "",
       msgs: [],
       counter: 0,
-      loggedUser:null
+      loggedUser: null,
+      nickname: null
     };
   },
   components: {
     BasicVueChat
   },
   created() {
-    this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
+    this.getHistory
+    this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log(this.loggedUser)
     const type = this.checkParentOrSitter();
     if (type === "parent") {
-      this.roomname = `${this.loggedUser.username}${this.$route.params.parentName}`;
+      this.roomname = `${this.loggedUser.username}${
+        this.$route.params.parentName
+      }`;
     } else {
-      this.roomname = `${this.$route.params.sitterName}${this.loggedUser.username}`;
+      this.roomname = `${this.$route.params.sitterName}${
+        this.loggedUser.username
+      }`;
     }
     this.firstChat();
   },
   sockets: {
     SendMsg(msg) {
-      this.msgs.push(msg);
+      const newMsg = this.createdMsg(msg)
+      this.msgs.push(newMsg);
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
         if (type === "parent") {
@@ -57,13 +65,22 @@ export default {
         this.counter++;
       }
     },
+    getHistory(history) {
+      if (history.length) {
+        for (var i = 0; i < history.length; i++) {
+          this.msgs.push(history[i]);
+        }
+      }
+    },
     firstChat(roomname) {
       console.log("server sending back room name: ", roomname);
     }
   },
   methods: {
     SendMsg(msg) {
-      this.$socket.emit("SendMsg", { details: this.roomname, msg });
+      const from = this.loggedUser.username;
+      const time = Date.now()
+      this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
     },
     firstChat() {
@@ -72,6 +89,13 @@ export default {
     checkParentOrSitter() {
       if (this.loggedUser.type === "parent") return "parent";
       else return "sitter";
+    },
+    createdMsg(msg){
+      return {
+        from:this.loggedUser.username,
+        msg,
+        createdAt: Date.now()
+      }
     }
   }
 };
@@ -111,11 +135,20 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 #messages li {
   padding: 5px 10px;
+  text-align: left;
+  border:1px solid black;
+  border-radius: 10px;
+  margin:5px;
+  width: fit-content;
 }
-#messages li:nth-child(odd) {
-  background: #eee;
+
+.sender{
+    align-self: flex-end;
+      background-color: rgb(138, 138, 255);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="sitter-card">
+  <div class="sitter-card" v-if="this.sitter">
     <div class="card-header">{{sitter.fullName}}</div>
     <div class="details">
       <img
@@ -58,6 +58,9 @@
 <script>
 export default {
   props: ["sitter"],
+  created(){
+    console.log(this.sitter)
+  },
   methods: {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);

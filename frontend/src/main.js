@@ -28,11 +28,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-module.exports = {
-    pluginOptions: {
-      moment: {
-        locales: ['en']
-      }
-    }
-  }

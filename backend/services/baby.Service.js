@@ -97,3 +97,5 @@ module.exports = {
     checkParentLogin,
     addSitter
 }
+
+// historymsgs = {['etishimrit']:[]}

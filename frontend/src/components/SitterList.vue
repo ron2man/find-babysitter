@@ -1,11 +1,10 @@
 <template>
-  <section class="list">
+<section v-if="this.sitters">
+  <div class="list">
     <div class="search">
       <search2></search2>
     </div>
-
     <hr>
-
     <div class="grid-container">
       <div class="filter">
         <div style="background-color:black;">
@@ -57,10 +56,10 @@
         <sitter-card></sitter-card>
       </div>
     </div>
+    </div>
     <hr>
-
-    <sitter-preview v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
-  </section>
+    <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
+    </section>
 </template>
 
 <script>
@@ -70,8 +69,12 @@ import Search2 from "./Home/Search2.vue";
 import SitterCard from "./List/SitterCard.vue";
 
 export default {
+  created(){
+  },
+  methods:{
+  },
   computed: {
-    sitters() {
+        sitters() {
       return this.$store.getters.getSitters;
     }
   },

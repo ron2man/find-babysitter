@@ -11,14 +11,16 @@ var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
 
 const addSitterRoutes = require('./routes/sitterRoute')
 const addUserRoutes = require('./routes/userRoute')
+const mongoService = require('./services/mongo.service')
 
-
+var historymsgs = {}
 app.use(express.static('public'));
 
 app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
-}));
+}))
+
 app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(session({
@@ -32,26 +34,31 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-
 addSitterRoutes(app)
 addUserRoutes(app)
-// addParentsRoutes(app)
-
-
 
 // socket
+var msgs = []
 
 io.on('connection', function (socket) {
-  console.log('a user connected');
+
+  socket.on('firstChat', roomname => {
+    socket.join(roomname)
+    if (msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
+  });
+
   socket.on('SendMsg', details => {
     console.log(details)
     io.to(details.details).emit('SendMsg', details.msg);
+    const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
+    if (!msgs[`${details.details}`]) {
+      msgs[`${details.details}`] = []
+      msgs[`${details.details}`].push(newMsg)
+    }
+    else msgs[`${details.details}`].push(newMsg)
   })
-  socket.on('firstChat', roomname => {
-    socket.join(roomname)
-  })
-});
 
+})
 
 const PORT = process.env.PORT || 3003;
 http.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))

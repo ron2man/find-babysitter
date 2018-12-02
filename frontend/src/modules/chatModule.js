@@ -3,18 +3,15 @@ import sitterServiceBack from '../service/sitterServiceBack.js'
 export default {
 
     state: {
-        currNoticeUser: {},
+        currNoticeUser: null,
         currLoggedUser: JSON.parse(localStorage.getItem("loggedInUser"))
     },
-
     mutations: {
         setNotificationUser(state, {user}) {
             state.currNoticeUser = user
         }
-
     },
     getters: {
-
     },
     actions: {
         sendNotification(context, {user}) {
@@ -36,13 +33,16 @@ export default {
             return sitterServiceBack.updateUser(copyUser)
         },
         changeNotificationStatus(context,{from}){
-            const noticeFrom = context.state.currLoggedUser.notifications.findIndex(notice => {
+            const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
+            const noticeFrom = currLoggedUser.notifications.findIndex(notice => {
                 return notice.from === from
             })
-            let copyUser = Object.assign({}, { ...context.state.currLoggedUser});
-            copyUser.notifications[noticeFrom].isRead = true
-            localStorage.setItem('loggedInUser', JSON.stringify(copyUser))
-            return sitterServiceBack.updateUser(copyUser)
+            if(noticeFrom > -1){
+                let copyUser = Object.assign({}, {...currLoggedUser});
+                copyUser.notifications[noticeFrom].isRead = true
+                localStorage.setItem('loggedInUser', JSON.stringify(copyUser))
+                return sitterServiceBack.updateUser(copyUser)
+            }
         }
     }
 }
