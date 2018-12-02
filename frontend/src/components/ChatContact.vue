@@ -5,7 +5,9 @@
   </head>
   <body>
     <ul id="messages">
-      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">{{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}</li>
+      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">
+        {{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}
+        </li>
     </ul>
     <div class="input-box">
       <input id="m" autocomplete="off" v-model="msg">

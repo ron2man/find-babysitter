@@ -61,21 +61,21 @@ function updateUser(user){
 
 
 function getSitterByUsername(username){
-    return axios.get(`${BASE_URL}/sitter/${username}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/baby/sitter/${username}`).then(res => res.data)
 }
 
 function getByParentUsername(username){
-    return axios.get(`${BASE_URL}/parent/${username}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/baby/parent/${username}`).then(res => res.data)
 
 }
 
 
 function updateSitter(user){
-    return axios.put(`${BASE_URL}/${user._id}`,user)
+    return axios.put(`${BASE_URL}/baby/${user._id}`,user)
 }
 
 function updateParent(user){
-    return axios.put(`${BASE_URL}/parent/${user._id}`,user)
+    return axios.put(`${BASE_URL}/baby/parent/${user._id}`,user)
 }
 
 
@@ -106,7 +106,7 @@ function addNewSitter(newSitter) {
 //     const sitterIdx = sitters.findIndex(currSitter => currSitter.id === sitter.id)
 //     sitter.splice(sitterIdx, 1, sitter)
 //     return Promise.resolve(sitterIdx)
-// }
+
 
 export default {
     query,
