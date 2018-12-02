@@ -5,8 +5,9 @@ import sitterService from '../service/sitterService.js'
 export default {
     state: {
         sitters: null,
-        // filter: null
-        currentSitter: null
+        currentSitter: null,
+        filterLocation: null,
+        filterProperty: null,
     },
     mutations: {
         setSitters(state, { sitters }) {
@@ -19,24 +20,29 @@ export default {
             const sitterIdx = state.sitters.findIndex(currSitter => currSitter.id === sitter.id)
             state.sitters.splice(sitterIdx, 1, 1)
         },
-        setNewSitter(state, {theSitter}) {
+        setNewSitter(state, { theSitter }) {
             state.currentSitter = theSitter
         },
-        setTheFilter(state, filter) {
-            state.filter = filter;
+        setFilterLocation(state, filter) {
+            state.filterLocation = filter;
         },
-        setCurrentSitter(state,sitter){
+        setFilterProperty(state, filter) {
+            state.filterProperty = filter;
+        },
+        setCurrentSitter(state, sitter) {
             state.currentSitter = sitter
         }
     },
     actions: {
         getsittersList(context) {
-            return sitterServiceBack.query()
+            // console.log('filterLocation',context.state.filterLocation)
+            // console.log('filterProperty',context.state.filterProperty)
+            return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty)
                 .then(sitters => {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
-        getById(context, {id}) {
+        getById(context, { id }) {
             return sitterServiceBack.getById(id)
                 .then(sitter => {
                     context.commit('setCurrentSitter', sitter)
@@ -58,23 +64,29 @@ export default {
 
         setNewSitter({ commit }, { newSitter }) {
             return sitterServiceBack.addNewSitter(newSitter)
-                .then(theSitter =>{
+                .then(theSitter => {
                     commit({ type: 'setNewSitter', theSitter })
                     return theSitter
                 })
         },
-        // setFilter(context, filter) {
-        //     var newFilter = JSON.parse(JSON.stringify(filter))
-        //     context.commit('setTheFilter', newFilter)
-        // },
+        setFilterLocation(context, filter) {
+            var newFilter = JSON.parse(JSON.stringify(filter))
+            context.commit('setFilterLocation', newFilter)
+            context.dispatch('getsittersList')
+        },
+        setFilterProperty(context, filter) {
+            var newFilter = JSON.parse(JSON.stringify(filter))
+            context.commit('setFilterProperty', newFilter)
+            context.dispatch('getsittersList')
+        },
 
     },
     getters: {
         getSitters: (state) => { return state.sitters },
-        getCurrentSitter: (state) => { return state.currentSitter},
-        // filter(state) {
-        //     return JSON.parse(JSON.stringify(state.filter));
-        // },
+        getCurrentSitter: (state) => { return state.currentSitter },
+        filterLocation(state) {
+            return JSON.parse(JSON.stringify(state.filterLocation));
+        },
     }
 }
 

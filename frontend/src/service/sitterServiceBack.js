@@ -3,10 +3,42 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3003/baby'
 // const BASE_URL = 'http://localhost:3003/baby'
 
-function query(filter = {username:'shira',license: true}) {
+
+
+
+
+function query(filterLocation = '', filterProperty = '') {
+    // function query(filter = {username:'shira',license: true}) {
+
+
+
+    // Tuesday, January 1, 2019 10:00:00 AM GMT+02:00
+var startTime = 1546329600000; 
+// Tuesday, January 1, 2019 12:00:00 AM GMT+02:00
+var endTime = 1546336800000;
+
     const params = new URLSearchParams
-    params.append('username', filter.username)
-    params.set('license', filter.license)
+
+    if (filterLocation) {
+        // TODO
+        // TIMESTAMP - START FILTER
+        // TIMESTAMP - END FILTER
+        // console.log('if filterlocation',filterLocation)
+    }
+
+    
+    if (filterProperty) {
+        // FILTER FULL NAME
+        if (filterProperty.fullName) params.append('fullName', filterProperty.fullName)
+        // console.log('if filterproperty',filterProperty)
+    }
+
+    // if (filter.username && filter.license) {
+    //     console.log('got here')
+        params.set('sTime', startTime)
+        params.set('eTime', endTime)
+        // params.set('license', filter.license)
+    // }
 
     // params.name = filter.name
     // params.filter = filter
@@ -15,30 +47,30 @@ function query(filter = {username:'shira',license: true}) {
 }
 
 
-function getById(id){
+function getById(id) {
     return axios.get(`${BASE_URL}/${id}`).then(res => res.data)
 }
 
-function getByUsername(username){
+function getByUsername(username) {
     return axios.get(`${BASE_URL}/username/${username}`).then(res => res.data)
 }
 
-function updateUser(user){
-    return axios.put(`${BASE_URL}/${user._id}`,user)
+function updateUser(user) {
+    return axios.put(`${BASE_URL}/${user._id}`, user)
 }
 
 
-function createNotification(from){
+function createNotification(from) {
     return {
         from,
-        isRead:false,
-        createdAt:Date.now()
+        isRead: false,
+        createdAt: Date.now()
     }
 }
 
 function addNewSitter(newSitter) {
-   return axios.post(`${BASE_URL}/signup`,newSitter)
-        .then(res=>res.data)
+    return axios.post(`${BASE_URL}/signup`, newSitter)
+        .then(res => res.data)
 }
 
 // function remove(id) {

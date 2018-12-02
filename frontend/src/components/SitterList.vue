@@ -1,65 +1,23 @@
 <template>
-<section v-if="this.sitters">
-  <div class="list">
-    <div class="search">
-      <search2></search2>
-    </div>
-    <hr>
-    <div class="grid-container">
-      <div class="filter">
-        <div style="background-color:black;">
-          <div class="full-name">
-            <p>Full Name:</p>
-            <input type="text" placeholder="text search">
-          </div>
+  <section v-if="this.sitters">
+    <div class="list">
+      <div class="search">
+        <search2></search2>
+      </div>
+      <hr>
+      <div class="grid-container">
+        <second-filter class="filter"></second-filter>
 
-          <div class="age">
-            <p>by Age - Range</p>
-            <input type="number">
-          </div>
-
-          <div class="position">
-            <p>position select Multi</p>
-            <input type="number">
-          </div>
-
-          <div class="language">
-            <p>language select Multi</p>
-            <input type="number">
-          </div>
-
-          <div class="experience">
-            <p>experience range</p>
-            <input type="number">
-          </div>
-
-          <div class="smoking">
-            <p>check - non smoking</p>
-            <input type="number">
-          </div>
-
-          <div class="medical">
-            <p>check - medical</p>
-            <input type="number">
-          </div>
-
-          <div class="recommendation">
-            <p>check - Recomendation</p>
-            <input type="number">
-          </div>
+        <div class="cards">
+          <sitter-card></sitter-card>
+          <sitter-card></sitter-card>
+          <sitter-card></sitter-card>
         </div>
       </div>
-
-      <div class="cards">
-        <sitter-card></sitter-card>
-        <sitter-card></sitter-card>
-        <sitter-card></sitter-card>
-      </div>
-    </div>
     </div>
     <hr>
     <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
-    </section>
+  </section>
 </template>
 
 <script>
@@ -67,14 +25,14 @@ import SitterPreview from "./SitterPreview";
 import SitterFilter from "./SitterFilter";
 import Search2 from "./Home/Search2.vue";
 import SitterCard from "./List/SitterCard.vue";
+import SecondFilter from "./List/SecondFilter.vue";
 
 export default {
-  created(){
-  },
-  methods:{
-  },
+  created() {},
+
+  methods: {},
   computed: {
-        sitters() {
+    sitters() {
       return this.$store.getters.getSitters;
     }
   },
@@ -82,7 +40,8 @@ export default {
     SitterPreview,
     Search2,
     SitterFilter,
-    SitterCard
+    SitterCard,
+    SecondFilter
   }
 };
 </script>
@@ -107,9 +66,9 @@ export default {
 
   .filter {
     grid-area: menu;
-    color: white;
+    // color: white;
     width: 300px;
-    height: 300px;
+    // height: 300px;
   }
   .cards {
     grid-area: main;

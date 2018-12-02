@@ -63,7 +63,7 @@ export default {
     };
   },
   created() {
-    if (this.$store.getters.filter) this.filter = this.$store.getters.filter;
+    if (this.$store.getters.filter) this.filter = this.$store.getters.filterLocation;
     else {
       // SET TODAY TO FILTER.DATE => DATE PICKER
       let date = new Date();
@@ -75,7 +75,8 @@ export default {
   },
   methods: {
     setFilter() {
-      this.$store.dispatch("setFilter", this.filter);
+      console.log('SEARCH 2 filter', this.filter)
+      this.$store.dispatch("setFilterLocation", this.filter);
       this.$router.push({ path: "/baby/list" });
     }
   },

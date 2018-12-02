@@ -19,15 +19,15 @@ export default new Vuex.Store({
   },
   state: {
     currUser: {},
-    filter: null
+    // filter: null
   },
   mutations: {
     setCurrUser(state, payload) {  
       state.currUser = payload
     },
-    setTheFilter(state, filter) {
-      state.filter = filter;
-    },
+    // setTheFilter(state, filter) {
+    //   state.filter = filter;
+    // },
   },
   actions: {
     
@@ -39,10 +39,10 @@ export default new Vuex.Store({
                   return user
         })
     },
-    setFilter(context, filter) {
-      var newFilter = JSON.parse(JSON.stringify(filter)) 
-      context.commit('setTheFilter', newFilter)
-    },
+    // setFilter(context, filter) {
+    //   var newFilter = JSON.parse(JSON.stringify(filter)) 
+    //   context.commit('setTheFilter', newFilter)
+    // },
     checkLogin(){
         var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
         if (!userFromStorage) return false
@@ -52,8 +52,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    filter(state) {
-      return JSON.parse(JSON.stringify(state.filter));
-    },
+    // filter(state) {
+    //   return JSON.parse(JSON.stringify(state.filter));
+    // },
   }
 })
