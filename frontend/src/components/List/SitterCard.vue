@@ -1,15 +1,15 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <div class="image"></div>
+      <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
         <h2 class="name">{{sitter.name.fullName}}</h2>
         <h3 class="address">{{sitter.adress.street}} {{sitter.adress.city}}</h3>
         <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
-        <div class="contact">
-          <h4 @click="sendMessage(sitter)">Contact</h4>
+        <div class="contact"  @click="sendMessage(sitter)">
+          <h4>Contact</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
@@ -44,24 +44,23 @@
         <p>
           Hello parents,
           <br>
-
-          {{sitter.description}}
+          {{sitter.about}}
         </p>
       </div>
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
-        <i class="fas fa-smoking-ban"></i>
-        <span class="tooltiptext tooltip-top" :class="{black: !sitter.smoking}">Non-Smoker</span>
+        <i class="fas fa-smoking-ban"  :class="{black: !sitter.smoking}"></i>
+        <span class="tooltiptext tooltip-top">Non-Smoker</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-id-card item-awsome"></i>
-        <span class="tooltiptext tooltip-top" :class="{black: sitter.license}">Has driver License</span>
+        <i class="fas fa-id-card item-awsome"  :class="{black: sitter.license}"></i>
+        <span class="tooltiptext tooltip-top">Has driver License</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-car item-awsome" :class="{black: sitter.license}"></i>
+        <i class="fas fa-car item-awsome" :class="{black: sitter.car}"></i>
         <span class="tooltiptext tooltip-top">Has car</span>
       </div>
 
@@ -71,13 +70,13 @@
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-file item-awsome"></i>
-        <span class="tooltiptext tooltip-top" :class="{black: sitter.recomandation}">Has recomendation</span>
+        <i class="fas fa-file item-awsome"  :class="{black: sitter.recomandation}"></i>
+        <span class="tooltiptext tooltip-top">Has recomendation</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-broom item-awsome"></i>
-        <span class="tooltiptext tooltip-top" :class="{black: sitter.clen}">Clean</span>
+        <i class="fas fa-broom item-awsome"  :class="{black: sitter.clean}"></i>
+        <span class="tooltiptext tooltip-top">Clean</span>
       </div>
     </div>
   </div>
@@ -180,16 +179,21 @@ i {
 }
 
 .card-header .buttons .contact {
-  background-color: #9054ef;
+  background-color: #771144;
   color: white;
   height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: .2s all
+}
+
+.contact:hover{
+    background-color: #c19aff;
 }
 
 .card-header .buttons .bookmark {
-  background-color: #00d9bd;
+  background-color: #fd0054;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -296,6 +300,13 @@ i {
 
 .icon{
   color: #d5d5d5;
+}
+
+.name{
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 25px;
+  margin-bottom: 3px;
 }
 
 @media (min-width: 767px) {

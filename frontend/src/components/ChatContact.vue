@@ -152,6 +152,6 @@ body {
 
 .sender{
     align-self: flex-end;
-    background-color: rgb(138, 138, 255);
+      background-color: rgb(138, 138, 255);
 }
 </style>
