@@ -74,13 +74,22 @@ function getById(sitterId) {
         })
 }
 
-function getByUsername(username) {
+function getByUsernameSitter(username) {
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
             return collection.findOne({ username: username })
         })
 }
+
+function getByUsernameParent(username) {
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('parents');
+            return collection.findOne({ username: username })
+        })
+}
+
 
 
 function remove() {
@@ -92,7 +101,7 @@ function remove() {
         })
 }
 
-function update(user) {
+function updateSitter(user) {
     user._id = new ObjectId(user._id)
     return mongoService.connectToDb()
         .then(db => {
@@ -105,6 +114,20 @@ function update(user) {
                 })
         })
 }
+
+function updateParent(user) {
+    user._id = new ObjectId(user._id)
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('parents');
+            return collection.updateOne({ _id: user._id }, { $set: user })
+                .then(result => {
+                    console.log(result)
+                    return result;
+                })
+        })
+}
+
 
 function addSitter(userdetails) {
     var newUser = userdetails
@@ -127,8 +150,10 @@ module.exports = {
     query,
     getById,
     remove,
-    update,
-    getByUsername,
+    updateSitter,
+    updateParent,
+    getByUsernameSitter,
+    getByUsernameParent,
     checkSitterLogin,
     checkParentLogin,
     addSitter

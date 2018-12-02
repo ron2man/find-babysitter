@@ -16,11 +16,18 @@ function addSitterRoutes(app){
             .then(sitter => res.json(sitter))
     })
 
-    app.get('/baby/username/:username', (req, res) => {
+    app.get('/baby/sitter/:username', (req, res) => {
         const username = req.params.username;
-        return babyService.getByUsername(username)
+        return babyService.getByUsernameSitter(username)
             .then(sitter => res.json(sitter))
     })
+
+    app.get('/baby/parent/:username', (req, res) => {
+        const username = req.params.username;
+        return babyService.getByUsernameParent(username)
+            .then(sitter => res.json(sitter))
+    })
+
 
 
     // DELETE
@@ -42,9 +49,16 @@ function addSitterRoutes(app){
     // UPDATE
     app.put('/baby/:id', (req, res) => {
         const user = req.body;
-        return babyService.update(user)
+        return babyService.updateSitter(user)
             .then(sitter => res.json(sitter))
     })
+
+    app.put('/baby/parent/:id', (req, res) => {
+        const user = req.body;
+        return babyService.updateParent(user)
+            .then(sitter => res.json(sitter))
+    })
+
 
 }
 
