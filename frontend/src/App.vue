@@ -4,15 +4,16 @@
     <!-- START HEADER -->
     <header class="flex flex-space-between">
       <div>
-        <router-link to="/login">
-          <i class="fas fa-user"></i>
-        </router-link>
+        <!-- <router-link @click="checkIfLogin"> -->
+        <i class="fas fa-user" @click="checkIfLogin"></i>
+        <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span>
+        <!-- </router-link> -->
       </div>
       <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
       </h1>
       <nav>
-        <i class="fas fa-bars" @click="checkIfLogin"></i>
+        <i class="fas fa-bars"></i>
       </nav>
     </header>
     <!-- END HEADER -->
@@ -30,15 +31,29 @@ export default {
   components: {
     Menu
   },
+  data() {
+    return {
+      currUser: null
+    };
+  },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
+    this.$store.dispatch({ type: "checkIfLogin" });
+    this.currUser = this.$store.getters.setLoginUser;
   },
-  methods:{
-    checkIfLogin(){
-      console.log('checking');
-      
+  methods: {
+    checkIfLogin() {
+      this.$store.dispatch({ type: "checkIfLogin" }).then(ans => {
+        if (ans) this.$router.push("/");
+        else this.$router.push("/login");
+      });
+      this.currUser = this.$store.getters.setLoginUser;
     }
-
+  },
+  computed: {
+    setCurrUser() {
+      this.currUser = this.$store.getters.setLoginUser;
+    }
   }
 };
 </script>
@@ -77,5 +92,10 @@ header {
       color: #42b983;
     }
   }
+}
+
+.welcome-title {
+  text-decoration: none;
+  margin-left: 20px;
 }
 </style>

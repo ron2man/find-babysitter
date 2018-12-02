@@ -22,38 +22,55 @@ export default new Vuex.Store({
     // filter: null
   },
   mutations: {
-    setCurrUser(state, payload) {  
+    setCurrUser(state, payload) {
       state.currUser = payload
     },
+    setLoggedInUser(state, { userFromStorage }) {
+      state.currUser = userFromStorage
+    },
+
+
     // setTheFilter(state, filter) {
     //   state.filter = filter;
     // },
   },
   actions: {
-    
+
     checkUser({ commit }, { typedDetails }) {
       return authService.login(typedDetails)
-              .then(user => {                                   
-                  commit('setCurrUser', user)
-                  localStorage.setItem('loggedInUser', JSON.stringify(user))
-                  return user
+        .then(user => {
+          commit('setCurrUser', user)
+          localStorage.setItem('loggedInUser', JSON.stringify(user))
+          return user
         })
     },
     // setFilter(context, filter) {
     //   var newFilter = JSON.parse(JSON.stringify(filter)) 
     //   context.commit('setTheFilter', newFilter)
     // },
-    checkLogin(){
-        var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
-        if (!userFromStorage) return false
-        else {
-          return userFromStorage
-        } 
+    checkLogin() {
+      var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
+      if (!userFromStorage) return false
+      else {
+        return userFromStorage
+      }
+    },
+    checkIfLogin(context) {
+      var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
+      if (!userFromStorage) return false
+      else{
+        context.commit({ type: 'setLoggedInUser', userFromStorage })
+        return true
+      } 
     }
   },
   getters: {
     // filter(state) {
     //   return JSON.parse(JSON.stringify(state.filter));
     // },
+    setLoginUser: (state) => {
+      console.log('im getter',state.currUser);
+      return state.currUser
+    }
   }
 })
