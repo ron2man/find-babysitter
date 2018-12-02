@@ -4,8 +4,6 @@ const BASE_URL = 'http://localhost:3003'
 
 
 
-
-
 function query(filterLocation = '', filterProperty = '') {
     // function query(filter = {username:'shira',license: true}) {
 
@@ -47,6 +45,7 @@ var endTime = 1546336800000;
 
 
 
+
 function getById(id){
     return axios.get(`${BASE_URL}/baby/${id}`).then(res => res.data)
 }
@@ -58,6 +57,7 @@ function getByUsername(username){
 
 function updateUser(user){
     return axios.put(`${BASE_URL}/baby/${user._id}`,user)
+}
 
 
 function getSitterByUsername(username){
