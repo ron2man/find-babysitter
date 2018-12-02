@@ -56,9 +56,11 @@ export default {
                 .then(sitters => context.commit('setSitters', sitters))
         },
 
-        setNewSitter({ commit }, { newSitter }) {
+        setNewSitter({ commit }, { newSitter }) {            
             return sitterServiceBack.addNewSitter(newSitter)
                 .then(theSitter =>{
+                    console.log('theSitter',theSitter);
+
                     commit({ type: 'setNewSitter', theSitter })
                     return theSitter
                 })

@@ -2,7 +2,7 @@
 
 <template>
   <section>
-    <img class="login-bcg" src="@/assets/images/loginbcg.png">
+    <img class="login-bcg" src="@/assets/images/login2.png">
    <div class="login-container flex column">
     <h1 class="login-title">LOG IN</h1>
     <form @submit.prevent="checkUser" class="flex column">
@@ -87,6 +87,8 @@ export default {
   width: 30%;
   margin: 0 auto;
   margin-top: 50px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 .container-login-form-btn {
@@ -253,6 +255,7 @@ button {
     top: 0;
     left: 0;
     z-index: -1;
+    object-fit: cover;
 }
 
 

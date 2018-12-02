@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3003/baby'
-// const BASE_URL = 'http://localhost:3003/baby'
+const BASE_URL = 'http://localhost:3003'
 
 function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams
@@ -11,20 +10,20 @@ function query(filter = {username:'shira',license: true}) {
     // params.name = filter.name
     // params.filter = filter
     // params.set('name', filter.name)
-    return axios.get(`${BASE_URL}?${params}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/baby?${params}`).then(res => res.data)
 }
 
 
 function getById(id){
-    return axios.get(`${BASE_URL}/${id}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/baby/${id}`).then(res => res.data)
 }
 
 function getByUsername(username){
-    return axios.get(`${BASE_URL}/username/${username}`).then(res => res.data)
+    return axios.get(`${BASE_URL}/baby/username/${username}`).then(res => res.data)
 }
 
 function updateUser(user){
-    return axios.put(`${BASE_URL}/${user._id}`,user)
+    return axios.put(`${BASE_URL}/baby/${user._id}`,user)
 }
 
 
@@ -36,7 +35,7 @@ function createNotification(from){
     }
 }
 
-function addNewSitter(newSitter) {
+function addNewSitter(newSitter) {    
    return axios.post(`${BASE_URL}/signup`,newSitter)
         .then(res=>res.data)
 }
