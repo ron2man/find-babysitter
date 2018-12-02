@@ -59,7 +59,7 @@
 export default {
   props: ["sitter"],
   created(){
-    console.log(this.sitter)
+    // console.log(this.sitter)
   },
   methods: {
     goToDetails(id) {
