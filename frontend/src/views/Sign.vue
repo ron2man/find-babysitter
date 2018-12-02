@@ -6,10 +6,11 @@
     <form @submit.prevent="setNewSitter">
       <h1 class="sign-title">Sign up</h1>
       <div class="name-container flex wrap flex-space-around align-space-around">
-        <input type="text" placeholder="Insert name" v-model="sitter.fName" required>
-        <input type="text" placeholder="Insert last name" v-model="sitter.lName" required>
-        <input type="text" placeholder="Choose nickname" v-model="sitter.username" required>
-        <input type="text" placeholder="Insert password" v-model="sitter.pwd" required>
+        <input type="text" placeholder="Username" v-model="sitter.username" required>
+        <input type="text" placeholder="Password" v-model="sitter.pwd" required>
+        <input type="text" placeholder="Email" v-model="sitter.email" required>
+        <input type="text" placeholder="Name" v-model="sitter.fName" required>
+        <input type="text" placeholder="Last name" v-model="sitter.lName" required>
         <input type="text" placeholder="Insert city adrress" v-model="sitter.adrress.city" required>
         <input type="text" placeholder="Insert Street adrress" v-model="sitter.adrress.street" required>
       </div>
@@ -118,6 +119,7 @@ export default {
         type: "sitter",
         username: "",
         pwd: "",
+        email:'',
         fName: "",
         lName: "",
         age: "",

@@ -1,7 +1,9 @@
 
 
 <template>
-  <section class="login-container flex column">
+  <section>
+    <img class="login-bcg" src="@/assets/images/loginbcg.png">
+   <div class="login-container flex column">
     <h1 class="login-title">LOG IN</h1>
     <form @submit.prevent="checkUser" class="flex column">
     
@@ -20,11 +22,12 @@
         <button class="login-form-btn">Login</button>
       </div>
 
-      <span v-if="isWrong">worng credinatls</span>
+      <!-- <span v-if="isWrong">worng credinatls</span> -->
       <p class="sign-in">not yet registered?
         <router-link to="/sign" class="pwd-forgot">sign in</router-link>
       </p>
     </form>
+    </div>
   </section>
 </template>
 
@@ -81,7 +84,7 @@ export default {
   background: -o-linear-gradient(top, #7579ff, #b224ef);
   background: -moz-linear-gradient(top, #7579ff, #b224ef);
   background: linear-gradient(top, #7579ff, #b224ef);
-  width: 70%;
+  width: 30%;
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -240,6 +243,16 @@ button {
 
 .pwd-forgot{
   margin-bottom: 20px;
+}
+
+.login-bcg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 
