@@ -18,6 +18,7 @@ export default {
             const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
             if (currLoggedUser.type === 'parent') return sitterServiceBack.getSitterByUsername(user)
                 .then(user => {
+                    console.log(user)
                     context.commit({ type: 'setNotificationUser', user })
                     context.dispatch({ type: 'pushNotification', user })
                     return user
