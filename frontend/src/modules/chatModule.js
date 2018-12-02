@@ -15,7 +15,6 @@ export default {
     },
     actions: {
         sendNotification(context, { user }) {
-            console.log(user,'userr')
             const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
             if (currLoggedUser.type === 'parent') return sitterServiceBack.getSitterByUsername(user)
                 .then(user => {

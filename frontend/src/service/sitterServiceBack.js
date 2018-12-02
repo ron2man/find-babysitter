@@ -51,7 +51,6 @@ function getById(id) {
     return axios.get(`${BASE_URL}/${id}`).then(res => res.data)
 }
 
-<<<<<<< HEAD
 function getSitterByUsername(username){
     return axios.get(`${BASE_URL}/sitter/${username}`).then(res => res.data)
 }
@@ -63,14 +62,6 @@ function getByParentUsername(username){
 
 function updateSitter(user){
     return axios.put(`${BASE_URL}/${user._id}`,user)
-=======
-function getByUsername(username) {
-    return axios.get(`${BASE_URL}/username/${username}`).then(res => res.data)
-}
-
-function updateUser(user) {
-    return axios.put(`${BASE_URL}/${user._id}`, user)
->>>>>>> 54b8a376996040481cb09a8e9488c5748c13649b
 }
 
 function updateParent(user){
