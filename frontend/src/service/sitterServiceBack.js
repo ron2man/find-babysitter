@@ -2,10 +2,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3003'
 
-
-
-
-
 function query(filterLocation = '', filterProperty = '') {
     // function query(filter = {username:'shira',license: true}) {
 
@@ -106,7 +102,7 @@ function addNewSitter(newSitter) {
 //     const sitterIdx = sitters.findIndex(currSitter => currSitter.id === sitter.id)
 //     sitter.splice(sitterIdx, 1, sitter)
 //     return Promise.resolve(sitterIdx)
-// }
+
 
 export default {
     query,
