@@ -4,20 +4,22 @@
     <!-- START HEADER -->
     <header class="flex flex-space-between">
       <div>
-        <router-link to="/login"><i class="fas fa-user"></i></router-link>
+        <router-link to="/login">
+          <i class="fas fa-user"></i>
+        </router-link>
       </div>
       <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
       </h1>
       <nav>
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars" @click="checkIfLogin"></i>
       </nav>
     </header>
     <!-- END HEADER -->
     <main>
       <router-view/>
     </main>
-    
+
     <footer></footer>
   </div>
 </template>
@@ -30,6 +32,13 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
+  },
+  methods:{
+    checkIfLogin(){
+      console.log('checking');
+      
+    }
+
   }
 };
 </script>
@@ -37,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -47,11 +56,13 @@ header {
   line-height: 50px;
   padding: 0 15px;
   background-color: #9054ef;
-  color:white;
+  color: white;
   h1 {
     font-size: 1.5em;
-    a, a:active, a:hover {
-      color:white;
+    a,
+    a:active,
+    a:hover {
+      color: white;
       text-decoration: none;
     }
   }
