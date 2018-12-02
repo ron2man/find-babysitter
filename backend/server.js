@@ -48,7 +48,6 @@ io.on('connection', function (socket) {
   });
 
   socket.on('SendMsg', details => {
-    console.log(details)
     io.to(details.details).emit('SendMsg', details.msg);
     const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
     if (!msgs[`${details.details}`]) {

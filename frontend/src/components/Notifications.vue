@@ -23,7 +23,6 @@ export default {
   },
   created() {
     this.user = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log(this.user.notifications)
   },
   methods: {
     goToChat(from) {

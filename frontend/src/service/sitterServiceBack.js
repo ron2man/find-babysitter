@@ -51,6 +51,7 @@ function getById(id){
     return axios.get(`${BASE_URL}/baby/${id}`).then(res => res.data)
 }
 
+
 function getByUsername(username){
     return axios.get(`${BASE_URL}/baby/username/${username}`).then(res => res.data)
 }
@@ -58,7 +59,25 @@ function getByUsername(username){
 function updateUser(user){
     return axios.put(`${BASE_URL}/baby/${user._id}`,user)
 
+
+function getSitterByUsername(username){
+    return axios.get(`${BASE_URL}/sitter/${username}`).then(res => res.data)
 }
+
+function getByParentUsername(username){
+    return axios.get(`${BASE_URL}/parent/${username}`).then(res => res.data)
+
+}
+
+
+function updateSitter(user){
+    return axios.put(`${BASE_URL}/${user._id}`,user)
+}
+
+function updateParent(user){
+    return axios.put(`${BASE_URL}/parent/${user._id}`,user)
+}
+
 
 
 function createNotification(from) {
@@ -92,10 +111,12 @@ function addNewSitter(newSitter) {
 export default {
     query,
     getById,
-    getByUsername,
+    getSitterByUsername,
     createNotification,
-    updateUser,
-    addNewSitter
+    updateSitter,
+    updateParent,
+    addNewSitter,
+    getByParentUsername
     // remove,
     // update,
 }

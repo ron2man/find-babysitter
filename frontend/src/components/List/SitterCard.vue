@@ -3,13 +3,13 @@
     <div class="card-header">
       <div class="image"></div>
       <div class="details">
-        <h2 class="name">Avirama Golan</h2>
-        <h3 class="address">Sd. Rotchild 29 Tel-Aviv</h3>
-        <p>another text</p>
+        <h2 class="name">{{sitter.name.fullName}}</h2>
+        <h3 class="address">{{sitter.adress.street}} {{sitter.adress.city}}</h3>
+        <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
         <div class="contact">
-          <h4>Contact</h4>
+          <h4 @click="sendMessage(sitter)">Contact</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
@@ -36,7 +36,7 @@
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span>Full Time
+          <span class="bold">Looking For:</span>{{sitter.time}}
         </p>
       </div>
 
@@ -45,49 +45,74 @@
           Hello parents,
           <br>
 
-          my name is Alice and I will be happy to look after your child. I am an actress and a
-          theater teacher. She is currently teaching at the school and studying. I have many years of
-          experience working with children. I love to provide warmth and love for children. I am full of joie
+          {{sitter.description}}
         </p>
       </div>
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
         <i class="fas fa-smoking-ban"></i>
-        <span class="tooltiptext tooltip-top">Non-Smoker</span>
+        <span class="tooltiptext tooltip-top" :class="{black: !sitter.smoking}">Non-Smoker</span>
       </div>
 
       <div class="icon tooltip">
         <i class="fas fa-id-card item-awsome"></i>
-        <span class="tooltiptext tooltip-top">Has driver License</span>
+        <span class="tooltiptext tooltip-top" :class="{black: sitter.license}">Has driver License</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-car item-awsome"></i>
+        <i class="fas fa-car item-awsome" :class="{black: sitter.license}"></i>
         <span class="tooltiptext tooltip-top">Has car</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-briefcase-medical item-awsome"></i>
+        <i class="fas fa-briefcase-medical item-awsome" :class="{black: sitter.medical}"></i>
         <span class="tooltiptext tooltip-top">Medical treatment</span>
       </div>
 
       <div class="icon tooltip">
         <i class="fas fa-file item-awsome"></i>
-        <span class="tooltiptext tooltip-top">Has recomendation</span>
+        <span class="tooltiptext tooltip-top" :class="{black: sitter.recomandation}">Has recomendation</span>
       </div>
 
       <div class="icon tooltip">
         <i class="fas fa-broom item-awsome"></i>
-        <span class="tooltiptext tooltip-top">Clean</span>
+        <span class="tooltiptext tooltip-top" :class="{black: sitter.clen}">Clean</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
-</script>
+export default {
+  props: ["sitter"],
+  created(){
+    // console.log(this.sitter)
+  },
+  methods: {
+    goToDetails(id) {
+      this.$router.push(`/baby/${id}`);
+    },
+    sendMessage(sitter) {
+      this.$store.dispatch({type:'checkLogin'})
+        .then(user => {
+          if(!user)this.$router.push("/login")
+          else this.$router.push(`profile/parent/${sitter.username}/contact`)
+        })
+    }
+  },
+  computed: {
+    getLength() {
+      if (this.sitter.description.length > 180) {
+        const newDesc = this.sitter.description.substring(180, length - 1);
+        return newDesc;
+      } else {
+        return this.sitter.description;
+      }
+    }
+  },
+ 
+};</script>
 
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
@@ -263,6 +288,14 @@ i {
 .tooltip:nth-last-child(1) .tooltip-top {
   margin-left: 0;
   left: -75px;
+}
+
+.black{
+  color:black;
+}
+
+.icon{
+  color: #d5d5d5;
 }
 
 @media (min-width: 767px) {
