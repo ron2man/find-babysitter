@@ -8,8 +8,8 @@
         <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
-        <div class="contact">
-          <h4 @click="sendMessage(sitter)">Contact</h4>
+        <div class="contact"  @click="sendMessage(sitter)">
+          <h4>Contact</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
@@ -186,6 +186,11 @@ i {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: .2s all
+}
+
+.contact:hover{
+    background-color: #c19aff;
 }
 
 .card-header .buttons .bookmark {

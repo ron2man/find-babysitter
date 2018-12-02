@@ -5,7 +5,7 @@
   </head>
   <body>
     <ul id="messages">
-      <li v-for="msg in msgs" :key="msg.msg" :class="{sender: msg.from === loggedUser.username}">{{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}</li>
+      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">{{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}</li>
     </ul>
     <div class="input-box">
       <input id="m" autocomplete="off" v-model="msg">
@@ -80,6 +80,7 @@ export default {
     SendMsg(msg) {
       const from = this.loggedUser.username;
       const time = Date.now()
+      console.log(from)
       this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
     },
@@ -137,6 +138,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
+  margin-bottom: 60px;
 }
 #messages li {
   padding: 5px 10px;
@@ -145,10 +147,11 @@ body {
   border-radius: 10px;
   margin:5px;
   width: fit-content;
+  font-size: 20px;
 }
 
 .sender{
     align-self: flex-end;
-    background-color: rgb(138, 138, 255);
+      background-color: rgb(138, 138, 255);
 }
 </style>
