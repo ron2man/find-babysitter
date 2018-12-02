@@ -9,14 +9,14 @@
         <second-filter class="filter"></second-filter>
 
         <div class="cards">
-          <sitter-card></sitter-card>
-          <sitter-card></sitter-card>
-          <sitter-card></sitter-card>
+          <sitter-card v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-card>
+          <!-- <sitter-card></sitter-card>
+          <sitter-card></sitter-card> -->
         </div>
       </div>
     </div>
     <hr>
-    <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
+    <!-- <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview> -->
   </section>
 </template>
 
