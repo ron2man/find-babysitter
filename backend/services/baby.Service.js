@@ -2,13 +2,48 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query(filter) {
+function query(time) {
+    // const start = parseInt(startTime)
+    // const end = parseInt(endTime)
+    var startTime;
+    var endTime;
+    if (time.sTime) startTime = +time.sTime;
+    if (time.eTime) endTime = +time.eTime;
+
+    console.log(startTime, endTime)
+
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
-            return collection.find({}).toArray()
-            // return collection.find({$and:[{"username" : filter.username},{"license":JSON.parse(filter.license)}]}).toArray()
-            // return collection.find({$and:[{"license" : !!filter.license}]}).toArray()
+            return collection.find({
+                $nor:
+                    [{ schedule: { $elemMatch: { sTime: { $gte: startTime, $lte: endTime } } } },
+                    { schedule: { $elemMatch: { eTime: { $gte: startTime, $lte: endTime } } } }]
+            }).toArray()
+
+
+
+            // 
+            // db.getCollection('sitters').find({
+            //     $nor: [
+            //         { schedule: { "$elemMatch": { sTime: { $lte: 1546336800000 }, eTime: { $gte: 1546329600000 } } } }]
+            // }
+
+            // )
+
+
+
+
+            // return collection.find({}).toArray()
+
+            // db.getCollection('sitters').find( {$nor: [ 
+            //     {schedule: { $all: [
+            //                    { "$elemMatch" : { sTime: { $lt: searchEndTime} }},
+            //                    { "$elemMatch" : { eTime : { $gt: searchStartTime} }}
+            //                  ] }}
+            //   ]} )
+
+
         })
 }
 
@@ -64,8 +99,9 @@ function update(user) {
             const collection = db.collection('sitters');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    console.log(result)
-                    return result;
+                    // return result;
+                    // })
+                    // console.log(result)
                 })
         })
 }
@@ -80,8 +116,8 @@ function addSitter(userdetails) {
                     newUser._id = user.insertedIds
                     return newUser
                 })
-            })
-        
+        })
+
 
 }
 
