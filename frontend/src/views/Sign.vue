@@ -3,107 +3,213 @@
 
 <template>
   <section class="sign-container">
+    <img class="login-bcg" src="@/assets/images/login2.png">
     <form @submit.prevent="setNewSitter">
-      <h1 class="sign-title">Sign up</h1>
-      <div class="name-container flex wrap flex-space-around align-space-around">
+      <h1 class="sign-title">SIGN UP</h1>
+
+      <div v-if="pageNum===1" class="name-container flex wrap flex-space-around align-space-around">
         <input type="text" placeholder="Username" v-model="sitter.username" required>
         <input type="text" placeholder="Password" v-model="sitter.pwd" required>
         <input type="text" placeholder="Email" v-model="sitter.email" required>
-        <input type="text" placeholder="Name" v-model="sitter.fName" required>
-        <input type="text" placeholder="Last name" v-model="sitter.lName" required>
-        <input type="text" placeholder="Insert city adrress" v-model="sitter.adrress.city" required>
-        <input type="text" placeholder="Insert Street adrress" v-model="sitter.adrress.street" required>
       </div>
-      <section class="extra-container flex wrap">
-        <div class="prefs-container flex column flex-space-around">
-          <h4 class="title">position?</h4>
 
-          <input list="position" placeholder="position" v-model="sitter.position">
-          <datalist id="position">
-            <option value="nanny"/>
-            <option value="opper"/>
-            <option value="Cook"/>
-          </datalist>
+      <div v-if="pageNum===2">
+        <div class="name-container flex wrap flex-space-around align-space-around">
+          <input type="text" placeholder="Name" v-model="sitter.name.fName" required>
+          <input type="text" placeholder="Last name" v-model="sitter.name.lName" required>
+          <input type="text" placeholder="City" v-model="sitter.adrress.city" required>
+          <input type="text" placeholder="Street" v-model="sitter.adrress.street" required>
         </div>
+        <section class="extra-container">
+          <div class="prefs-container flex column flex-space-around">
+            <el-select
+              class="about-item"
+              v-model="sitter.position"
+              clearable
+              placeholder="position?"
+            >
+              <el-option
+                v-for="item in positions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
 
-        <div class="age-container flex column flex-space-around">
-          <h4 class="title">What age?</h4>
+            <el-select
+              class="about-item"
+              v-model="sitter.agePrefs"
+              clearable
+              placeholder="What age?"
+            >
+              <el-option
+                v-for="item in ages"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </div>
 
-          <input list="ageprefs" placeholder="What age" v-model="sitter.ages">
-          <datalist id="ageprefs">
-            <option value="Babies"/>
-            <option value="Toddlers"/>
-            <option value="Children"/>
-            <option value="All of them"/>
-          </datalist>
-        </div>
+          <div class="tot-lang-container flex column flex-space-around">
+            <h4 class="title">
+              languages
+              <i class="fas fa-globe"></i>
+            </h4>
 
-        <div class="lang-container flex column flex-space-around">
-          <h4 class="title">languages</h4>
+            <div class="lang-container flex flex-space-around">
+              <label class="lang-item">
+                Hebrew
+                <i class="fas fa-check-circle" v-if="sitter.languages.english"></i>
+                <input
+                  class="input-check-item"
+                  type="checkbox"
+                  value="he"
+                  v-model="sitter.languages.english"
+                >
+              </label>
+              <label>
+                English
+                <i class="fas fa-check-circle" v-if="sitter.languages.hebrew"></i>
+                <input
+                  class="input-check-item"
+                  type="checkbox"
+                  value="en"
+                  v-model="sitter.languages.hebrew"
+                >
+              </label>
+              <label>
+                Russian
+                <i class="fas fa-check-circle" v-if="sitter.languages.russian"></i>
+                <input
+                  class="input-check-item"
+                  type="checkbox"
+                  value="ru"
+                  checked
+                  v-model="sitter.languages.russian"
+                >
+              </label>
+            </div>
+          </div>
+        </section>
+      </div>
 
-          <label>
-            Hebrew
-            <input type="checkbox" value="he" v-model="sitter.languages.english">
-          </label>
-          <label>
-            English
-            <input type="checkbox" value="en" v-model="sitter.languages.hebrew">
-          </label>
-          <label>
-            Russian
-            <input type="checkbox" value="ru" checked v-model="sitter.languages.russian">
-          </label>
-        </div>
-        <div class="trans-container flex column flex-space-around">
-          <h4 class="title">Mobility</h4>
+      <div v-if="pageNum===3">
+        <section class="about-container">
+          <h4 class="check-title">Mobility</h4>
+          <div class="trans-container flex wrap flex-space-around">
+            <label class="prefs-check-item" :class="{black: sitter.license}">Drive license
+              <div>
+                <i class="fas fa-id-card item-awsome"></i>
+              </div>
+              <input
+                class="input-check-item"
+                type="checkbox"
+                name="pref1"
+                value="license"
+                v-model="sitter.license"
+              >
+            </label>
+            <label class="prefs-check-item" :class="{black: sitter.vehicle}">Has car
+              <div>
+                <i class="fas fa-car item-awsome"></i>
+              </div>
+              <input
+                class="input-check-item"
+                type="checkbox"
+                name="pref2"
+                value="Car"
+                v-model="sitter.vehicle"
+              >
+            </label>
+          </div>
+          <h2 class="check-title">Others</h2>
+          <div class="others-container flex flex-space-around">
+            <label class="prefs-check-item" :class="{black: sitter.medical}">Medical
+              <div>
+                <i class="fas fa-briefcase-medical item-awsome"></i>
+              </div>
+              <input
+                class="input-check-item"
+                type="checkbox"
+                name="Medical"
+                value="Medical"
+                v-model="sitter.medical"
+              >
+            </label>
+            <label class="prefs-check-item" :class="{black: sitter.recomendations}">Recomendations
+              <div>
+                <i class="fas fa-file item-awsome"></i>
+              </div>
+              <input
+                class="input-check-item"
+                type="checkbox"
+                name="recomendations"
+                value="recomendations"
+                v-model="sitter.recomendations"
+              >
+            </label>
+            <label class="prefs-check-item" :class="{black: sitter.clean}">Clean
+              <div>
+                <i class="fas fa-broom item-awsome"></i>
+              </div>
+              <input
+                class="input-check-item"
+                type="checkbox"
+                name="clean"
+                value="clean"
+                v-model="sitter.clean"
+              >
+            </label>
+          </div>
 
-          <label>
-            license
-            <input type="checkbox" name="pref1" value="license" v-model="sitter.license">
-          </label>
-          <label>
-            vehicle
-            <input type="checkbox" name="pref2" value="Car" v-model="sitter.vehicle">
-          </label>
-        </div>
-      </section>
+          <p class="about-item">A few words about yourself</p>
+          <textarea rows="4" cols="20" v-model="sitter.description" placeholder=" write here..."></textarea>
 
-      <input list="time" placeholder="Scope of Position" v-model="sitter.ages">
-      <datalist id="time">
-        <option value="Part-time"/>
-        <option value="Full-time"/>
-      </datalist>
+          <el-select class="about-item" v-model="sitter.scopeOfPos" clearable placeholder="Scope">
+            <el-option
+              class="option-item"
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
 
-      <section class="about-container flex wrap flex-space-around align-space-around">
-        <textarea rows="4" cols="50" v-model="sitter.about">
-          About yourself
-        </textarea>
-        
-        <input list="exp" placeholder="Exprerience" v-model="sitter.exprerience">
-        <datalist id="exp">
-          <option value="inexperienced"/>
-          <option value="Up to three years of experience"/>
-          <option value="Over 3 years of experience"/>
-        </datalist>
+          <el-select
+            class="about-item"
+            v-model="sitter.exprerience"
+            clearable
+            placeholder="Exprerience"
+          >
+            <el-option
+              v-for="item in expreriences"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
 
-        <input list="age" placeholder="Choose age" v-model="sitter.age">
-        <datalist id="age">
-          <option value="16-18"/>
-          <option value="18-20"/>
-          <option value="20-22"/>
-          <option value="22-25"/>
-          <option value="25-30"/>
-          <option value="Over 30"/>
-        </datalist>
+          <div class="block about-item">
+            <span class="demonstration">Choose age</span>
+            <el-slider v-model="sitter.age"></el-slider>
+          </div>
 
-        <input list="studies" placeholder="Studies" v-model="sitter.studies">
-        <datalist id="studies">
-          <option value="12 school years"/>
-          <option value="BA"/>
-          <option value="MA"/>
-        </datalist>
-        <button class="btn-submit">Submit</button>
-      </section>
+          <el-select class="about-item" v-model="sitter.studies" clearable placeholder="Studies">
+            <el-option
+              v-for="item in Studies"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </section>
+      </div>
+      <div class="btn-container flex">
+        <button v-if="pageNum>1" type="button" class="btn-submit" @click="pageNumChange('-')">Back</button>
+        <button v-if="pageNum<3" type="button" class="btn-submit" @click="pageNumChange('+')">Next</button>
+        <button v-if="pageNum===3" class="btn-submit">Submit</button>
+      </div>
     </form>
   </section>
 </template>
@@ -115,14 +221,18 @@ export default {
   name: "Sign",
   data() {
     return {
+      pageNum: 1,
       sitter: {
         type: "sitter",
         username: "",
         pwd: "",
-        email:'',
-        fName: "",
-        lName: "",
-        age: "",
+        email: "",
+        name: {
+          fName: "",
+          lName: "",
+          fullNAme: this.fName + " " + this.lName
+        },
+        age: 0,
         phone: "",
         adrress: {
           district: "",
@@ -131,7 +241,8 @@ export default {
         },
         position: "",
         time: "",
-        ages: "",
+        agePrefs: "",
+        scopeOfPos: "",
         languages: {
           english: "",
           hebrew: "",
@@ -146,7 +257,7 @@ export default {
         shortCall: "",
         smoking: "",
         medical: "",
-        recomandation: "",
+        recomandations: "",
         clean: "",
         about: "",
         joinedAt: moment().format("L"),
@@ -154,16 +265,96 @@ export default {
         lastVisit: "",
         // todo - option to uplaod img from the pfone
         imgUrl: ""
-      }
+      },
+      options: [
+        {
+          value: "Part-time",
+          label: "Part-time"
+        },
+        {
+          value: "Full-time",
+          label: "Full-time"
+        }
+      ],
+      expreriences: [
+        {
+          value: "inexperienced",
+          label: "inexperienced"
+        },
+        {
+          value: "Up to three years of experience",
+          label: "Up to three years of experience"
+        },
+        {
+          value: "Over 3 years of experience",
+          label: "Over 3 years of experience"
+        }
+      ],
+      Studies: [
+        {
+          value: "12 school years",
+          label: "12 school years"
+        },
+        {
+          value: "BA",
+          label: "BA"
+        },
+        {
+          value: "MA",
+          label: "MA"
+        }
+      ],
+      positions: [
+        {
+          value: "nanny",
+          label: "nanny"
+        },
+        {
+          value: "opper",
+          label: "opper"
+        },
+        {
+          value: "cook",
+          label: "cook"
+        }
+      ],
+      ages: [
+        {
+          value: "Babies",
+          label: "Babies"
+        },
+        {
+          value: "Toddlers",
+          label: "Toddlers"
+        },
+        {
+          value: "Children",
+          label: "Children"
+        },
+        {
+          value: "All of them",
+          label: "All of them"
+        }
+      ]
     };
   },
   methods: {
     setNewSitter() {
-      this.$store
-        .dispatch({ type: "setNewSitter", newSitter: this.sitter })
-        .then(newSitter => {          
-          if (newSitter) this.$router.push(`/baby/profile/sitter/${newSitter.username}/notifications`)
-        });
+      if (this.pageNum === 3) {
+        this.$store
+          .dispatch({ type: "setNewSitter", newSitter: this.sitter })
+          .then(newSitter => {
+            if (newSitter)
+              this.$router.push(
+                `/baby/profile/sitter/${newSitter.username}/notifications`
+              );
+          });
+      }
+    },
+    pageNumChange(val) {
+      console.log("num changed");
+      if (val === "-") this.pageNum--;
+      else this.pageNum++;
     }
   }
 };
