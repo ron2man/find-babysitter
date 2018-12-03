@@ -3,16 +3,14 @@
     <!-- //link back to list -->
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
-      <img
-        :src="sitter.imgUrl"
-      >
+      <img :src="sitter.imgUrl">
       <div class="summery-detail-container">
         <p class="sitter-name">{{sitter.fullName}}</p>
         <p>{{sitter.adress.city}} | {{sitter.age}}</p>
       </div>
     </div>
     <div class="btn-container">
-      <button class="contact-btn btn">
+      <button class="contact-btn btn"  @click="sendMessage(sitter)">
         <i class="fas fa-comments"></i>
         <p class="btn-head">Contact</p>
       </button>
@@ -21,6 +19,10 @@
         <p class="btn-head">Favorite</p>
       </button>
     </div>
+
+    <div class="schedule">
+    </div>
+
     <div class="about">
       <h2 class="about-head">About</h2>
       <div class="about-box">
@@ -79,16 +81,21 @@
 </template>
 
 <script>
+
 export default {
-    data(){
-      return {
-        currSitter:''
-      }
-    },
+  components: {
+
+  },
+  data() {
+    return {
+      currSitter: ""
+    };
+  },
   created() {
     const id = this.$route.params.id;
-    this.$store.dispatch({ type: "getById", id })
-      .then(sitter => this.currSitter = sitter)
+    this.$store
+      .dispatch({ type: "getById", id })
+      .then(sitter => (this.currSitter = sitter));
   },
   methods: {
     getNumberOfStars() {
@@ -97,7 +104,14 @@ export default {
       }, 0);
       ratingSum = parseInt(ratingSum / this.sitter.reviews.length);
       return ratingSum;
-    }
+    },
+        sendMessage(sitter) {
+      this.$store.dispatch({type:'checkLogin'})
+        .then(user => {
+          if(!user)this.$router.push("/login")
+          else this.$router.push(`profile/parent/${sitter.username}/contact`)
+        })
+    },
   },
   computed: {
     sitter() {

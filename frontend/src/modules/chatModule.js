@@ -39,11 +39,11 @@ export default {
             let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
             if (noticeFrom === -1) {
                 copyUser.notifications.unshift(notification)
-                console.log(copyUser)
+                console.log(copyUser,'+',Date.now())
             } else {
                 copyUser.notifications.splice(noticeFrom, 1)
                 copyUser.notifications.unshift(notification)
-                console.log(copyUser)
+                console.log(copyUser,'+',Date.now())
             }
             if (currLoggedUser.type === 'parent') return sitterServiceBack.updateSitter(copyUser)
             else return sitterServiceBack.updateParent(copyUser)

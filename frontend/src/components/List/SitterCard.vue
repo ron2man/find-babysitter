@@ -38,15 +38,21 @@
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span>
-          {{sitter.time}}
+          <span class="bold">Looking For:</span> {{sitter.time}}
         </p>
       </div>
 
       <div class="about-me">
         <p>Hello parents,
           <br>
-          {{sitter.about}}
+        <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
+        <!-- RENDER FULL DEATAILS - ABOUT -->
+        <p v-if="this.sitter._id === this.$route.params.id">
+         {{sitter.about}} 
+        </p>
+        <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
+        <p v-else>
+         {{shortDetails}} ... <router-link :to="sitterUrl">read more</router-link>
         </p>
       </div>
     </div>
@@ -113,6 +119,12 @@ export default {
       } else {
         return this.sitter.description;
       }
+    },
+    shortDetails(){
+      return this.sitter.about.substring(0,275)
+    },
+    sitterUrl(){
+      return `/baby/list/${this.sitter._id}`
     }
   }
 };
