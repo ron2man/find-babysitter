@@ -9,12 +9,21 @@
       </div>
       <div class="buttons">
         <div class="contact" @click="sendMessage(sitter)">
-          <h4>Contact</h4>
+          <h4>Book Now</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
-          <h4>Bookmark</h4>
-          <i class="far fa-heart"></i>
+       
+          <i class="fas fa-star"></i>
+          <p>
+            Rating:
+            <span class="bold">4.4</span>
+            <span>
+              (Rated
+              <span class="bold">429</span> Times)
+            </span>
+          </p>
+          <!-- <i class="far fa-heart"></i> -->
         </div>
       </div>
     </div>
@@ -25,14 +34,6 @@
         </div>
         <div class="text">
           <p class="bold">Several children at the same time</p>
-          <p>
-            Rating:
-            <span class="bold">4.4</span>
-            <span>
-              (Rated
-              <span class="bold">429</span> Times)
-            </span>
-          </p>
         </div>
       </div>
 
@@ -42,7 +43,7 @@
           {{sitter.time}}
         </p>
       </div>
-      <div class="looking-for">
+      <div class="looking-for" v-if="sitter.experience">
         <p>
           <span class="bold">Experience:</span>
           {{sitter.experience}} years
