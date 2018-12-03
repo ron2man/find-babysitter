@@ -18,7 +18,7 @@ export default new Vuex.Store({
     chatModule
   },
   state: {
-    currUser: {},
+    currUser: null,
     // filter: null
   },
   mutations: {
@@ -28,6 +28,9 @@ export default new Vuex.Store({
     setLoggedInUser(state, { userFromStorage }) {
       state.currUser = userFromStorage
     },
+    cleanCurrUser(state) {
+      state.currUser = null
+    }
 
 
     // setTheFilter(state, filter) {
@@ -58,10 +61,14 @@ export default new Vuex.Store({
     checkIfLogin(context) {
       var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
       if (!userFromStorage) return false
-      else{
+      else {
         context.commit({ type: 'setLoggedInUser', userFromStorage })
         return true
-      } 
+      }
+    },
+    logout({ commit }) {
+      localStorage.clear();
+      commit('cleanCurrUser')
     }
   },
   getters: {
@@ -69,7 +76,7 @@ export default new Vuex.Store({
     //   return JSON.parse(JSON.stringify(state.filter));
     // },
     setLoginUser: (state) => {
-      console.log('im getter',state.currUser);
+      console.log('im getter', state.currUser);
       return state.currUser
     }
   }

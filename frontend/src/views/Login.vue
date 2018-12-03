@@ -84,7 +84,7 @@ export default {
   background: -o-linear-gradient(top, #7579ff, #b224ef);
   background: -moz-linear-gradient(top, #7579ff, #b224ef);
   background: linear-gradient(top, #7579ff, #b224ef);
-  width: 30%;
+  width: 50%;
   margin: 0 auto;
   margin-top: 50px;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);

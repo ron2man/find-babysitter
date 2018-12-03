@@ -5,8 +5,11 @@
     <header class="flex flex-space-between">
       <div>
         <!-- <router-link @click="checkIfLogin"> -->
-        <i class="fas fa-user" @click="checkIfLogin"></i>
-        <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span>
+        <i class="fas fa-user login-icon" @click="checkIfLogin">
+          <h2 class="login-txt">{{(currUser)? 'Logout' : 'Sign in'}}</h2>
+        </i>
+
+        <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
         <!-- </router-link> -->
       </div>
       <h1 class="logo">
@@ -33,7 +36,6 @@ export default {
   },
   data() {
     return {
-      currUser: null
     };
   },
   created() {
@@ -43,17 +45,21 @@ export default {
   },
   methods: {
     checkIfLogin() {
-      this.$store.dispatch({ type: "checkIfLogin" }).then(ans => {
-        if (ans) this.$router.push("/");
-        else this.$router.push("/login");
-      });
-      this.currUser = this.$store.getters.setLoginUser;
+      if (this.currUser) this.$store.dispatch("logout");
+      else {
+        this.$store.dispatch({ type: "checkIfLogin" }).then(ans => {
+          if (ans) this.$router.push("/");
+          else this.$router.push("/login");
+        });
+      this.curFrUser = this.$store.getters.setLoginUser;
+      }
     }
   },
   computed: {
-    setCurrUser() {
-      this.currUser = this.$store.getters.setLoginUser;
-    }
+    currUser() {
+      return this.$store.getters.setLoginUser;
+    },
+    
   }
 };
 </script>
@@ -76,7 +82,6 @@ header {
   background-color: #9054ef;
   color: white;
   h1 {
-    font-size: 1.5em;
     a,
     a:active,
     a:hover {
@@ -93,7 +98,6 @@ header {
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
-      
     }
   }
 }
@@ -101,5 +105,13 @@ header {
 .welcome-title {
   text-decoration: none;
   margin-left: 20px;
+}
+
+.login-icon {
+  margin-top: 20px;
+}
+
+.login-txt {
+  font-size: 16px;
 }
 </style>
