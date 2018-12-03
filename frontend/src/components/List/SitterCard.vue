@@ -1,14 +1,14 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <div class="image"></div>
+      <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
-        <h2 class="name">Avirama Golan</h2>
-        <h3 class="address">Sd. Rotchild 29 Tel-Aviv</h3>
-        <p>another text</p>
+        <h2 class="name">{{sitter.name.fullName}}</h2>
+        <h3 class="address">{{sitter.adress.street}} {{sitter.adress.city}}</h3>
+        <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
-        <div class="contact">
+        <div class="contact"  @click="sendMessage(sitter)">
           <h4>Contact</h4>
           <i class="far fa-comments"></i>
         </div>
@@ -36,7 +36,7 @@
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span>Full Time
+          <span class="bold">Looking For:</span>{{sitter.time}}
         </p>
       </div>
 
@@ -44,41 +44,38 @@
         <p>
           Hello parents,
           <br>
-
-          my name is Alice and I will be happy to look after your child. I am an actress and a
-          theater teacher. She is currently teaching at the school and studying. I have many years of
-          experience working with children. I love to provide warmth and love for children. I am full of joie
+          {{sitter.about}}
         </p>
       </div>
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
-        <i class="fas fa-smoking-ban"></i>
+        <i class="fas fa-smoking-ban"  :class="{black: !sitter.smoking}"></i>
         <span class="tooltiptext tooltip-top">Non-Smoker</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-id-card item-awsome"></i>
+        <i class="fas fa-id-card item-awsome"  :class="{black: sitter.license}"></i>
         <span class="tooltiptext tooltip-top">Has driver License</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-car item-awsome"></i>
+        <i class="fas fa-car item-awsome" :class="{black: sitter.car}"></i>
         <span class="tooltiptext tooltip-top">Has car</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-briefcase-medical item-awsome"></i>
+        <i class="fas fa-briefcase-medical item-awsome" :class="{black: sitter.medical}"></i>
         <span class="tooltiptext tooltip-top">Medical treatment</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-file item-awsome"></i>
+        <i class="fas fa-file item-awsome"  :class="{black: sitter.recomandation}"></i>
         <span class="tooltiptext tooltip-top">Has recomendation</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-broom item-awsome"></i>
+        <i class="fas fa-broom item-awsome"  :class="{black: sitter.clean}"></i>
         <span class="tooltiptext tooltip-top">Clean</span>
       </div>
     </div>
@@ -86,8 +83,35 @@
 </template>
 
 <script>
-export default {};
-</script>
+export default {
+  props: ["sitter"],
+  created(){
+    // console.log(this.sitter)
+  },
+  methods: {
+    goToDetails(id) {
+      this.$router.push(`/baby/${id}`);
+    },
+    sendMessage(sitter) {
+      this.$store.dispatch({type:'checkLogin'})
+        .then(user => {
+          if(!user)this.$router.push("/login")
+          else this.$router.push(`profile/parent/${sitter.username}/contact`)
+        })
+    }
+  },
+  computed: {
+    getLength() {
+      if (this.sitter.description.length > 180) {
+        const newDesc = this.sitter.description.substring(180, length - 1);
+        return newDesc;
+      } else {
+        return this.sitter.description;
+      }
+    }
+  },
+ 
+};</script>
 
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
@@ -155,16 +179,21 @@ i {
 }
 
 .card-header .buttons .contact {
-  background-color: #9054ef;
+  background-color: #771144;
   color: white;
   height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: .2s all
+}
+
+.contact:hover{
+    background-color: #c19aff;
 }
 
 .card-header .buttons .bookmark {
-  background-color: #00d9bd;
+  background-color: #fd0054;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -263,6 +292,21 @@ i {
 .tooltip:nth-last-child(1) .tooltip-top {
   margin-left: 0;
   left: -75px;
+}
+
+.black{
+  color:black;
+}
+
+.icon{
+  color: #d5d5d5;
+}
+
+.name{
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 25px;
+  margin-bottom: 3px;
 }
 
 @media (min-width: 767px) {

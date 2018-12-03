@@ -9,13 +9,18 @@
         <second-filter class="filter"></second-filter>
 
         <div class="cards">
-          <sitter-card></sitter-card>
-          <sitter-card></sitter-card>
-          <sitter-card></sitter-card>
+          <sitter-card v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-card>
+          <!-- <sitter-card></sitter-card>
+          <sitter-card></sitter-card> -->
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
+=======
+    <hr>
+    <!-- <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview> -->
+>>>>>>> 8c685155172ac55802b336db95d7e77038f2d8db
   </section>
 </template>
 

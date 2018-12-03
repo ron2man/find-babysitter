@@ -53,6 +53,7 @@ export default new Router({
       name: 'parentProfile',
       component: ParentProfile,
       children: [
+        { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
         { path: 'sceduale', name: 'sceduale', component: scedualeZone }

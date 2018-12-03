@@ -6,6 +6,9 @@ import './registerServiceWorker'
 import './assets/scss/main.scss'
 import VueSocketIO from 'vue-socket.io'
 import moment from 'moment'
+import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(Element)
 
 Vue.use(new VueSocketIO({
     debug: true,
