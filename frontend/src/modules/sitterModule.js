@@ -35,8 +35,6 @@ export default {
     },
     actions: {
         getsittersList(context) {
-            // console.log('filterLocation',context.state.filterLocation)
-            // console.log('filterProperty',context.state.filterProperty)
             return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty)
                 .then(sitters => {
                     context.commit({ type: 'setSitters', sitters })
@@ -62,7 +60,7 @@ export default {
                 .then(sitters => context.commit('setSitters', sitters))
         },
 
-        setNewSitter({ commit }, { newSitter }) {            
+        setNewSitter({ commit }, { newSitter }) {
             return sitterServiceBack.addNewSitter(newSitter)
                 .then(theSitter => {
                     commit({ type: 'setNewSitter', theSitter })

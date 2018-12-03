@@ -2,48 +2,52 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query(time) {
-    // const start = parseInt(startTime)
-    // const end = parseInt(endTime)
-    var startTime;
-    var endTime;
-    if (time.sTime) startTime = +time.sTime;
-    if (time.eTime) endTime = +time.eTime;
+function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 1512311933000, name = '' }) {
 
-    console.log(startTime, endTime)
+
+    // 
+    // if (filter.lat) var lat = +filter.lat
+
+    // START QUERY BY LOCATION 
+    // var addressFilter = {
+
+    // }
+    // START QUERY BY NAME SEARCH
+    // const regEx = new RegExp( '.*' + name + '.*', 'i') 
+    var nameFilter = {
+        'name.fullName': { $regex: '.*' + name + '.*', $options: 'i' }
+    }
+
+    // END QUERY BY NAME SEARCH
+
+    // START QUERY BY AGE
+    var ageFilter = {
+        age: { $gte: +minAge, $lte: +maxAge }
+    }
+    // END QUERY BY AGE
+
+    // START QUERY BY TIME GAP
+    // if (filter.sTime) var startTime = +sTime;
+    // if (filter.eTime) var endTime = +eTime;
+
+    // RETURN DATA WITH AVAILABLE REQUESTED TIME SLOT
+    var timeGapFilter = {
+        $nor:
+            [{ schedule: { $elemMatch: { sTime: { $gte: +sTime, $lte: +eTime } } } },
+            { schedule: { $elemMatch: { eTime: { $gte: +sTime, $lte: +eTime } } } }]
+    }
+    // END QUERY BY TIME GAP
+
+    console.log({nameFilter})
+
+
+
 
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
-            return collection.find({
-                $nor:
-                    [{ schedule: { $elemMatch: { sTime: { $gte: startTime, $lte: endTime } } } },
-                    { schedule: { $elemMatch: { eTime: { $gte: startTime, $lte: endTime } } } }]
-            }).toArray()
-
-
-
-            // 
-            // db.getCollection('sitters').find({
-            //     $nor: [
-            //         { schedule: { "$elemMatch": { sTime: { $lte: 1546336800000 }, eTime: { $gte: 1546329600000 } } } }]
-            // }
-
-            // )
-
-
-
-
-            // return collection.find({}).toArray()
-
-            // db.getCollection('sitters').find( {$nor: [ 
-            //     {schedule: { $all: [
-            //                    { "$elemMatch" : { sTime: { $lt: searchEndTime} }},
-            //                    { "$elemMatch" : { eTime : { $gt: searchStartTime} }}
-            //                  ] }}
-            //   ]} )
-
-
+            // return collection.find(ageFilter).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).toArray()
         })
 }
 
