@@ -82,7 +82,6 @@ header {
   background-color: #9054ef;
   color: white;
   h1 {
-    font-size: 1.5em;
     a,
     a:active,
     a:hover {
