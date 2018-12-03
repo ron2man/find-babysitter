@@ -15,12 +15,9 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
     <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
-=======
     <hr>
     <!-- <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview> -->
->>>>>>> 8c685155172ac55802b336db95d7e77038f2d8db
   </section>
 </template>
 

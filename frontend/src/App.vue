@@ -3,15 +3,16 @@
     <!-- <Menu></Menu> -->
     <!-- START HEADER -->
     <header class="flex flex-space-between">
-      <div>
-        <!-- <router-link @click="checkIfLogin"> -->
-        <i class="fas fa-user login-icon" @click="checkIfLogin">
-          <h2 class="login-txt">{{(currUser)? 'Logout' : 'Sign in'}}</h2>
-        </i>
-
-        <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
-        <!-- </router-link> -->
+      <!-- <div> -->
+      <!-- <router-link @click="checkIfLogin"> -->
+      <div class="flex column">
+        <i class="fas fa-user login-icon" @click="goHome"></i>
+        <h2 class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</h2>
       </div>
+
+      <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
+      <!-- </router-link> -->
+      <!-- </div> -->
       <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
       </h1>
@@ -35,31 +36,34 @@ export default {
     Menu
   },
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
     this.$store.dispatch({ type: "checkIfLogin" });
-    this.currUser = this.$store.getters.setLoginUser;
   },
   methods: {
     checkIfLogin() {
-      if (this.currUser) this.$store.dispatch("logout");
+      if(this.currUser){
+        this.$router.push("/login");
+        this.$store.dispatch("logout")
+      } 
       else {
         this.$store.dispatch({ type: "checkIfLogin" }).then(ans => {
           if (ans) this.$router.push("/");
           else this.$router.push("/login");
         });
-      this.curFrUser = this.$store.getters.setLoginUser;
+        this.curFrUser = this.$store.getters.setLoginUser;
       }
+    },
+    goHome() {
+      this.$router.push("/");
     }
   },
   computed: {
     currUser() {
       return this.$store.getters.setLoginUser;
-    },
-    
+    }
   }
 };
 </script>
@@ -114,5 +118,6 @@ header {
 
 .login-txt {
   font-size: 16px;
+  line-height: 2;
 }
 </style>
