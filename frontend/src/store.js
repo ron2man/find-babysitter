@@ -39,6 +39,7 @@ export default new Vuex.Store({
   },
   actions: {
 
+    
     checkUser({ commit }, { typedDetails }) {
       return authService.login(typedDetails)
         .then(user => {

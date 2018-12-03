@@ -87,5 +87,6 @@ export default {
 .filter {
   background-color: black;
   color: white;
+  margin-top:10px;
 }
 </style>

@@ -19,6 +19,12 @@
         <p class="btn-head">Favorite</p>
       </button>
     </div>
+<hr>
+
+
+<date-time></date-time>
+
+    <hr>
 
     <div class="schedule">
     </div>
@@ -81,10 +87,11 @@
 </template>
 
 <script>
+import dateTime from './dateTime';
 
 export default {
   components: {
-
+dateTime
   },
   data() {
     return {

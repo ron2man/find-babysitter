@@ -178,12 +178,12 @@
 
           <el-select
             class="about-item"
-            v-model="sitter.exprerience"
+            v-model="sitter.experience"
             clearable
-            placeholder="Exprerience"
+            placeholder="Experience"
           >
             <el-option
-              v-for="item in expreriences"
+              v-for="item in experiences"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -191,8 +191,12 @@
           </el-select>
 
           <div class="block about-item">
-            <span class="demonstration">Choose age</span>
+            <span class="demonstration">My age</span>
             <el-slider v-model="sitter.age"></el-slider>
+          </div>
+          <div class="block about-item">
+            <span class="demonstration">Hourly wages</span>
+            <el-slider v-model="sitter.hWage"></el-slider>
           </div>
 
           <el-select class="about-item" v-model="sitter.studies" clearable placeholder="Studies">
@@ -248,13 +252,13 @@ export default {
           hebrew: "",
           russian: ""
         },
-        exprerience: "",
+        experience: "",
         description: "",
         studies: "",
         license: "",
         vehicle: "",
         // todo
-        shortCall: "",
+        hWage : '',
         smoking: "",
         medical: "",
         recomandations: "",
@@ -276,7 +280,7 @@ export default {
           label: "Full-time"
         }
       ],
-      expreriences: [
+      experiences: [
         {
           value: "inexperienced",
           label: "inexperienced"
@@ -335,6 +339,7 @@ export default {
           value: "All of them",
           label: "All of them"
         }
+        
       ]
     };
   },

@@ -8,13 +8,22 @@
         <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
-        <div class="contact"  @click="sendMessage(sitter)">
-          <h4>Contact</h4>
+        <div class="contact" @click="sendMessage(sitter)">
+          <h4>Book Now</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
-          <h4>Bookmark</h4>
-          <i class="far fa-heart"></i>
+       
+          <i class="fas fa-star"></i>
+          <p>
+            Rating:
+            <span class="bold">4.4</span>
+            <span>
+              (Rated
+              <span class="bold">429</span> Times)
+            </span>
+          </p>
+          <!-- <i class="far fa-heart"></i> -->
         </div>
       </div>
     </div>
@@ -25,41 +34,56 @@
         </div>
         <div class="text">
           <p class="bold">Several children at the same time</p>
-          <p>Rating:
-            <span class="bold">4.4</span>
-            <span> (Rated
-              <span class="bold">429</span> Times)
-            </span>
-          </p>
         </div>
       </div>
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span> {{sitter.time}}
+          <span class="bold">Looking For:</span>
+          {{sitter.time}}
+        </p>
+      </div>
+      <div class="looking-for" v-if="sitter.experience">
+        <p>
+          <span class="bold">Experience:</span>
+          {{sitter.experience}} years
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Love to work with:</span>
+          {{sitter.agePrefs}}
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Hourly wages:</span>
+          {{sitter.hWage}} ILS
         </p>
       </div>
 
       <div class="about-me">
-        <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
-        <!-- RENDER FULL DEATAILS - ABOUT -->
-        <p v-if="this.sitter._id === this.$route.params.id">
-         {{sitter.about}} 
+        <p>About {{sitter.name.fName}}:
+          <br>
+          <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
+          <!-- RENDER FULL DEATAILS - ABOUT -->
         </p>
+        <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p>
         <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
         <p v-else>
-         {{shortDetails}} ... <router-link :to="sitterUrl">read more</router-link>
+          {{shortDetails}} ...
+          <router-link :to="sitterUrl">read more</router-link>
         </p>
       </div>
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
-        <i class="fas fa-smoking-ban"  :class="{black: !sitter.smoking}"></i>
+        <i class="fas fa-smoking-ban" :class="{black: !sitter.smoking}"></i>
         <span class="tooltiptext tooltip-top">Non-Smoker</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-id-card item-awsome"  :class="{black: sitter.license}"></i>
+        <i class="fas fa-id-card item-awsome" :class="{black: sitter.license}"></i>
         <span class="tooltiptext tooltip-top">Has driver License</span>
       </div>
 
@@ -74,12 +98,12 @@
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-file item-awsome"  :class="{black: sitter.recomandation}"></i>
+        <i class="fas fa-file item-awsome" :class="{black: sitter.recomandation}"></i>
         <span class="tooltiptext tooltip-top">Has recomendation</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-broom item-awsome"  :class="{black: sitter.clean}"></i>
+        <i class="fas fa-broom item-awsome" :class="{black: sitter.clean}"></i>
         <span class="tooltiptext tooltip-top">Clean</span>
       </div>
     </div>
@@ -87,9 +111,11 @@
 </template>
 
 <script>
+import BusService, { SITTER_DET } from "@/service/EventBusService.js";
+
 export default {
   props: ["sitter"],
-  created(){
+  created() {
     // console.log(this.sitter)
   },
   methods: {
@@ -97,12 +123,13 @@ export default {
       this.$router.push(`/baby/${id}`);
     },
     sendMessage(sitter) {
-      this.$store.dispatch({type:'checkLogin'})
-        .then(user => {
-          if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${sitter.username}/contact`)
-        })
-    },
+      BusService.$emit(SITTER_DET, sitter);
+      this.$store.dispatch({ type: "checkLogin" }).then(user => {
+        const path = `/baby/profile/parent/${sitter.username}/contact`;
+        if (!user) this.$router.push(`/login?path=${path}`);
+        else this.$router.push(path);
+      });
+    }
   },
   computed: {
     getLength() {
@@ -113,15 +140,15 @@ export default {
         return this.sitter.description;
       }
     },
-    shortDetails(){
-      return this.sitter.about.substring(0,275)
+    shortDetails() {
+      return this.sitter.about.substring(0, 100);
     },
-    sitterUrl(){
-      return `/baby/list/${this.sitter._id}`
+    sitterUrl() {
+      return `/baby/list/${this.sitter._id}`;
     }
-  },
- 
-};</script>
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
@@ -133,7 +160,12 @@ export default {
   border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+        box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
 
 .card-header {
   height: 150px;
@@ -195,11 +227,11 @@ i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: .2s all
+  transition: 0.2s all;
 }
 
-.contact:hover{
-    background-color: #c19aff;
+.contact:hover {
+  background-color: #c19aff;
 }
 
 .card-header .buttons .bookmark {
@@ -304,15 +336,15 @@ i {
   left: -75px;
 }
 
-.black{
-  color:black;
+.black {
+  color: black;
 }
 
-.icon{
+.icon {
   color: #d5d5d5;
 }
 
-.name{
+.name {
   font-weight: bold;
   text-transform: capitalize;
   font-size: 25px;
