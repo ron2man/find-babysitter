@@ -75,11 +75,15 @@ export default {
     display: grid;
     grid-row-gap: 20px;
     grid-template-columns: auto auto;
+    grid-gap: 20px;
   }
 }
 @media (min-width: 1400px) {
   .cards {
     grid-template-columns: auto auto auto;
+    grid-gap: 5px;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+
   }
 }
 </style>

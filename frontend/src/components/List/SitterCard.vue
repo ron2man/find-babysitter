@@ -38,21 +38,40 @@
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span> {{sitter.time}}
+          <span class="bold">Looking For:</span>
+          {{sitter.time}}
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Experience:</span>
+          {{sitter.experience}} years
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Love to work with:</span>
+          {{sitter.agePrefs}}
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Hourly wages:</span>
+          {{sitter.hWage}} ILS
         </p>
       </div>
 
       <div class="about-me">
-        <p>Hello parents,
+        <p>About {{sitter.name.fName}}:
           <br>
-        <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
-        <!-- RENDER FULL DEATAILS - ABOUT -->
-        <p v-if="this.sitter._id === this.$route.params.id">
-         {{sitter.about}} 
+          <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
+          <!-- RENDER FULL DEATAILS - ABOUT -->
         </p>
+        <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p>
         <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
         <p v-else>
-         {{shortDetails}} ... <router-link :to="sitterUrl">read more</router-link>
+          {{shortDetails}} ...
+          <router-link :to="sitterUrl">read more</router-link>
         </p>
       </div>
     </div>
@@ -91,7 +110,7 @@
 </template>
 
 <script>
-import BusService, { SITTER_DET } from '@/service/EventBusService.js';
+import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 
 export default {
   props: ["sitter"],
@@ -102,10 +121,10 @@ export default {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
-    sendMessage(sitter) {      
+    sendMessage(sitter) {
       BusService.$emit(SITTER_DET, sitter);
       this.$store.dispatch({ type: "checkLogin" }).then(user => {
-        const path = `/baby/profile/parent/${sitter.username}/contact`
+        const path = `/baby/profile/parent/${sitter.username}/contact`;
         if (!user) this.$router.push(`/login?path=${path}`);
         else this.$router.push(path);
       });
@@ -120,11 +139,11 @@ export default {
         return this.sitter.description;
       }
     },
-    shortDetails(){
-      return this.sitter.about.substring(0,275)
+    shortDetails() {
+      return this.sitter.about.substring(0, 100);
     },
-    sitterUrl(){
-      return `/baby/list/${this.sitter._id}`
+    sitterUrl() {
+      return `/baby/list/${this.sitter._id}`;
     }
   }
 };
@@ -140,7 +159,12 @@ export default {
   border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+        box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
 
 .card-header {
   height: 150px;
