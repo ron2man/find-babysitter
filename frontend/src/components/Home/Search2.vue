@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    
-    <div class="address ">
+    <div class="address">
       <input
         ref="autocomplete"
         :placeholder="filter.location.address"
@@ -60,11 +59,16 @@ export default {
           mm: "00"
         },
         radius: 15
+      },
+      normalizeFilter: {
+        coords: { lat: null, lon: null, radius: 15 },
+        schedule: { startTime: null, endTime: null }
       }
     };
   },
   created() {
-    if (this.$store.getters.filter) this.filter = this.$store.getters.filterLocation;
+    if (this.$store.getters.filter)
+      this.filter = this.$store.getters.filterLocation;
     else {
       // SET TODAY TO FILTER.DATE => DATE PICKER
       let date = new Date();
@@ -76,9 +80,32 @@ export default {
   },
   methods: {
     setFilter() {
-      console.log('SEARCH 2 filter', this.filter)
-      this.$store.dispatch("setFilterLocation", this.filter);
+      this.setNormalizeFilter();
+      this.$store.dispatch("setFilterLocation", this.normalizeFilter);
       this.$router.push({ path: "/baby/list" });
+    },
+    setNormalizeFilter() {
+      this.normalizeFilter.schedule.startTime = Date.parse(
+        new Date(
+          `${this.filter.date} ${this.filter.startTime.HH}:${
+            this.filter.startTime.mm
+          }:00`
+        )
+      );
+
+      this.normalizeFilter.schedule.endTime  = Date.parse(
+        new Date(
+          `${this.filter.date} ${this.filter.endTime.HH}:${
+            this.filter.endTime.mm
+          }:00`
+        )
+      );
+
+      this.normalizeFilter.coords.lat = this.filter.location.lat
+      this.normalizeFilter.coords.lon = this.filter.location.lon
+
+
+      console.log(this.normalizeFilter);
     }
   },
   mounted() {
@@ -133,7 +160,7 @@ export default {
 
 input[type="text"],
 input[type="password"],
-.button>button {
+.button > button {
   background: none;
   border: none;
   width: 100%;

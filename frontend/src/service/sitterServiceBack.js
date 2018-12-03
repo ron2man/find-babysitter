@@ -6,35 +6,37 @@ const BASE_URL = 'http://localhost:3003'
 
 function query(filterLocation = '', filterProperty = '') {
     // function query(filter = {username:'shira',license: true}) {
-
-
-
-    // Tuesday, January 1, 2019 10:00:00 AM GMT+02:00
-var startTime = 1546329600000; 
-// Tuesday, January 1, 2019 12:00:00 AM GMT+02:00
-var endTime = 1546336800000;
-
     const params = new URLSearchParams
 
+
+    console.log(filterLocation);
     if (filterLocation) {
-        // TODO
-        // TIMESTAMP - START FILTER
-        // TIMESTAMP - END FILTER
-        // console.log('if filterlocation',filterLocation)
+        params.set('sTime', filterLocation.schedule.startTime)
+        params.set('eTime', filterLocation.schedule.endTime)
+
+        // TO DO = BUILD LAT / LNG FILTER - BY RADIUS
+        if (filterLocation.coords.lat) {
+            params.set('lat', filterLocation.coords.lat)
+            params.set('lng', filterLocation.coords.lon)
+            params.set('radius', filterLocation.coords.radius)
+        }
     }
 
-    
     if (filterProperty) {
+        console.log('IM WORKING', filterProperty)
         // FILTER FULL NAME
-        if (filterProperty.fullName) params.append('fullName', filterProperty.fullName)
-        // console.log('if filterproperty',filterProperty)
+        // if (filterProperty.ageRange) {
+            params.set('minAge', filterProperty.ageRange[0])
+            params.set('maxAge', filterProperty.ageRange[1])
+            // console.log()
+            params.set('name', filterProperty.fullName)
+        
     }
 
     // if (filter.username && filter.license) {
     //     console.log('got here')
-        params.set('sTime', startTime)
-        params.set('eTime', endTime)
-        // params.set('license', filter.license)
+
+    // params.set('license', filter.license)
     // }
 
     // params.name = filter.name
@@ -46,35 +48,36 @@ var endTime = 1546336800000;
 
 
 
-function getById(id){
+function getById(id) {
     return axios.get(`${BASE_URL}/baby/${id}`).then(res => res.data)
 }
 
 
-function getByUsername(username){
+function getByUsername(username) {
     return axios.get(`${BASE_URL}/baby/username/${username}`).then(res => res.data)
 }
 
-function updateUser(user){
-    return axios.put(`${BASE_URL}/baby/${user._id}`,user)
+function updateUser(user) {
+    return axios.put(`${BASE_URL}/baby/${user._id}`, user)
 }
 
 
-function getSitterByUsername(username){
+function getSitterByUsername(username) {
     return axios.get(`${BASE_URL}/baby/sitter/${username}`).then(res => res.data)
 }
 
-function getByParentUsername(username){
+function getByParentUsername(username) {
     return axios.get(`${BASE_URL}/baby/parent/${username}`).then(res => res.data)
 
 }
+
 
 function updateSitter(user){
     return axios.put(`${BASE_URL}/baby/sitter/${user._id}`,user)
 }
 
-function updateParent(user){
-    return axios.put(`${BASE_URL}/baby/parent/${user._id}`,user)
+function updateParent(user) {
+    return axios.put(`${BASE_URL}/baby/parent/${user._id}`, user)
 }
 
 
@@ -88,9 +91,9 @@ function createNotification(from) {
 }
 
 
-function addNewSitter(newSitter) {    
-   return axios.post(`${BASE_URL}/signup`,newSitter)
-        .then(res=>res.data)
+function addNewSitter(newSitter) {
+    return axios.post(`${BASE_URL}/signup`, newSitter)
+        .then(res => res.data)
 
 }
 
