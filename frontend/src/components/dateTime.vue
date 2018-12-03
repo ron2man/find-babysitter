@@ -22,7 +22,7 @@
           @change="getTimestampEnd(endTime)"
         ></vue-timepicker>
       </div>
-        <button @click="book">Book Now!</button>
+        <button @click="book(sitter)">Book Now!</button>
     </div>
     <!-- timstamp start:{{this.startTimestamp}}
     timestamp end:{{this.endTimestamp}}-->
@@ -35,26 +35,27 @@ import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 
 export default {
+  props:['sitter'],
   components: {
     Datepicker,
     VueTimepicker
   },
   methods: {
-    book() {
+    book(sitter) {
+      if(!this.startTimestamp || !this.endTimestamp) console.log('feel the fields')
         const reservation = {
         start: this.startTimestamp,
         end: this.endTimestamp,
         date: this.date
       };
+      this.$store.dispatch({type:'checkAvalability',filter:reservation,sitter})
     },
     customFormatter(date) {
       this.date = moment(date).format("YYYY-MM-D");
     },
     getTimestampStart(time) {
       if (this.date)
-        this.startTimestamp = moment(
-          `${this.date},${time.HH}:${time.mm}`
-        )._d.getTime();
+        this.startTimestamp = moment(`${this.date},${time.HH}:${time.mm}`)._d.getTime();
     },
     getTimestampEnd(time, data) {
       if (this.date)

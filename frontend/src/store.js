@@ -77,7 +77,6 @@ export default new Vuex.Store({
     //   return JSON.parse(JSON.stringify(state.filter));
     // },
     setLoginUser: (state) => {
-      console.log('im getter', state.currUser);
       return state.currUser
     }
   }

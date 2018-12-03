@@ -473,6 +473,7 @@ export default {
           <li class="hint" v-text="secondType"></li>
           <li
             v-for="s in seconds"
+            :key="s"
             v-text="s"
             :class="{active: second === s}"
             @click.stop="select('second', s)"
@@ -482,6 +483,7 @@ export default {
           <li class="hint" v-text="apmType"></li>
           <li
             v-for="a in apms"
+            :key="a"
             v-text="a"
             :class="{active: apm === a}"
             @click.stop="select('apm', a)"

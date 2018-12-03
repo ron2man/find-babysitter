@@ -60,7 +60,7 @@
 
 
 export default {
-  props: ["sitter"],
+  props: ['sitter'],
   
   methods: {
     goToDetails(id) {

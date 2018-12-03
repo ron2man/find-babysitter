@@ -22,7 +22,7 @@
 <hr>
 
 
-<date-time></date-time>
+<date-time :sitter="sitter"></date-time>
 
     <hr>
 
