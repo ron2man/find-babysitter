@@ -49,7 +49,7 @@ export default new Router({
       component: SitterList
     },
     {
-      path: '/baby/profile/parent/:parentName',
+      path: '/baby/profile/parent/:userName',
       name: 'parentProfile',
       component: ParentProfile,
       children: [
@@ -60,7 +60,7 @@ export default new Router({
       ]
     },
     {
-      path: '/baby/profile/sitter/:sitterName',
+      path: '/baby/profile/sitter/:userName',
       name: 'sitterProfile',
       component: SitterProfile,
       children: [
