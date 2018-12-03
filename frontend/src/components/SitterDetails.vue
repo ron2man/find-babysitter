@@ -21,6 +21,12 @@
         <p class="btn-head">Favorite</p>
       </button>
     </div>
+<hr>
+
+
+<date-time></date-time>
+
+    <hr>
     <div class="about">
       <h2 class="about-head">About</h2>
       <div class="about-box">
@@ -79,6 +85,8 @@
 </template>
 
 <script>
+import dateTime from "./dateTime";
+
 export default {
     data(){
       return {
