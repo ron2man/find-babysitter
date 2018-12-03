@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-    <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
     <hr>
     <!-- <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview> -->
   </section>
@@ -74,10 +73,11 @@ export default {
   .cards {
     grid-area: main;
     display: grid;
+    grid-row-gap: 20px;
     grid-template-columns: auto auto;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .cards {
     grid-template-columns: auto auto auto;
   }

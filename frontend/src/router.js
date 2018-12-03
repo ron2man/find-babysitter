@@ -71,7 +71,7 @@ export default new Router({
       ]
     },
     {
-      path: '/baby/:id',
+      path: '/baby/list/:id',
       name: 'sitterDetails',
       component: SitterDetails
     },

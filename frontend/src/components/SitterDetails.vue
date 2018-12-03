@@ -3,9 +3,7 @@
     <!-- //link back to list -->
     <router-link class="router" to="/baby/list">Back to list</router-link>
     <div class="summery-container">
-      <img
-        :src="sitter.imgUrl"
-      >
+      <img :src="sitter.imgUrl">
       <div class="summery-detail-container">
         <p class="sitter-name">{{sitter.fullName}}</p>
         <p>{{sitter.adress.city}} | {{sitter.age}}</p>
@@ -27,6 +25,10 @@
 <date-time></date-time>
 
     <hr>
+
+    <div class="schedule">
+    </div>
+
     <div class="about">
       <h2 class="about-head">About</h2>
       <div class="about-box">
@@ -85,18 +87,25 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import dateTime from "./dateTime";
+=======
+>>>>>>> 41444382d9d9e00aab4233b871a5c54992c1f551
 
 export default {
-    data(){
-      return {
-        currSitter:''
-      }
-    },
+  components: {
+
+  },
+  data() {
+    return {
+      currSitter: ""
+    };
+  },
   created() {
     const id = this.$route.params.id;
-    this.$store.dispatch({ type: "getById", id })
-      .then(sitter => this.currSitter = sitter)
+    this.$store
+      .dispatch({ type: "getById", id })
+      .then(sitter => (this.currSitter = sitter));
   },
   methods: {
     getNumberOfStars() {
