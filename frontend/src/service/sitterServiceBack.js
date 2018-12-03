@@ -69,7 +69,6 @@ function getByParentUsername(username){
 
 }
 
-
 function updateSitter(user){
     return axios.put(`${BASE_URL}/baby/sitter/${user._id}`,user)
 }

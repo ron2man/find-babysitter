@@ -73,11 +73,10 @@ export default {
   .cards {
     grid-area: main;
     display: grid;
-    grid-row-gap: 20px;
     grid-template-columns: auto auto;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
   .cards {
     grid-template-columns: auto auto auto;
   }

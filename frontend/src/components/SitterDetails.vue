@@ -87,14 +87,11 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import dateTime from "./dateTime";
-=======
->>>>>>> 41444382d9d9e00aab4233b871a5c54992c1f551
+import dateTime from './dateTime';
 
 export default {
   components: {
-
+dateTime
   },
   data() {
     return {
