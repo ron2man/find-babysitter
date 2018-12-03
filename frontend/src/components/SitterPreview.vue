@@ -56,21 +56,21 @@
 </template>
 
 <script>
+
+
+
 export default {
   props: ["sitter"],
-  created(){
-    // console.log(this.sitter)
-  },
+  
   methods: {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
     sendMessage(sitter) {
-      this.$store.dispatch({type:'checkLogin'})
-        .then(user => {
-          if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${sitter.username}/contact`)
-        })
+      this.$store.dispatch({ type: "checkLogin" }).then(user => {
+        if (!user) this.$router.push("/login");
+        else this.$router.push(`profile/parent/${sitter.username}/contact`);
+      });
     }
   },
   computed: {
@@ -82,8 +82,7 @@ export default {
         return this.sitter.description;
       }
     }
-  },
- 
+  }
 };
 </script>
 

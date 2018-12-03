@@ -10,6 +10,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Element)
 
+
 Vue.use(new VueSocketIO({
     debug: true,
     connection: 'http://localhost:3003/',
