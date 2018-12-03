@@ -7,7 +7,7 @@ return Promise.resolve(parents)
 
 
 
-export default{
+export default {
     query
 }
 
