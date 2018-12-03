@@ -437,7 +437,7 @@ export default {
       @click.stop="toggleDropdown"
       type="text"
       readonly
-    >
+    required>
     <span
       class="clear-btn"
       v-if="!hideClearButton"
@@ -620,14 +620,20 @@ export default {
   cursor: pointer;
 }
 
-.time-picker .dropdown ul li.active,
-.time-picker .dropdown ul li.active:hover {
-  background: #951555;
+.time-picker .dropdown ul li{
+  background: #ffffff;
+}
+.time-picker .dropdown ul li.active{
+  background: #5f0030;
   color: #fff;
 }
 
+.time-picker .dropdown ul li.active:hover{
+  background: #ad0057;
+}
+
 .time-picker .dropdown .hint {
-  color: #951555;
+  color: #000000;
   cursor: default;
   font-size: 1em;
 }

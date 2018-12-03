@@ -22,7 +22,7 @@
           @change="getTimestampEnd(endTime)"
         ></vue-timepicker>
       </div>
-        <button>Book Now!</button>
+        <button @click="book">Book Now!</button>
     </div>
     <!-- timstamp start:{{this.startTimestamp}}
     timestamp end:{{this.endTimestamp}}-->
@@ -41,9 +41,7 @@ export default {
   },
   methods: {
     book() {
-      const start = "date" + "time" - "timstamp";
-      const end = " date" + "time" - "timestamp";
-      const reservation = {
+        const reservation = {
         start: this.startTimestamp,
         end: this.endTimestamp,
         date: this.date
@@ -60,7 +58,7 @@ export default {
     },
     getTimestampEnd(time, data) {
       if (this.date)
-        this.endTimestamp = moment(`${this.date},${time}`)._d.getTime();
+        this.endTimestamp = moment(`${this.date},${time.HH}:${time.mm}`)._d.getTime();
     }
   },
   data() {
