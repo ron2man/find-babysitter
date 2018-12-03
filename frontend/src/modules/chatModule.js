@@ -9,24 +9,23 @@ export default {
     mutations: {
         setNotificationUser(state, { user }) {
             state.currNoticeUser = user
+            this.dispatch({ type: 'pushNotification', user })
         }
     },
     getters: {
     },
     actions: {
         sendNotification(context, { user }) {
+            console.log(user)
             const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
             if (currLoggedUser.type === 'parent') return sitterServiceBack.getSitterByUsername(user)
                 .then(user => {
-                    console.log(user)
                     context.commit({ type: 'setNotificationUser', user })
-                    context.dispatch({ type: 'pushNotification', user })
                     return user
                 })
             else sitterServiceBack.getByParentUsername(user)
                 .then(user => {
                     context.commit({ type: 'setNotificationUser', user })
-                    context.dispatch({ type: 'pushNotification', user })
                     return user
                 })
         },
@@ -36,12 +35,15 @@ export default {
                 return notice.from === currLoggedUser.username
             })
             const notification = sitterServiceBack.createNotification(currLoggedUser.username)
+            console.log(notification)
             let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
             if (noticeFrom === -1) {
                 copyUser.notifications.unshift(notification)
+                console.log(copyUser)
             } else {
                 copyUser.notifications.splice(noticeFrom, 1)
                 copyUser.notifications.unshift(notification)
+                console.log(copyUser)
             }
             if (currLoggedUser.type === 'parent') return sitterServiceBack.updateSitter(copyUser)
             else return sitterServiceBack.updateParent(copyUser)

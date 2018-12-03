@@ -5,7 +5,7 @@
   </head>
   <body>
     <ul id="messages">
-      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">
+      <li v-for="msg in msgs" :key="msg.createdAt + '-label'" :class="{sender: msg.from === loggedUser.username}">
         {{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}
         </li>
     </ul>
@@ -42,10 +42,10 @@ export default {
     const type = this.checkParentOrSitter();
     if (type === "parent") {
       this.roomname = `${this.loggedUser.username}${
-        this.$route.params.parentName
+        this.$route.params.userName
       }`;
     } else {
-      this.roomname = `${this.$route.params.sitterName}${
+      this.roomname = `${this.$route.params.userName}${
         this.loggedUser.username
       }`;
     }
@@ -57,16 +57,11 @@ export default {
       this.msgs.push(newMsg);
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
-        if (type === "parent") {
-          const user = this.$route.params.parentName;
-          this.$store.dispatch({ type: "sendNotification", user });
-        } else {
-          const user = this.$route.params.sitterName;
+          const user = this.$route.params.userName;
           this.$store.dispatch({ type: "sendNotification", user });
         }
         this.counter++;
-      }
-    },
+      },
     getHistory(history) {
       if (history.length) {
         for (var i = 0; i < history.length; i++) {
@@ -95,8 +90,8 @@ export default {
     },
     createdMsg(msg){
       return {
-        from:this.loggedUser.username,
-        msg,
+        from: msg[1],
+        msg: msg[0],
         createdAt: Date.now()
       }
     }
