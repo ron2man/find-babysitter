@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="btn-container">
-      <button class="contact-btn btn">
+      <button class="contact-btn btn"  @click="sendMessage(sitter)">
         <i class="fas fa-comments"></i>
         <p class="btn-head">Contact</p>
       </button>
@@ -104,7 +104,14 @@ export default {
       }, 0);
       ratingSum = parseInt(ratingSum / this.sitter.reviews.length);
       return ratingSum;
-    }
+    },
+        sendMessage(sitter) {
+      this.$store.dispatch({type:'checkLogin'})
+        .then(user => {
+          if(!user)this.$router.push("/login")
+          else this.$router.push(`profile/parent/${sitter.username}/contact`)
+        })
+    },
   },
   computed: {
     sitter() {

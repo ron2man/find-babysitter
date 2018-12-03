@@ -102,7 +102,7 @@ export default {
           if(!user)this.$router.push("/login")
           else this.$router.push(`profile/parent/${sitter.username}/contact`)
         })
-    }
+    },
   },
   computed: {
     getLength() {
