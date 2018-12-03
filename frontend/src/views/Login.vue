@@ -3,37 +3,67 @@
 <template>
   <section>
     <img class="login-bcg" src="@/assets/images/login2.png">
-   <div class="login-container flex column">
-    <h1 class="login-title">LOG IN</h1>
-    <form @submit.prevent="checkUser" class="flex column">
-    
-      <div class="wrap-input validate-input">
-        <input class="input" type="text" name="username" placeholder="Username" v-model="typedDetails.nickName" required>
-        <span class="focus-input"><span><i class="fas fa-user login-icon"></i></span></span>
-      </div>
+    <div class="login-container flex column">
+      <h1 class="login-title">LOG IN</h1>
+      <form @submit.prevent="checkUser" class="flex column">
+        <div class="wrap-input validate-input">
+          <input
+            class="input"
+            type="text"
+            name="username"
+            placeholder="Username"
+            v-model="typedDetails.nickName"
+            required
+          >
+          <span class="focus-input">
+            <span>
+              <i class="fas fa-user login-icon"></i>
+            </span>
+          </span>
+        </div>
 
-      <div class="wrap-input validate-input">
-        <input class="input" type="password" name="pass" placeholder="Password" v-model="typedDetails.pwd" required>
-        <span class="focus-input" ><span><i class="fas fa-unlock-alt login-icon"></i></span></span>
-      </div>
+        <div class="wrap-input validate-input">
+          <input
+            class="input"
+            type="password"
+            name="pass"
+            placeholder="Password"
+            v-model="typedDetails.pwd"
+            required
+          >
+          <span class="focus-input">
+            <span>
+              <i class="fas fa-unlock-alt login-icon"></i>
+            </span>
+          </span>
+        </div>
 
-      <a href="#" class="pwd-forgot">Forgot password?</a>
-      <div class="container-login-form-btn">
-        <button class="login-form-btn">Login</button>
-      </div>
+        <a href="#" class="pwd-forgot">Forgot password?</a>
+        <div class="container-login-form-btn">
+          <button class="login-form-btn">Login</button>
+        </div>
+         
 
-      <!-- <span v-if="isWrong">worng credinatls</span> -->
-      <p class="sign-in">not yet registered?
-        <router-link to="/sign" class="pwd-forgot">sign in</router-link>
-      </p>
-    </form>
+        <!-- <span v-if="isWrong">worng credinatls</span> -->
+        <p class="sign-in">not yet registered?
+          <router-link to="/sign" class="pwd-forgot">sign in</router-link>
+        </p>
+      </form>
     </div>
   </section>
 </template>
 
 <script>
+// check if good
+import BusService, { SITTER_DET } from "@/service/EventBusService.js";
+
 export default {
   name: "LoginPage",
+   created() {
+    BusService.$on(SITTER_DET, payload => {
+      console.log('evetbbus',payload);
+    });
+  },
   data() {
     return {
       typedDetails: {
@@ -43,6 +73,7 @@ export default {
       isWrong: false
     };
   },
+ 
   methods: {
     checkUser() {
       this.$store
@@ -55,6 +86,9 @@ export default {
             this.isWrong = true;
           } else {
             this.isWrong = false;
+            const path = this.$route.query.path
+            if (path) return this.$router.push(path)
+            // if (user.type === "parent") this.$router.push(-1);
             if (user.type === "parent") this.$router.push("/");
             else if (user.type === "sitter")
               this.$router.push(
@@ -88,7 +122,6 @@ export default {
   margin: 0 auto;
   margin-top: 50px;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .container-login-form-btn {
@@ -182,7 +215,7 @@ button {
 .wrap-input {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid rgba(255,255,255,0.24);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.24);
   margin-bottom: 30px;
 }
 
@@ -198,7 +231,7 @@ button {
   // padding: 0 5px 0 38px;
 }
 
-/*---------------------------------------------*/ 
+/*---------------------------------------------*/
 .focus-input {
   position: absolute;
   display: block;
@@ -210,18 +243,17 @@ button {
   line-height: 40px;
   margin-right: 40px;
 }
-.login-icon{
-   line-height: 40px;
+.login-icon {
+  line-height: 40px;
   margin-right: 100px;
 }
 
-.login-title{
+.login-title {
   margin-bottom: 40px;
 }
 
-
-
-.focus-input::before , .fas .fa-user {
+.focus-input::before,
+.fas .fa-user {
   content: "";
   display: block;
   position: absolute;
@@ -234,29 +266,24 @@ button {
   -moz-transition: all 0.6s;
   transition: all 0.6s;
   background: #fff;
-  
 }
-
 
 .input:focus + .focus-input::before {
   width: 100%;
-  
 }
 
-.pwd-forgot{
+.pwd-forgot {
   margin-bottom: 20px;
 }
 
-.login-bcg{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    object-fit: cover;
+.login-bcg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  object-fit: cover;
 }
-
-
 </style>

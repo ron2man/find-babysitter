@@ -8,7 +8,7 @@
         <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
-        <div class="contact"  @click="sendMessage(sitter)">
+        <div class="contact" @click="sendMessage(sitter)">
           <h4>Contact</h4>
           <i class="far fa-comments"></i>
         </div>
@@ -25,9 +25,11 @@
         </div>
         <div class="text">
           <p class="bold">Several children at the same time</p>
-          <p>Rating:
+          <p>
+            Rating:
             <span class="bold">4.4</span>
-            <span>(Rated
+            <span>
+              (Rated
               <span class="bold">429</span> Times)
             </span>
           </p>
@@ -36,13 +38,13 @@
 
       <div class="looking-for">
         <p>
-          <span class="bold">Looking For:</span>{{sitter.time}}
+          <span class="bold">Looking For:</span>
+          {{sitter.time}}
         </p>
       </div>
 
       <div class="about-me">
-        <p>
-          Hello parents,
+        <p>Hello parents,
           <br>
           {{sitter.about}}
         </p>
@@ -50,12 +52,12 @@
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
-        <i class="fas fa-smoking-ban"  :class="{black: !sitter.smoking}"></i>
+        <i class="fas fa-smoking-ban" :class="{black: !sitter.smoking}"></i>
         <span class="tooltiptext tooltip-top">Non-Smoker</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-id-card item-awsome"  :class="{black: sitter.license}"></i>
+        <i class="fas fa-id-card item-awsome" :class="{black: sitter.license}"></i>
         <span class="tooltiptext tooltip-top">Has driver License</span>
       </div>
 
@@ -70,12 +72,12 @@
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-file item-awsome"  :class="{black: sitter.recomandation}"></i>
+        <i class="fas fa-file item-awsome" :class="{black: sitter.recomandation}"></i>
         <span class="tooltiptext tooltip-top">Has recomendation</span>
       </div>
 
       <div class="icon tooltip">
-        <i class="fas fa-broom item-awsome"  :class="{black: sitter.clean}"></i>
+        <i class="fas fa-broom item-awsome" :class="{black: sitter.clean}"></i>
         <span class="tooltiptext tooltip-top">Clean</span>
       </div>
     </div>
@@ -83,21 +85,24 @@
 </template>
 
 <script>
+import BusService, { SITTER_DET } from '@/service/EventBusService.js';
+
 export default {
   props: ["sitter"],
-  created(){
+  created() {
     // console.log(this.sitter)
   },
   methods: {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
-    sendMessage(sitter) {
-      this.$store.dispatch({type:'checkLogin'})
-        .then(user => {
-          if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${sitter.username}/contact`)
-        })
+    sendMessage(sitter) {      
+      BusService.$emit(SITTER_DET, sitter);
+      this.$store.dispatch({ type: "checkLogin" }).then(user => {
+        const path = `/baby/profile/parent/${sitter.username}/contact`
+        if (!user) this.$router.push(`/login?path=${path}`);
+        else this.$router.push(path);
+      });
     }
   },
   computed: {
@@ -109,9 +114,9 @@ export default {
         return this.sitter.description;
       }
     }
-  },
- 
-};</script>
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
@@ -185,11 +190,11 @@ i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: .2s all
+  transition: 0.2s all;
 }
 
-.contact:hover{
-    background-color: #c19aff;
+.contact:hover {
+  background-color: #c19aff;
 }
 
 .card-header .buttons .bookmark {
@@ -294,15 +299,15 @@ i {
   left: -75px;
 }
 
-.black{
-  color:black;
+.black {
+  color: black;
 }
 
-.icon{
+.icon {
   color: #d5d5d5;
 }
 
-.name{
+.name {
   font-weight: bold;
   text-transform: capitalize;
   font-size: 25px;
