@@ -4,7 +4,10 @@
     <!-- START HEADER -->
     <header class="flex flex-space-between">
       <div>
-        <router-link to="/login"><i class="fas fa-user"></i></router-link>
+        <router-link to="/login">
+          <i class="fas fa-user"></i>
+          <span class="bold" style="display:inline"> 5</span>
+        </router-link>
       </div>
       <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
@@ -17,7 +20,7 @@
     <main>
       <router-view/>
     </main>
-    
+
     <footer></footer>
   </div>
 </template>
@@ -37,21 +40,26 @@ export default {
 
 <style lang="scss" scoped>
 #app {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  text-decoration: none;
 }
 header {
-  height: 50px;
-  line-height: 50px;
+  font-size: 1.7em;
+  text-decoration: none;
+  height: 75px;
+  line-height: 75px;
   padding: 0 15px;
   background-color: #9054ef;
-  color:white;
+  color: white;
   h1 {
-    font-size: 1.5em;
-    a, a:active, a:hover {
-      color:white;
+    a,
+    a:visited,
+    a:active,
+    a:hover {
+      color: white;
       text-decoration: none;
     }
   }
@@ -64,6 +72,7 @@ header {
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
+      
     }
   }
 }

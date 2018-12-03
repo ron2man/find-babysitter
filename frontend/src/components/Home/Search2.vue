@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="address">
+    
+    <div class="address ">
       <input
         ref="autocomplete"
         :placeholder="filter.location.address"
@@ -132,7 +133,7 @@ export default {
 
 input[type="text"],
 input[type="password"],
-button {
+.button>button {
   background: none;
   border: none;
   width: 100%;
@@ -148,7 +149,7 @@ button {
   background-color: transparent;
 }
 
-button {
+.button button {
   cursor: pointer;
   background-color: #9054ef;
   color: white;

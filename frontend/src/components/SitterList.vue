@@ -15,7 +15,6 @@
         </div>
       </div>
     </div>
-    <hr>
     <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview>
   </section>
 </template>
