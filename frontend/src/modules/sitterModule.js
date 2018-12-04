@@ -9,8 +9,14 @@ export default {
         filterLocation: null,
         filterProperty: null,
         sortBy: 'aveRate',
+<<<<<<< HEAD
+        currentParent:'',
+        currentIdxRequest:'',
+        currentStatus:''
+=======
         topSitters: null,
         isLoading: false,
+>>>>>>> 12e812e38ab007af25436e5f7ff4f7c645ea0d20
     },
     mutations: {
         changeLoader(state, status){
@@ -44,6 +50,17 @@ export default {
         setSort(state, payload) {
             state.sortBy = payload
 
+        },
+        setParentForRequest(state,details){
+            state.currentParent = details.parent
+            state.currentIdxRequest = details.requestId
+            const status = details.status
+            if(details.status === 'decline'){
+                this.dispatch({ type: "changeParentStatus",status})
+                this.dispatch({ type: "removeReservation"})
+            } else {
+                console.log('dudi')
+            }
         }
     },
     actions: {
@@ -119,8 +136,35 @@ export default {
 
                 })
 
-        }
-
+        },
+        acceptRequest(context,details){
+            const parent = details.parent
+            const requestId = details.details
+            sitterServiceBack.getByParentUsername(parent)
+                .then(parent => context.commit({ type: 'setParentForRequest', parent,requestId }))
+        },
+        request(context,details){
+            const status = details.status
+            const parent = details.parent
+            const requestId = details.details
+            sitterServiceBack.getByParentUsername(parent)
+                .then(parent => context.commit({ type: 'setParentForRequest', parent,requestId,status }))
+                //delete sitter reservation
+        },
+        removeReservation(context){
+            const sitter = JSON.parse(localStorage.getItem("loggedInUser"))
+            let copySitter = Object.assign({}, { ...sitter});
+            const reservationIdx = copySitter.reservations.findIndex(reservation => reservation.id === context.state.requestId)
+            // copySitter.reservations.splice(reservationIdx,1)
+            // sitterServiceBack.updateSitter(copySitter)
+            // localStorage.setItem('loggedInUser', JSON.stringify(copySitter))
+        },
+        changeParentStatus(context,status){
+            const copyParent = Object.assign({}, { ...context.state.currentParent});
+            const reservationIdx = copyParent.reservations.findIndex(reservation => reservation.id === context.state.currentIdxRequest)
+            copyParent.reservations[reservationIdx].status = status.status
+            sitterServiceBack.updateParent(copyParent)
+        },
     },
     getters: {
         getSitters: (state) => { return state.sitters },
