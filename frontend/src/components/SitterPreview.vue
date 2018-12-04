@@ -56,12 +56,9 @@
 </template>
 
 <script>
-
-
-
 export default {
-  props: ['sitter'],
-  
+  props: ["sitter"],
+
   methods: {
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
@@ -81,7 +78,8 @@ export default {
       } else {
         return this.sitter.description;
       }
-    }
+    },
+   
   }
 };
 </script>
