@@ -8,8 +8,6 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
     // function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams
 
-    
-    console.log(filterLocation);
     if (filterLocation) {
         params.set('sTime', filterLocation.schedule.startTime)
         params.set('eTime', filterLocation.schedule.endTime)
