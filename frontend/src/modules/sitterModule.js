@@ -77,7 +77,21 @@ export default {
             context.commit('setFilterProperty', newFilter)
             context.dispatch('getsittersList')
         },
-
+        checkAvalability(context,reservation){
+            return sitterServiceBack.checkAvalability(reservation)
+                .then(sitter => {
+                    return sitter
+                })
+        },
+        sendRequest(context,reservation){
+            const sender = JSON.parse(localStorage.getItem("loggedInUser"))
+            let copySender = Object.assign({}, { ...sender});
+            let copySitter = Object.assign({}, { ...reservation.sitter});
+            copySitter.reservations.push(reservation.reservation)
+            copySender.reservations.push(reservation.reservation)
+            sitterServiceBack.updateSitter(copySitter)
+            sitterServiceBack.updateParent(copySender)
+        }
     },
     getters: {
         getSitters: (state) => { return state.sitters },
