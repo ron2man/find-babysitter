@@ -9,15 +9,20 @@
         <!-- <p>{{sitter.adress.district}}</p> -->
       </div>
       <div class="buttons">
-        <div class="contact" @click="sendMessage(sitter)">
+        <div
+          v-if="notSitter"
+          class="contact"
+          @click="sendMessage(sitter)"
+        >
           <h4>Book Now</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
-       
-          <i class="fas fa-star star"></i>
           <p>
+            <div class="flex">
+            <i class="fas fa-star star"></i>
             <span class="rating-big bold">{{sitter.aveRate}}</span>
+            </div>
             <span>
               (Rated
               <span class="bold">429</span> Times)
@@ -69,7 +74,8 @@
       </div>
 
       <div class="about-me">
-        <p>About {{sitter.name.fName}}:
+        <p>
+          About {{sitter.name.fName}}:
           <br>
           <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
           <!-- RENDER FULL DEATAILS - ABOUT -->
@@ -151,6 +157,15 @@ export default {
     },
     sitterUrl() {
       return `/baby/list/${this.sitter._id}`;
+    },
+    currUser() {
+      return this.$store.getters.setLoginUser;
+    },
+    notSitter(){
+      if (this.currUser){
+        if(this.currUser.type!=='sitter') return true
+      }
+      else return true
     }
   }
 };
@@ -166,12 +181,11 @@ export default {
   border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    margin-top: 10px;
-        box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
-
-    }
+  margin: 0 auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 .card-header {
   height: 150px;
@@ -179,8 +193,6 @@ export default {
   justify-content: space-between;
   border-bottom: 1px solid gray;
 }
-
-
 
 .card-header .image {
   width: 60px;
@@ -206,7 +218,7 @@ export default {
   color: #771144;
 }
 
-.star{
+.star {
   color: orange;
 }
 
@@ -221,9 +233,9 @@ html {
   margin: 0;
 }
 
-.rating-big{
+.rating-big {
   font-size: 30px;
-  color:white;
+  color: white;
 }
 
 i {

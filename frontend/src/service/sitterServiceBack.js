@@ -52,6 +52,15 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
     return axios.get(`${BASE_URL}/baby?${params}`).then(res => res.data)
 }
 
+function checkAvalability({reservation}) {
+    const params = new URLSearchParams
+    params.set('start', reservation.start)
+    params.set('end', reservation.end)
+    params.set('id', reservation.id)
+    params.set('from', reservation.from)
+    params.set('to', reservation.to)
+    return axios.get(`${BASE_URL}/baby/check?${params}`).then(res => res.data)
+}
 
 
 
@@ -125,7 +134,8 @@ export default {
     updateSitter,
     updateParent,
     addNewSitter,
-    getByParentUsername
+    getByParentUsername,
+    checkAvalability
     // remove,
     // update,
 }
