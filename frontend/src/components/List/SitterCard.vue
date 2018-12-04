@@ -4,7 +4,8 @@
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
         <h2 class="name">{{sitter.name.fullName}}</h2>
-        <h3 class="address">{{sitter.adress.street}} {{sitter.adress.city}}</h3>
+        <h3 class="address">{{sitter.adress.street}}</h3>
+         <p>{{sitter.adress.city}}</p>
         <p>{{sitter.adress.district}}</p>
       </div>
       <div class="buttons">
@@ -14,10 +15,9 @@
         </div>
         <div class="bookmark">
        
-          <i class="fas fa-star"></i>
+          <i class="fas fa-star star"></i>
           <p>
-            Rating:
-            <span class="bold">4.4</span>
+            <span class="rating-big bold">4.4</span>
             <span>
               (Rated
               <span class="bold">429</span> Times)
@@ -174,6 +174,8 @@ export default {
   border-bottom: 1px solid gray;
 }
 
+
+
 .card-header .image {
   width: 60px;
   height: 60px;
@@ -195,7 +197,11 @@ export default {
 }
 
 .card-header .details .name {
-  color: #9054ef;
+  color: #771144;
+}
+
+.star{
+  color: orange;
 }
 
 h2,
@@ -207,6 +213,11 @@ body,
 html {
   padding: 0;
   margin: 0;
+}
+
+.rating-big{
+  font-size: 30px;
+  color:white;
 }
 
 i {
@@ -221,7 +232,7 @@ i {
 }
 
 .card-header .buttons .contact {
-  background-color: #771144;
+  background-color: black;
   color: white;
   height: 50%;
   display: flex;
@@ -231,7 +242,7 @@ i {
 }
 
 .contact:hover {
-  background-color: #c19aff;
+  background-color: #951555;
 }
 
 .card-header .buttons .bookmark {

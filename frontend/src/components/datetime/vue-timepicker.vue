@@ -10,7 +10,7 @@ export default {
   name: "VueTimepicker",
 
   props: {
-    value: { type: Object },
+    value: {},
     hideClearButton: { type: Boolean },
     format: { type: String },
     minuteInterval: { type: Number },
@@ -27,7 +27,7 @@ export default {
       showDropdown: false,
       muteWatch: false,
       hourType: "HH",
-      minuteType: "mm",
+      minuteType: "MM",
       secondType: "",
       apmType: "",
       hour: "",
@@ -437,7 +437,7 @@ export default {
       @click.stop="toggleDropdown"
       type="text"
       readonly
-    >
+    required>
     <span
       class="clear-btn"
       v-if="!hideClearButton"
@@ -473,6 +473,7 @@ export default {
           <li class="hint" v-text="secondType"></li>
           <li
             v-for="s in seconds"
+            :key="s"
             v-text="s"
             :class="{active: second === s}"
             @click.stop="select('second', s)"
@@ -482,6 +483,7 @@ export default {
           <li class="hint" v-text="apmType"></li>
           <li
             v-for="a in apms"
+            :key="a"
             v-text="a"
             :class="{active: apm === a}"
             @click.stop="select('apm', a)"
@@ -494,19 +496,19 @@ export default {
 
 <style scoped>
 
-
-
   input[type="text"],
   input[type="password"] {
+    border-radius: 10px;
     background: none;
-    border: none;
-    width: 100%;
+    border: 1px solid black;
     height: 2em;
+    width: 258px;
     line-height: 2em;
     font-size: 1.2em;
-    color: rgb(136, 136, 136);
+    color: #951555;
     outline: none;
     text-align: center;
+    cursor: pointer;
   }
 
 /* @import './style/vue-timepicker.css'; */
@@ -557,7 +559,7 @@ export default {
 }
 
 .time-picker .clear-btn:hover {
-  color: #797979;
+  color: #951555;
   cursor: pointer;
 }
 
@@ -577,14 +579,14 @@ export default {
   left: 0;
   background: #fff;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
-  width: 10em;
-  height: 10em;
+  width: 16em;
+  height: 14em;
   font-weight: normal;
 }
 
 .time-picker .dropdown .select-list {
-  width: 10em;
-  height: 10em;
+  width: 16em;
+  height: 14em;
   overflow: hidden;
   display: flex;
   flex-flow: row nowrap;
@@ -620,15 +622,22 @@ export default {
   cursor: pointer;
 }
 
-.time-picker .dropdown ul li.active,
-.time-picker .dropdown ul li.active:hover {
-  background: #00d9bd;
+.time-picker .dropdown ul li{
+  background: #ffffff;
+}
+.time-picker .dropdown ul li.active{
+  background: #5f0030;
   color: #fff;
 }
 
-.time-picker .dropdown .hint {
-  color: #a5a5a5;
-  cursor: default;
-  font-size: 0.8em;
+.time-picker .dropdown ul li.active:hover{
+  background: #ad0057;
 }
+
+.time-picker .dropdown .hint {
+  color: #000000;
+  cursor: default;
+  font-size: 1em;
+}
+
 </style>

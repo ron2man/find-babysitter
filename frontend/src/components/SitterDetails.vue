@@ -5,7 +5,7 @@
     <div class="summery-container">
       <img :src="sitter.imgUrl">
       <div class="summery-detail-container">
-        <p class="sitter-name">{{sitter.fullName}}</p>
+        <p class="sitter-name">{{sitter.name.fullName}}</p>
         <p>{{sitter.adress.city}} | {{sitter.age}}</p>
       </div>
     </div>
@@ -22,7 +22,7 @@
 <hr>
 
 
-<date-time></date-time>
+<date-time :sitter="sitter"></date-time>
 
     <hr>
 
@@ -30,16 +30,16 @@
     </div>
 
     <div class="about">
-      <h2 class="about-head">About</h2>
       <div class="about-box">
+      <h2 class="about-head">About</h2>
         <p class="date">{{sitter.joinedAt}}</p>
         <div class="rank">
           <i class="fas fa-medal"></i>
-          <p class="qualification-expa">{{sitter.about}}</p>
+          <p class="qualification-expa">{{sitter.description}}</p>
         </div>
         <div class="about-details">
           <p class="about-details-item">Looking for: {{sitter.time}}</p>
-          <p class="about-details-item description">{{sitter.description}}</p>
+          <p class="about-details-item description">{{sitter.about}}</p>
           <span class="head-span">education:</span>
           <p class="about-details-item">highschool</p>
           <span class="head-span">Language:</span>
@@ -50,8 +50,8 @@
           >{{language}}</span>
         </div>
       </div>
-      <h2 class="about-head">Credentials</h2>
       <div class="font-awsome-box">
+      <h2 class="about-head">Credentials</h2>
         <div class="icon-box" :class="{black: sitter.license}">
           <i class="fas fa-id-card item-awsome"></i>
           <span>Has driver License</span>
@@ -177,6 +177,7 @@ img {
 .about-box {
   border: 1px solid black;
   padding: 20px;
+  width: 600px;
 }
 
 .about-head {
@@ -226,20 +227,21 @@ img {
 }
 
 .font-awsome-box {
-  width: 97%;
+  width: 400px;
   margin: 5px;
 }
 
 .icon-box {
-  height: 40px;
+  height: 60px;
   border: 1px solid black;
-  line-height: 40px;
+  line-height: 60px;
   text-align: left;
   color: rgb(185, 185, 185);
 }
 
 .item-awsome {
   margin: 0 30px;
+  font-size: 30px;
 }
 
 .black {
@@ -247,14 +249,14 @@ img {
 }
 
 .contact-btn {
-  background-color: blue;
+  background-color: #1e0411;
   color: white;
   border: 0;
 }
 
 .fav-btn {
   color: white;
-  background-color: red;
+  background-color: #951555;
   border: 0;
 }
 
