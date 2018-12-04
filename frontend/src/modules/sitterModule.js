@@ -34,17 +34,16 @@ export default {
             state.currentSitter = sitter
         },
         setSort(state, payload) {
-            // console.log('mutatation sortab',payload);
             state.sortBy = payload
 
         }
     },
     actions: {
-        getsittersList(context) {
+        getsittersList(context) {            
             return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy)
-                .then(sitters => {
-                    context.commit({ type: 'setSitters', sitters })
-                })
+            .then(sitters => {
+                context.commit({ type: 'setSitters', sitters })
+            })
         },
         getById(context, { id }) {
             return sitterServiceBack.getById(id)
@@ -102,7 +101,6 @@ export default {
             context.commit('setSort', sortBy)
             sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy,sortBy)
                 .then(sitters => {
-                    // console.log('sitters in store', sitters);
                     context.commit({type:'setSitters',sitters}) 
 
                 })

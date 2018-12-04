@@ -49,6 +49,7 @@
 import vueSlider from "vue-slider-component";
 
 export default {
+  name:'secondFilter',
   data() {
     return {
       secondFilter: {
@@ -70,7 +71,6 @@ export default {
   },
   methods: {
     setFilter() {
-      console.log("SECOND FILTER - ", this.secondFilter);
       this.$store.dispatch("setFilterProperty", this.secondFilter);
     }
   },

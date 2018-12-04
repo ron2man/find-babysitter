@@ -4,17 +4,22 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 function query({
-     minAge = 0, 
-     maxAge = 200, 
-     sTime = 1512311933000, 
-     eTime = 1512311933000, 
-     name = '', 
-     radius = Infinity, 
-     lat = null, 
-     lng = null, 
-     sortBy='aveRate',
-     minWage = 0,
-     maxWage = Infinity,
+    minAge = 0,
+    maxAge = 200,
+    sTime = 1512311933000,
+    eTime = 1512311933000,
+    name = '',
+    radius = Infinity,
+    lat = null,
+    lng = null,
+    sortBy = 'aveRate',
+    minWage = 0,
+    maxWage = Infinity,
+    cleaner = '',
+    medical = '',
+    nonSmoking = '',
+    //  todo-check if posble transfer eith JSON.stingify and parse it
+    //  filterProperty=""
 
 }) {
 
@@ -60,6 +65,22 @@ function query({
     // if (filter.sTime) var startTime = +sTime;
     // if (filter.eTime) var endTime = +eTime;
 
+
+    var isClean = ''
+    var cleanerVal = (cleaner === 'true') ? true : false
+    // if (cleanerVal === 'false') cleanerVal = false
+    if (!cleanerVal) isClean = {}
+    else isClean = { "clean": true }
+
+    var isMedical = ''
+    var medicalVal = (medical === 'true') ? true : false
+    // if (cleanerVal === 'false') cleanerVal = false
+    if (!medicalVal) isMedical = {}
+    else isMedical = { "medical": true }
+
+
+
+
     // RETURN DATA WITH AVAILABLE REQUESTED TIME SLOT
     var timeGapFilter = {
         $nor:
@@ -71,28 +92,27 @@ function query({
 
 
 
-    console.log('filter at service back',sortBy);
-
 
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, isClean, {}] }).sort({ [sortBy]: -1 }).sort({ [sortBy]: -1 }).toArray()
 
         })
 }
 
 function checkAvalability(reservation) {
-    console.log(1546329600000,'needeed')
-    console.log(reservation.start,'got')
-    console.log(1546336800000,'needeed')
-    console.log(reservation.end,'got')
-    var reservationFilter = {$and:[
+    console.log(1546329600000, 'needeed')
+    console.log(reservation.start, 'got')
+    console.log(1546336800000, 'needeed')
+    console.log(reservation.end, 'got')
+    var reservationFilter = {
+        $and: [
             { schedule: { $elemMatch: { sTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
             { schedule: { $elemMatch: { eTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
-            {username:reservation.to}
+            { username: reservation.to }
         ]
     }
     return mongoService.connectToDb()

@@ -20,8 +20,10 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
         }
     }
 
+    console.log('filterProperty',filterProperty);
+
+
     if (filterProperty) {
-        console.log('IM WORKING', filterProperty)
         // FILTER FULL NAME
         // if (filterProperty.ageRange) {
             params.set('minAge', filterProperty.ageRange[0])
@@ -31,7 +33,16 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
             params.set('maxWage', filterProperty.wageRange[1])
             // console.log()
             params.set('name', filterProperty.fullName)
-        
+
+            params.set('cleaner',filterProperty.isCleaner)
+            params.set('medical',filterProperty.isMedical)
+            params.set('nonSmoking',filterProperty.isNonSmoking)
+
+            // params.set('filterProperty',JSON.stringify(filterProperty))
+
+
+            // console.log('IM WORKING', filterProperty)
+
     }
 
     
