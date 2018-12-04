@@ -12,9 +12,10 @@ function query({
      radius = Infinity, 
      lat = null, 
      lng = null, 
-     sortBy='aveRate',
+     sortBy = 'aveRate',
      minWage = 0,
      maxWage = Infinity,
+     limit = 100000,
 
 }) {
 
@@ -79,7 +80,7 @@ function query({
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).limit(+limit).toArray()
 
         })
 }

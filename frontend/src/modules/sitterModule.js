@@ -9,11 +9,22 @@ export default {
         filterLocation: null,
         filterProperty: null,
         sortBy: 'aveRate',
+<<<<<<< HEAD
         currentParent:'',
         currentIdxRequest:'',
         currentStatus:''
+=======
+        topSitters: null,
+        isLoading: false,
+>>>>>>> 12e812e38ab007af25436e5f7ff4f7c645ea0d20
     },
     mutations: {
+        changeLoader(state, status){
+        state.isLoading = status
+        },
+        setTopSitters(state, { sitters }) {
+            state.topSitters = sitters
+        },
         setSitters(state, { sitters }) {
             state.sitters = sitters
         },
@@ -60,6 +71,12 @@ export default {
                     context.commit({ type: 'setSitters', sitters })
                 })
         },
+        getTopSittersList(context) {
+            return sitterServiceBack.Limitquery(6, 'aveRate')
+                .then(sitters => {
+                    context.commit({ type: 'setTopSitters', sitters })
+                })
+        },
         getById(context, { id }) {
             return sitterServiceBack.getById(id)
                 .then(sitter => {
@@ -97,16 +114,16 @@ export default {
             context.commit('setFilterProperty', newFilter)
             context.dispatch('getsittersList')
         },
-        checkAvalability(context,reservation){
+        checkAvalability(context, reservation) {
             return sitterServiceBack.checkAvalability(reservation)
                 .then(sitter => {
                     return sitter
                 })
         },
-        sendRequest(context,reservation){
+        sendRequest(context, reservation) {
             const sender = JSON.parse(localStorage.getItem("loggedInUser"))
-            let copySender = Object.assign({}, { ...sender});
-            let copySitter = Object.assign({}, { ...reservation.sitter});
+            let copySender = Object.assign({}, { ...sender });
+            let copySitter = Object.assign({}, { ...reservation.sitter });
             copySitter.reservations.push(reservation.reservation)
             copySender.reservations.push(reservation.reservation)
             sitterServiceBack.updateSitter(copySitter)
@@ -114,10 +131,10 @@ export default {
         },
         setSort(context, { sortBy }) {
             context.commit('setSort', sortBy)
-            sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy,sortBy)
+            sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy, sortBy)
                 .then(sitters => {
                     // console.log('sitters in store', sitters);
-                    context.commit({type:'setSitters',sitters}) 
+                    context.commit({ type: 'setSitters', sitters })
 
                 })
 
@@ -157,6 +174,8 @@ export default {
         filterLocation(state) {
             return JSON.parse(JSON.stringify(state.filterLocation));
         },
+        topSitters: (state) => { return state.topSitters },
+        isLoading: (state) => {return state.isLoading}
     }
 }
 

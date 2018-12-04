@@ -24,19 +24,19 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
         console.log('IM WORKING', filterProperty)
         // FILTER FULL NAME
         // if (filterProperty.ageRange) {
-            params.set('minAge', filterProperty.ageRange[0])
-            params.set('maxAge', filterProperty.ageRange[1])
+        params.set('minAge', filterProperty.ageRange[0])
+        params.set('maxAge', filterProperty.ageRange[1])
 
-            params.set('minWage', filterProperty.wageRange[0])
-            params.set('maxWage', filterProperty.wageRange[1])
-            // console.log()
-            params.set('name', filterProperty.fullName)
-        
+        params.set('minWage', filterProperty.wageRange[0])
+        params.set('maxWage', filterProperty.wageRange[1])
+        // console.log()
+        params.set('name', filterProperty.fullName)
+
     }
 
-    
-// this params adds key sort (rate as default)
-    console.log('sortBy', sortKey);
+
+    // this params adds key sort (rate as default)
+    // console.log('sortBy', sortKey);
 
     params.set('sortBy', sortKey)
 
@@ -52,7 +52,16 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
     return axios.get(`${BASE_URL}/baby?${params}`).then(res => res.data)
 }
 
-function checkAvalability({reservation}) {
+function Limitquery(limit = 6, sortBy = 'aveRate') {
+    const params = new URLSearchParams
+    params.set('limit', limit)
+    params.set('sortBy', sortBy)
+
+    return axios.get(`${BASE_URL}/baby?${params}`).then(res => res.data)
+
+}
+
+function checkAvalability({ reservation }) {
     const params = new URLSearchParams
     params.set('start', reservation.start)
     params.set('end', reservation.end)
@@ -88,8 +97,8 @@ function getByParentUsername(username) {
 }
 
 
-function updateSitter(user){
-    return axios.put(`${BASE_URL}/baby/sitter/${user._id}`,user)
+function updateSitter(user) {
+    return axios.put(`${BASE_URL}/baby/sitter/${user._id}`, user)
 }
 
 function updateParent(user) {
@@ -135,7 +144,8 @@ export default {
     updateParent,
     addNewSitter,
     getByParentUsername,
-    checkAvalability
+    checkAvalability,
+    Limitquery
     // remove,
     // update,
 }
