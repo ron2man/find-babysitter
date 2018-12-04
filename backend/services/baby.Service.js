@@ -18,8 +18,8 @@ function query({
     cleaner = '',
     medical = '',
     nonSmoking = '',
-    //  todo-check if posble transfer eith JSON.stingify and parse it
-    //  filterProperty=""
+    limit=6
+ 
 
 }) {
 
@@ -78,6 +78,12 @@ function query({
     if (!medicalVal) isMedical = {}
     else isMedical = { "medical": true }
 
+    var isSmoke = ''
+    var smokingVal = (nonSmoking === 'true') ? true : false
+    // if (cleanerVal === 'false') cleanerVal = false
+    if (smokingVal) isSmoke = { "smoking": false }
+    else isSmoke = {}
+
 
 
 
@@ -98,7 +104,7 @@ function query({
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, isClean, {}] }).sort({ [sortBy]: -1 }).sort({ [sortBy]: -1 }).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, isClean,isMedical,isSmoke, {}] }).sort({ [sortBy]: -1 }).sort({ [sortBy]: -1 }).limit(+limit).toArray()
 
         })
 }

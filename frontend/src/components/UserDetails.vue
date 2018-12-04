@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Sceduale zone</h1>
+    <h1>Schedule zone</h1>
     
   </section>
 </template>
