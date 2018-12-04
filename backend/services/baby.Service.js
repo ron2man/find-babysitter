@@ -2,8 +2,10 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 1512311933000, name = '' , sortBy='aveRate'}) {
-    
+
+function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 1512311933000, name = '', radius = Infinity, lat = null, lng = null, sortBy='aveRate' }) {
+
+
 
     // 
     // if (filter.lat) var lat = +filter.lat
@@ -12,6 +14,23 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     // var addressFilter = {
 
     // }
+
+    // START QUERY BY LOCATION
+    var locationFilter = {
+        location:
+        {
+            $near:
+            {
+                // FIRST LNG - SECOND LAT
+                $geometry: { type: "Point", coordinates: [+lng, +lat] },
+                $minDistance: 0,
+                $maxDistance: +radius
+            }
+        }
+    }
+    // console.log('lat lng radius',+lng,+lat,+radius)
+    // END QUERY BY LOCATION
+
     // START QUERY BY NAME SEARCH
     // const regEx = new RegExp( '.*' + name + '.*', 'i') 
     var nameFilter = {
@@ -38,7 +57,7 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     }
     // END QUERY BY TIME GAP
 
-    // console.log({nameFilter})
+
 
 
     console.log('filter at service back',sortBy);
@@ -47,11 +66,28 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
-            // return collection.find(ageFilter).toArray()
-        //     var sitters = collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).sort( { [sortBy]: -1 } ).toArray()
-        //    sitters.then(res=>console.log('res from mongo',res))
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).sort( { [sortBy]: -1 } ).toArray()
-            
+            collection.createIndex({ "location": "2dsphere" });
+            // return collection.find({}).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
+
+        })
+}
+
+function checkAvalability(reservation) {
+    console.log(1546329600000,'needeed')
+    console.log(reservation.start,'got')
+    console.log(1546336800000,'needeed')
+    console.log(reservation.end,'got')
+    var reservationFilter = {$and:[
+            { schedule: { $elemMatch: { sTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            { schedule: { $elemMatch: { eTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            {username:reservation.to}
+        ]
+    }
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('sitters');
+            return collection.find(reservationFilter).toArray()
         })
 }
 
@@ -130,7 +166,7 @@ function updateParent(user) {
             const collection = db.collection('parents');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    console.log(result)
+                    // console.log(result)
                     return result;
                 })
         })
@@ -164,7 +200,8 @@ module.exports = {
     getByUsernameParent,
     checkSitterLogin,
     checkParentLogin,
-    addSitter
+    addSitter,
+    checkAvalability
 }
 
 // historymsgs = {['etishimrit']:[]}
