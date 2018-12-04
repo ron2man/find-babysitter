@@ -10,17 +10,29 @@ export default {
         setParentForRequest(state,details){
             state.currentParent = details.parent
             state.currentIdxRequest = details.requestId
-            const status = details.status
+            state.currentStatus = details.status
+            const reservationIdx = state.currentParent.reservations.findIndex(reservation => reservation.id === state.currentIdxRequest)
+            state.currentParent.reservations[reservationIdx].status = state.currentStatus
             if(details.status === 'decline'){
+                const reservationIdx = state.currentUser.reservations.findIndex(reservation => {return reservation.id === state.currentIdxRequest})
+                state.currentUser.reservations.splice(reservationIdx,1) 
                 this.dispatch({ type: "removeReservation"})
-                this.dispatch({ type: "changeParentStatus",status})
+                this.dispatch({ type: "changeParentStatus"})
             } else {
-                console.log('dudi')
+                this.dispatch({ type: "changeParentStatus"})
             }
         },
         setSitter(state, sitter) {
             state.currentUser = sitter
         },
+        pushReservation(state,{reservation}){
+            const sender = JSON.parse(localStorage.getItem("loggedInUser"))
+            reservation.sitter.reservations.push(reservation.reservation)
+            sender.reservations.push(reservation.reservation)
+            localStorage.setItem('loggedInUser', JSON.stringify(sender))
+            sitterServiceBack.updateSitter(reservation.sitter)
+            sitterServiceBack.updateParent(sender)
+        }
     },
     actions: {
         checkAvalability(context, reservation) {
@@ -30,21 +42,7 @@ export default {
                 })
         },
         sendRequest(context, reservation) {
-            const sender = JSON.parse(localStorage.getItem("loggedInUser"))
-            let copySender = Object.assign({}, { ...sender });
-            let copySitter = Object.assign({}, { ...reservation.sitter });
-            copySitter.reservations.push(reservation.reservation)
-            copySender.reservations.push(reservation.reservation)
-            console.log(copySender)
-            sitterServiceBack.updateSitter(copySitter)
-            sitterServiceBack.updateParent(copySender)
-            localStorage.setItem('loggedInUser', JSON.stringify(copySender))
-        },
-        acceptRequest(context,details){
-            const parent = details.parent
-            const requestId = details.details
-            sitterServiceBack.getByParentUsername(parent)
-                .then(parent => context.commit({ type: 'setParentForRequest', parent,requestId }))
+            context.commit({ type: 'pushReservation', reservation })
         },
         request(context,details){
             const status = details.status
@@ -54,19 +52,10 @@ export default {
                 .then(parent => context.commit({ type: 'setParentForRequest', parent,requestId,status }))
         },
         removeReservation(context){
-            const sitter = context.state.currentUser
-            let copySitter = Object.assign({}, { ...sitter});
-            const reservationIdx = copySitter.reservations.findIndex(reservation => {return reservation.id === context.state.currentIdxRequest})
-            copySitter.reservations.splice(reservationIdx,1)
-            context.state.currentUser = copySitter
-            sitterServiceBack.updateSitter(copySitter)
-            localStorage.setItem('loggedInUser', JSON.stringify(copySitter))
+            sitterServiceBack.updateSitter(context.state.currentUser)
         },
-        changeParentStatus(context,status){
-            const copyParent = Object.assign({}, { ...context.state.currentParent});
-            const reservationIdx = copyParent.reservations.findIndex(reservation => reservation.id === context.state.currentIdxRequest)
-            copyParent.reservations[reservationIdx].status = status.status
-            sitterServiceBack.updateParent(copyParent)
+        changeParentStatus(context){
+            sitterServiceBack.updateParent(context.state.currentParent)
         },
         getSitterId(context, { id }) {
             return sitterServiceBack.getById(id)
