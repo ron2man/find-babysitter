@@ -10,8 +10,12 @@ export default {
         filterProperty: null,
         sortBy: 'aveRate',
         topSitters: null,
+        isLoading: false,
     },
     mutations: {
+        changeLoader(state, status){
+        state.isLoading = status
+        },
         setTopSitters(state, { sitters }) {
             state.topSitters = sitters
         },
@@ -126,7 +130,8 @@ export default {
         filterLocation(state) {
             return JSON.parse(JSON.stringify(state.filterLocation));
         },
-        topSitters: (state) => { return state.topSitters }
+        topSitters: (state) => { return state.topSitters },
+        isLoading: (state) => {return state.isLoading}
     }
 }
 

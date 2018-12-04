@@ -25,7 +25,10 @@
     </header>
     <!-- END HEADER -->
     <main>
-      <router-view/>
+      <div v-if="isLoading"  class="loader-container">
+      <div class="lds-dual-ring"></div>
+      </div>
+      <router-view v-else></router-view>
     </main>
 
     <footer></footer>
@@ -69,6 +72,9 @@ export default {
   computed: {
     currUser() {
       return this.$store.getters.setLoginUser;
+    },
+    isLoading() {
+      return this.$store.getters.isLoading;
     }
   }
 };
@@ -128,5 +134,36 @@ header {
 
 .right-nav-items{
     width: 100px;
+}
+
+.loader-container{
+  height: 50vh;
+  display:flex;
+}
+
+.lds-dual-ring {
+  margin: auto;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid black;
+  border-color: #9054ef transparent #9054ef transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
