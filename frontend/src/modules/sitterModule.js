@@ -97,7 +97,7 @@ export default {
             copySender.reservations.push(reservation.reservation)
             sitterServiceBack.updateSitter(copySitter)
             sitterServiceBack.updateParent(copySender)
-        }
+        },
         setSort(context, { sortBy }) {
             context.commit('setSort', sortBy)
             sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy,sortBy)

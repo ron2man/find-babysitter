@@ -11,6 +11,8 @@ import ChatContact from './components/ChatContact.vue'
 import scedualeZone from './components/scedualeZone.vue'
 import SitterProfile from './components/SitterProfile.vue'
 import Notifications from './components/Notifications.vue'
+import requestsSitter from './components/requestsSitter.vue'
+import requestsParent from './components/requestsParent.vue'
 
 
 
@@ -56,6 +58,7 @@ export default new Router({
         { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
+        { path: 'requests', name: 'requests', component: requestsParent },
         { path: 'sceduale', name: 'sceduale', component: scedualeZone }
       ]
     },
@@ -67,6 +70,7 @@ export default new Router({
         { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
+        { path: 'requests', name: 'requests', component: requestsSitter },
         { path: 'sceduale', name: 'sceduale', component: scedualeZone }
       ]
     },
