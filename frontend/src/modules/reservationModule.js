@@ -31,12 +31,14 @@ export default {
         },
         sendRequest(context, reservation) {
             const sender = JSON.parse(localStorage.getItem("loggedInUser"))
-            // let copySender = Object.assign({}, { ...sender });
+            let copySender = Object.assign({}, { ...sender });
             let copySitter = Object.assign({}, { ...reservation.sitter });
             copySitter.reservations.push(reservation.reservation)
-            sender.reservations.push(reservation.reservation)
+            copySender.reservations.push(reservation.reservation)
+            console.log(copySender)
             sitterServiceBack.updateSitter(copySitter)
-            sitterServiceBack.updateParent(sender)
+            sitterServiceBack.updateParent(copySender)
+            localStorage.setItem('loggedInUser', JSON.stringify(copySender))
         },
         acceptRequest(context,details){
             const parent = details.parent
