@@ -9,6 +9,14 @@ function addSitterRoutes(app){
             
     })
 
+    app.get('/baby/check?', (req, res) => {
+        return babyService.checkAvalability(req.query)
+            .then(sitter => {
+                    res.json(sitter)
+                })  
+    })
+
+
     // SINGLE - GET Full details including reviews
     app.get('/baby/:id', (req, res) => {
         const sitterId = req.params.id;
@@ -47,7 +55,7 @@ function addSitterRoutes(app){
     })
 
     // UPDATE
-    app.put('/baby/:id', (req, res) => {
+    app.put('/baby/sitter/:id', (req, res) => {
         const user = req.body;
         return babyService.updateSitter(user)
             .then(sitter => res.json(sitter))

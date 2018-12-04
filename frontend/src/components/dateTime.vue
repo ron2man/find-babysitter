@@ -22,7 +22,7 @@
           @change="getTimestampEnd(endTime)"
         ></vue-timepicker>
       </div>
-        <button @click="book(sitter)">Book Now!</button>
+      <button @click="book(sitter)">Book Now!</button>
     </div>
     <!-- timstamp start:{{this.startTimestamp}}
     timestamp end:{{this.endTimestamp}}-->
@@ -35,31 +35,54 @@ import moment from "moment";
 import Datepicker from "vuejs-datepicker";
 
 export default {
-  props:['sitter'],
+  props: ["sitter"],
   components: {
     Datepicker,
     VueTimepicker
   },
   methods: {
-    book(sitter) {
-      if(!this.startTimestamp || !this.endTimestamp) console.log('feel the fields')
-        const reservation = {
+    book(sitter) {decodeURI
+      if (!this.startTimestamp || !this.endTimestamp)
+        console.log("feel the fields");
+      const reservation = {
         start: this.startTimestamp,
         end: this.endTimestamp,
-        date: this.date
+        date: this.date,
+        to: sitter.username,
+        from: JSON.parse(localStorage.getItem("loggedInUser")).username,
+        id: this.makeId(),
+        status:'pending'
       };
-      this.$store.dispatch({type:'checkAvalability',filter:reservation,sitter})
+      this.$store
+        .dispatch({ type: "checkAvalability", reservation })
+        .then(res => {
+          if (res.length !== 0) console.log("sry already Taken babe")
+          else this.$store.dispatch({ type: "sendRequest", reservation,sitter })
+        })
+    },
+    makeId(length = 3) {
+      var txt = "";
+      var possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return txt;
     },
     customFormatter(date) {
       this.date = moment(date).format("YYYY-MM-D");
     },
     getTimestampStart(time) {
       if (this.date)
-        this.startTimestamp = moment(`${this.date},${time.HH}:${time.mm}`)._d.getTime();
+        this.startTimestamp = moment(
+          `${this.date},${time.HH}:${time.mm}`
+        )._d.getTime();
     },
     getTimestampEnd(time, data) {
       if (this.date)
-        this.endTimestamp = moment(`${this.date},${time.HH}:${time.mm}`)._d.getTime();
+        this.endTimestamp = moment(
+          `${this.date},${time.HH}:${time.mm}`
+        )._d.getTime();
     }
   },
   data() {
@@ -93,7 +116,7 @@ export default {
 </script>
 
 <style  scoped lang="scss">
-.time-container{
+.time-container {
   margin-left: 30px;
 }
 .date-time {
@@ -102,35 +125,35 @@ export default {
   text-align: center;
 }
 
-.time-start{
+.time-start {
   margin-bottom: 20px;
 }
 
-.date-time{
+.date-time {
   width: 800px;
 }
 
-.time-end{
+.time-end {
   margin-bottom: 20px;
 }
 
-button{
-    border: 1px solid black;
-    border-radius: 10px;
-    height: 72px;
-    width: 130px;
-    margin-top: 40px;
-    background-color: #951555;
-    color: white;
-    cursor: pointer;
-    transition: .2s all;
+button {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 72px;
+  width: 130px;
+  margin-top: 40px;
+  background-color: #951555;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s all;
 }
 
-button:hover{
-  background-color: rgb(189, 28, 109)
+button:hover {
+  background-color: rgb(189, 28, 109);
 }
 
-.time-head{
+.time-head {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 5px;

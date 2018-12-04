@@ -73,6 +73,24 @@ function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 151231
         })
 }
 
+function checkAvalability(reservation) {
+    console.log(1546329600000,'needeed')
+    console.log(reservation.start,'got')
+    console.log(1546336800000,'needeed')
+    console.log(reservation.end,'got')
+    var reservationFilter = {$and:[
+            { schedule: { $elemMatch: { sTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            { schedule: { $elemMatch: { eTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            {username:reservation.to}
+        ]
+    }
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('sitters');
+            return collection.find(reservationFilter).toArray()
+        })
+}
+
 
 function checkParentLogin(typedDetails) {
     return parent = mongoService.connectToDb()
@@ -182,7 +200,8 @@ module.exports = {
     getByUsernameParent,
     checkSitterLogin,
     checkParentLogin,
-    addSitter
+    addSitter,
+    checkAvalability
 }
 
 // historymsgs = {['etishimrit']:[]}
