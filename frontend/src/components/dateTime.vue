@@ -41,7 +41,8 @@ export default {
     VueTimepicker
   },
   methods: {
-    book(sitter) {decodeURI
+    book(sitter) {
+      decodeURI;
       if (!this.startTimestamp || !this.endTimestamp)
         console.log("feel the fields");
       const reservation = {
@@ -51,14 +52,17 @@ export default {
         to: sitter.username,
         from: JSON.parse(localStorage.getItem("loggedInUser")).username,
         id: this.makeId(),
-        status:'pending'
+        status: "pending"
       };
       this.$store
         .dispatch({ type: "checkAvalability", reservation })
         .then(res => {
-          if (res.length !== 0) console.log("sry already Taken babe")
-          else this.$store.dispatch({ type: "sendRequest", reservation,sitter })
-        })
+          if (res.length !== 0) console.log("sry already Taken babe");
+          else {
+            console.log('res sentttt')
+            this.$store.dispatch({ type: "sendRequest", reservation, sitter });
+          }
+        });
     },
     makeId(length = 3) {
       var txt = "";

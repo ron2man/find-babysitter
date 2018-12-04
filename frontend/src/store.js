@@ -4,6 +4,7 @@ import userModule from './modules/userModule.js'
 import sitterModule from './modules/sitterModule.js'
 import chatModule from './modules/chatModule.js'
 import authService from '../src/service/authService.js'
+import reservationModule from './modules/reservationModule.js'
 // import { setServers } from 'dns';
 
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
   modules: {
     userModule,
     sitterModule,
-    chatModule
+    chatModule,
+    reservationModule
   },
   state: {
     currUser: null,

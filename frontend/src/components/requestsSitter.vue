@@ -1,9 +1,9 @@
 <template>
-  <section>
+  <section v-if="sitter">
     <div
       class="requests-item-container"
-      v-for="reservation in this.currentUser.reservations"
-      :key="reservation.start"
+      v-for="reservation in sitter.reservations"
+      :key="reservation.id"
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Parent: {{reservation.from}}</p>
@@ -25,7 +25,9 @@ export default {
         }
     },
     created(){
-        this.currentUser = JSON.parse(localStorage.getItem("loggedInUser"))
+        const currentUser = JSON.parse(localStorage.getItem("loggedInUser"))
+        const id = currentUser._id
+      this.$store.dispatch({ type: "getSitterId",id})
     },
     methods:{
         getClass(reservation){
@@ -41,6 +43,11 @@ export default {
         const status = 'decline'
       this.$store.dispatch({ type: "request",details: id,parent,status })
     }
+},
+  computed: {
+    sitter() {
+      return this.$store.getters.getCurrentUser;
+    }    
 }
 }
 </script>

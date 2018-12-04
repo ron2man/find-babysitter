@@ -189,9 +189,8 @@ function updateSitter(user) {
             const collection = db.collection('sitters');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    // return result;
-                    // })
-                    // console.log(result)
+                    console.log(result)
+                    return result;
                 })
         })
 }
@@ -203,7 +202,7 @@ function updateParent(user) {
             const collection = db.collection('parents');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    // console.log(result)
+                    console.log(result)
                     return result;
                 })
         })
