@@ -11,6 +11,7 @@
     </div>
     <div class="tabs-container flex flex-space-around">
       <router-link class="item-route align-self-center" to="notifications">Inbox</router-link>
+      <router-link class="item-route align-self-center" to="requests">Requests</router-link>
       <router-link class="item-route align-self-center" to="details">Sceduale</router-link>
       <router-link class="last-item-route align-self-center" to="sceduale">Album</router-link>
     </div>
