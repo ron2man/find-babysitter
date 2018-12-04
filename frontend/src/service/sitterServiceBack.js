@@ -4,11 +4,11 @@ const BASE_URL = 'http://localhost:3003'
 
 
 
-function query(filterLocation = '', filterProperty = '') {
+function query(filterLocation = '', filterProperty = '', sortKey) {
     // function query(filter = {username:'shira',license: true}) {
     const params = new URLSearchParams
 
-
+    
     console.log(filterLocation);
     if (filterLocation) {
         params.set('sTime', filterLocation.schedule.startTime)
@@ -32,6 +32,12 @@ function query(filterLocation = '', filterProperty = '') {
             params.set('name', filterProperty.fullName)
         
     }
+
+    
+// this params adds key sort (rate as default)
+    console.log('sortBy', sortKey);
+
+    params.set('sortBy', sortKey)
 
     // if (filter.username && filter.license) {
     //     console.log('got here')
