@@ -26,6 +26,9 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
         // if (filterProperty.ageRange) {
             params.set('minAge', filterProperty.ageRange[0])
             params.set('maxAge', filterProperty.ageRange[1])
+
+            params.set('minWage', filterProperty.wageRange[0])
+            params.set('maxWage', filterProperty.wageRange[1])
             // console.log()
             params.set('name', filterProperty.fullName)
         
