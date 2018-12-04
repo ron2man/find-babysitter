@@ -9,8 +9,8 @@
         <p class="notice-head">Parent: {{reservation.from}}</p>
         <p class="notice-head">From: {{getTime(reservation.start)}}</p>
         <p class="notice-head">To: {{getTime(reservation.end)}}</p>
-      <button class="notification-item approve">Approve</button>
-      <button class="notification-item declined" @click="declineRequest(reservation.id,reservation.from)">Declined</button>
+      <button class="notification-item approve" @click="answerReservation(reservation,'confirmed')">Approve</button>
+      <button class="notification-item declined" @click="answerReservation(reservation,'decline')">Declined</button>
     </div>
   </section>
 </template>
@@ -38,9 +38,7 @@ export default {
     getTime(timeStamp){
        return moment(timeStamp).format('hh:mm')
     },
-    declineRequest(id,from){
-        const parent = from
-        const status = 'decline'
+    answerReservation(id,parent,status){
       this.$store.dispatch({ type: "request",details: id,parent,status })
     }
 },

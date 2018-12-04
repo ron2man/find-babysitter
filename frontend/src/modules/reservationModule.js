@@ -1,26 +1,30 @@
 import sitterServiceBack from '../service/sitterServiceBack.js'
 export default {
     state: {
-        currentParent:'',
-        currentIdxRequest:'',
+        currentParent:null,
+        currentId:'',
+        resParentIdx:'',
+        resSitterIdx:'',
         currentStatus:'',
         currentUser: null,
+        currentReservation:null
     },
     mutations: {
         setParentForRequest(state,details){
+    //set the values in store for curr reservation
             state.currentParent = details.parent
-            state.currentIdxRequest = details.requestId
-            state.currentStatus = details.status
-            const reservationIdx = state.currentParent.reservations.findIndex(reservation => reservation.id === state.currentIdxRequest)
-            state.currentParent.reservations[reservationIdx].status = state.currentStatus
-            if(details.status === 'decline'){
-                const reservationIdx = state.currentUser.reservations.findIndex(reservation => {return reservation.id === state.currentIdxRequest})
-                state.currentUser.reservations.splice(reservationIdx,1) 
-                this.dispatch({ type: "removeReservation"})
-                this.dispatch({ type: "changeParentStatus"})
-            } else {
-                this.dispatch({ type: "changeParentStatus"})
-            }
+            state.currentId = details.details.requestId
+            state.currentStatus = details.details.status
+    //change status res parent
+            state.resParentIdx = state.currentParent.reservations.findIndex(reservation => reservation.id === state.currentId)
+            state.resSitterIdx = state.currentUser.reservations.findIndex(reservation => reservation.id === state.currentId)
+            state.currentParent.reservations[state.resParentIdx].status = state.currentStatus
+            if(details.status === 'decline') state.currentUser.reservations.splice(state.resSitterIdx,1) 
+            // else {
+
+            // }
+            // this.dispatch({ type: "updateParent"})
+            // this.dispatch({ type: "deleteReservation"})
         },
         setSitter(state, sitter) {
             state.currentUser = sitter
@@ -44,17 +48,14 @@ export default {
         sendRequest(context, reservation) {
             context.commit({ type: 'pushReservation', reservation })
         },
-        request(context,details){
-            const status = details.status
-            const parent = details.parent
-            const requestId = `${details.details}`
-            sitterServiceBack.getByParentUsername(parent)
-                .then(parent => context.commit({ type: 'setParentForRequest', parent,requestId,status }))
+        request(context,{details}){
+            sitterServiceBack.getByParentUsername(details.from)
+                .then(parent => context.commit({ type: 'setParentForRequest', parent,details }))
         },
-        removeReservation(context){
+        deleteReservation(context){
             sitterServiceBack.updateSitter(context.state.currentUser)
         },
-        changeParentStatus(context){
+        updateParent(context){
             sitterServiceBack.updateParent(context.state.currentParent)
         },
         getSitterId(context, { id }) {
