@@ -2,7 +2,9 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 1512311933000, name = '', radius = Infinity, lat = null, lng = null }) {
+
+function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 1512311933000, name = '', radius = Infinity, lat = null, lng = null, sortBy='aveRate' }) {
+
 
 
     // 
@@ -55,9 +57,10 @@ function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 151231
     }
     // END QUERY BY TIME GAP
 
-    // console.log({ nameFilter })
 
 
+
+    console.log('filter at service back',sortBy);
 
 
     return mongoService.connectToDb()
@@ -65,7 +68,8 @@ function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 151231
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, {}] }).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
+
         })
 }
 

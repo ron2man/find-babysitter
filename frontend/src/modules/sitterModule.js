@@ -8,6 +8,7 @@ export default {
         currentSitter: null,
         filterLocation: null,
         filterProperty: null,
+        sortBy: 'aveRate'
     },
     mutations: {
         setSitters(state, { sitters }) {
@@ -31,11 +32,16 @@ export default {
         },
         setCurrentSitter(state, sitter) {
             state.currentSitter = sitter
+        },
+        setSort(state, payload) {
+            // console.log('mutatation sortab',payload);
+            state.sortBy = payload
+
         }
     },
     actions: {
         getsittersList(context) {
-            return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty)
+            return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy)
                 .then(sitters => {
                     context.commit({ type: 'setSitters', sitters })
                 })
@@ -77,6 +83,16 @@ export default {
             context.commit('setFilterProperty', newFilter)
             context.dispatch('getsittersList')
         },
+        setSort(context, { sortBy }) {
+            context.commit('setSort', sortBy)
+            sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy,sortBy)
+                .then(sitters => {
+                    // console.log('sitters in store', sitters);
+                    context.commit({type:'setSitters',sitters}) 
+
+                })
+
+        }
 
     },
     getters: {
