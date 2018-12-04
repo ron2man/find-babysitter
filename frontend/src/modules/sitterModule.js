@@ -9,14 +9,11 @@ export default {
         filterLocation: null,
         filterProperty: null,
         sortBy: 'aveRate',
-<<<<<<< HEAD
         currentParent:'',
         currentIdxRequest:'',
-        currentStatus:''
-=======
+        currentStatus:'',
         topSitters: null,
         isLoading: false,
->>>>>>> 12e812e38ab007af25436e5f7ff4f7c645ea0d20
     },
     mutations: {
         changeLoader(state, status){
