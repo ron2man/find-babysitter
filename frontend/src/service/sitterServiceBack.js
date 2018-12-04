@@ -9,7 +9,7 @@ function query(filterLocation = '', filterProperty = '') {
     const params = new URLSearchParams
 
 
-    console.log(filterLocation);
+    console.log('filterLocation',filterLocation);
     if (filterLocation) {
         params.set('sTime', filterLocation.schedule.startTime)
         params.set('eTime', filterLocation.schedule.endTime)

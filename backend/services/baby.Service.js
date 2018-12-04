@@ -2,7 +2,7 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 1512311933000, name = '' }) {
+function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 1512311933000, name = '', radius = Infinity, lat = null, lng = null }) {
 
 
     // 
@@ -12,6 +12,23 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     // var addressFilter = {
 
     // }
+
+    // START QUERY BY LOCATION
+    var locationFilter = {
+        location:
+        {
+            $near:
+            {
+                // FIRST LNG - SECOND LAT
+                $geometry: { type: "Point", coordinates: [+lng, +lat] },
+                $minDistance: 0,
+                $maxDistance: +radius
+            }
+        }
+    }
+    // console.log('lat lng radius',+lng,+lat,+radius)
+    // END QUERY BY LOCATION
+
     // START QUERY BY NAME SEARCH
     // const regEx = new RegExp( '.*' + name + '.*', 'i') 
     var nameFilter = {
@@ -38,7 +55,7 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     }
     // END QUERY BY TIME GAP
 
-    console.log({nameFilter})
+    // console.log({ nameFilter })
 
 
 
@@ -46,8 +63,9 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
-            // return collection.find(ageFilter).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).toArray()
+            collection.createIndex({ "location": "2dsphere" });
+            // return collection.find({}).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, {}] }).toArray()
         })
 }
 
@@ -126,7 +144,7 @@ function updateParent(user) {
             const collection = db.collection('parents');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    console.log(result)
+                    // console.log(result)
                     return result;
                 })
         })
