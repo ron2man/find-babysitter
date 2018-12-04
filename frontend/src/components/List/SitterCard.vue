@@ -4,9 +4,9 @@
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
         <h2 class="name">{{sitter.name.fullName}}</h2>
-        <h3 class="address">{{sitter.adress.street}}</h3>
-         <p>{{sitter.adress.city}}</p>
-        <p>{{sitter.adress.district}}</p>
+        <h3 class="address">{{sitter.location.addressText}}</h3>
+         <!-- <p>{{sitter.adress.city}}</p> -->
+        <!-- <p>{{sitter.adress.district}}</p> -->
       </div>
       <div class="buttons">
         <div class="contact" @click="sendMessage(sitter)">
@@ -17,7 +17,7 @@
        
           <i class="fas fa-star star"></i>
           <p>
-            <span class="rating-big bold">4.4</span>
+            <span class="rating-big bold">{{sitter.aveRate}}</span>
             <span>
               (Rated
               <span class="bold">429</span> Times)
@@ -53,6 +53,12 @@
         <p>
           <span class="bold">Love to work with:</span>
           {{sitter.agePrefs}}
+        </p>
+      </div>
+      <div class="looking-for">
+        <p>
+          <span class="bold">Age:</span>
+          {{sitter.age}}
         </p>
       </div>
       <div class="looking-for">

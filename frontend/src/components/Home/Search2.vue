@@ -61,7 +61,7 @@ export default {
         radius: 15
       },
       normalizeFilter: {
-        coords: { lat: null, lon: null, radius: 15 },
+        coords: { lat: null, lon: null, radius: 10000 },
         schedule: { startTime: null, endTime: null }
       }
     };
@@ -105,7 +105,7 @@ export default {
       this.normalizeFilter.coords.lon = this.filter.location.lon
 
 
-      console.log(this.normalizeFilter);
+      // console.log(this.normalizeFilter);
     }
   },
   mounted() {
