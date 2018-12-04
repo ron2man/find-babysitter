@@ -2,8 +2,8 @@ const mongoService = require('./mongo.service')
 
 const ObjectId = require('mongodb').ObjectId;
 
-function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 1512311933000, name = '' }) {
-
+function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 1512311933000, name = '' , sortBy='aveRate'}) {
+    
 
     // 
     // if (filter.lat) var lat = +filter.lat
@@ -38,16 +38,20 @@ function query({ minAge = 0, maxAge = 100, sTime = 1512311933000, eTime = 151231
     }
     // END QUERY BY TIME GAP
 
-    console.log({nameFilter})
+    // console.log({nameFilter})
 
 
+    console.log('filter at service back',sortBy);
 
 
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
             // return collection.find(ageFilter).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).toArray()
+        //     var sitters = collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).sort( { [sortBy]: -1 } ).toArray()
+        //    sitters.then(res=>console.log('res from mongo',res))
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, {}] }).sort( { [sortBy]: -1 } ).toArray()
+            
         })
 }
 
