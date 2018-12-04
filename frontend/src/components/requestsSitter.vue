@@ -3,14 +3,14 @@
     <div
       class="requests-item-container"
       v-for="reservation in this.currentUser.reservations"
-      :key="reservation.from"
+      :key="reservation.start"
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Parent: {{reservation.from}}</p>
         <p class="notice-head">From: {{getTime(reservation.start)}}</p>
         <p class="notice-head">To: {{getTime(reservation.end)}}</p>
       <button class="notification-item approve">Approve</button>
-      <button class="notification-item declined">Declined</button>
+      <button class="notification-item declined" @click="declineRequest(reservation.id,reservation.from)">Declined</button>
     </div>
   </section>
 </template>
@@ -26,7 +26,6 @@ export default {
     },
     created(){
         this.currentUser = JSON.parse(localStorage.getItem("loggedInUser"))
-        console.log(this.currentUser)
     },
     methods:{
         getClass(reservation){
@@ -36,6 +35,11 @@ export default {
         },
     getTime(timeStamp){
        return moment(timeStamp).format('hh:mm')
+    },
+    declineRequest(id,from){
+        const parent = from
+        const status = 'decline'
+      this.$store.dispatch({ type: "request",details: id,parent,status })
     }
 }
 }

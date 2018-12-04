@@ -4,7 +4,6 @@ export default {
 
     state: {
         currNoticeUser: null,
-        currLoggedUser: JSON.parse(localStorage.getItem("loggedInUser"))
     },
     mutations: {
         setNotificationUser(state, { user }) {

@@ -3,7 +3,7 @@
     <div
       class="requests-item-container"
       v-for="reservation in this.currentUser.reservations"
-      :key="reservation.from"
+      :key="reservation.start"
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Sitter: {{reservation.to}}</p>
