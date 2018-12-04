@@ -3,17 +3,29 @@ const mongoService = require('./mongo.service')
 const ObjectId = require('mongodb').ObjectId;
 
 
-function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 1512311933000, name = '', radius = Infinity, lat = null, lng = null, sortBy='aveRate' }) {
+function query({
+     minAge = 0, 
+     maxAge = 200, 
+     sTime = 1512311933000, 
+     eTime = 1512311933000, 
+     name = '', 
+     radius = Infinity, 
+     lat = null, 
+     lng = null, 
+     sortBy='aveRate',
+     minWage = 0,
+     maxWage = Infinity,
+
+}) {
 
 
 
-    // 
-    // if (filter.lat) var lat = +filter.lat
+    // START QUERY BY WAGE
+    var wageFilter = {
+        hWage: { $gte: +minWage, $lte: +maxWage }
+    }
+    // END QUERY BY WAGE
 
-    // START QUERY BY LOCATION 
-    // var addressFilter = {
-
-    // }
 
     // START QUERY BY LOCATION
     var locationFilter = {
@@ -28,7 +40,6 @@ function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 151231
             }
         }
     }
-    // console.log('lat lng radius',+lng,+lat,+radius)
     // END QUERY BY LOCATION
 
     // START QUERY BY NAME SEARCH
@@ -68,7 +79,7 @@ function query({ minAge = 0, maxAge = 200, sTime = 1512311933000, eTime = 151231
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, {}] }).sort( { [sortBy]: -1 } ).sort( { [sortBy]: -1 } ).toArray()
 
         })
 }

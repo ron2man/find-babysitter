@@ -6,8 +6,8 @@
       <!-- <div> -->
       <!-- <router-link @click="checkIfLogin"> -->
       <div class="flex column">
-        <i class="fas fa-user login-icon" @click="goHome"></i>
-        <h2 class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</h2>
+        <i class="fas fa-user login-icon" @click="goToProfile"></i>
+        
       </div>
 
       <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
@@ -16,7 +16,10 @@
       <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
       </h1>
-      <nav>
+
+    
+      <nav class="right-nav-items flex flex-space-between align-items-center">
+      <h2 class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</h2>
         <i class="fas fa-bars"></i>
       </nav>
     </header>
@@ -56,9 +59,12 @@ export default {
         this.curFrUser = this.$store.getters.setLoginUser;
       }
     },
-    goHome() {
-      this.$router.push("/");
+    goToProfile(){
+      if (!this.currUser) this.$router.push('/login')
+      else if (this.currUser.type==='sitter') this.$router.push("/baby/profile/sitter/"+`${this.currUser.username}`);
+      else if (this.currUser.type==='parent') this.$router.push("/baby/profile/parent/"+`${this.currUser.username}`);
     }
+   
   },
   computed: {
     currUser() {
@@ -118,5 +124,9 @@ header {
 .login-txt {
   font-size: 16px;
   line-height: 2;
+}
+
+.right-nav-items{
+    width: 100px;
 }
 </style>
