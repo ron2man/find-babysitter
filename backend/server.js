@@ -6,6 +6,8 @@ const session = require('express-session')
 const app = express()
 const http = require('http').Server(app);
 var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
+const history = require('connect-history-api-fallback');
+
 
 // const userService = require('./services/user-service')
 
@@ -14,7 +16,6 @@ const addUserRoutes = require('./routes/userRoute')
 const mongoService = require('./services/mongo.service')
 
 var historymsgs = {}
-app.use(express.static('public'));
 
 app.use(cors({
   origin: ['http://localhost:8080'],
@@ -33,6 +34,9 @@ app.use(session({
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+app.use(history())
+app.use(express.static('public'));
 
 addSitterRoutes(app)
 addUserRoutes(app)
