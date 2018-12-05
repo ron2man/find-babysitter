@@ -53,19 +53,20 @@ export default {
   },
   sockets: {
     SendMsg(msg) {
-      const newMsg = this.createdMsg(msg)
-      this.msgs.push(newMsg);
-      if (this.counter === 0) {
-        const type = this.checkParentOrSitter();
-        if (type === "parent") {
-          const user = this.$route.params.parentName;
-          this.$store.dispatch({ type: "sendNotification", user });
-        } else {
-          const user = this.$route.params.sitterName;
-          this.$store.dispatch({ type: "sendNotification", user });
-        }
-        this.counter++;
-      }
+      console.log(this.$route.params)
+      // const newMsg = this.createdMsg(msg)
+      // this.msgs.push(newMsg);
+      // if (this.counter === 0) {
+      //   const type = this.checkParentOrSitter();
+      //   if (type === "parent") {
+      //     const user = this.$route.params.userName;
+      //     this.$store.dispatch({ type: "sendNotification", user });
+      //   } else {
+      //     const user = this.$route.params.userName;
+      //     this.$store.dispatch({ type: "sendNotification", user });
+      //   }
+      //   this.counter++;
+      // }
     },
     getHistory(history) {
       if (history.length) {
