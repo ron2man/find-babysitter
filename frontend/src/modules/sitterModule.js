@@ -13,8 +13,8 @@ export default {
         isLoading: false,
     },
     mutations: {
-        changeLoader(state, status){
-        state.isLoading = status
+        changeLoader(state, status) {
+            state.isLoading = status
         },
         setTopSitters(state, { sitters }) {
             state.topSitters = sitters
@@ -47,11 +47,11 @@ export default {
         },
     },
     actions: {
-        getsittersList(context) {            
+        getsittersList(context) {
             return sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy)
-            .then(sitters => {
-                context.commit({ type: 'setSitters', sitters })
-            })
+                .then(sitters => {
+                    context.commit({ type: 'setSitters', sitters })
+                })
         },
         getTopSittersList(context) {
             return sitterServiceBack.Limitquery(6, 'aveRate')
@@ -100,11 +100,15 @@ export default {
             context.commit('setSort', sortBy)
             sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy, sortBy)
                 .then(sitters => {
-                    context.commit({type:'setSitters',sitters}) 
+                    context.commit({ type: 'setSitters', sitters })
 
                 })
 
         },
+        changeLoaderStatus(context, { status }) {
+            context.commit('changeLoader', status)
+
+        }
     },
     getters: {
         getSitters: (state) => { return state.sitters },
@@ -113,7 +117,7 @@ export default {
             return JSON.parse(JSON.stringify(state.filterLocation));
         },
         topSitters: (state) => { return state.topSitters },
-        isLoading: (state) => {return state.isLoading}
+        isLoading: (state) => { return state.isLoading }
     }
 }
 

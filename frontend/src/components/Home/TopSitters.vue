@@ -22,7 +22,10 @@
 <script>
 export default {
   created() {
+    
+    this.$store.dispatch("changeLoaderStatus", {status: true});
     this.$store.dispatch("getTopSittersList");
+    this.$store.dispatch("changeLoaderStatus", {status: false});
   },
   data() {
     return {

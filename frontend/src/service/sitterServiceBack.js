@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:3003'
 
 
 function query(filterLocation = '', filterProperty = '', sortKey) {
-    // function query(filter = {username:'shira',license: true}) {
+
     const params = new URLSearchParams
 
     if (filterLocation) {
@@ -20,29 +20,22 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
         }
     }
 
-    console.log('filterProperty',filterProperty);
 
 
     if (filterProperty) {
-        // FILTER FULL NAME
-        // if (filterProperty.ageRange) {
-            params.set('minAge', filterProperty.ageRange[0])
-            params.set('maxAge', filterProperty.ageRange[1])
+        console.log('filterProperty', filterProperty);
+        
+        params.set('name', filterProperty.fullName)
 
-            params.set('minWage', filterProperty.wageRange[0])
-            params.set('maxWage', filterProperty.wageRange[1])
-            // console.log()
-            params.set('name', filterProperty.fullName)
+        params.set('minAge', filterProperty.ageRange[0])
+        params.set('maxAge', filterProperty.ageRange[1])
 
-            params.set('cleaner',filterProperty.isCleaner)
-            params.set('medical',filterProperty.isMedical)
-            params.set('nonSmoking',filterProperty.isNonSmoking)
-
-            // params.set('filterProperty',JSON.stringify(filterProperty))
-
-
-            // console.log('IM WORKING', filterProperty)
-
+        params.set('minWage', filterProperty.wageRange[0])
+        params.set('maxWage', filterProperty.wageRange[1])
+        
+        params.set('cleaner', filterProperty.isCleaner)
+        params.set('medical', filterProperty.isMedical)
+        params.set('nonSmoking', filterProperty.isNonSmoking)
     }
 
 
@@ -51,15 +44,6 @@ function query(filterLocation = '', filterProperty = '', sortKey) {
 
     params.set('sortBy', sortKey)
 
-    // if (filter.username && filter.license) {
-    //     console.log('got here')
-
-    // params.set('license', filter.license)
-    // }
-
-    // params.name = filter.name
-    // params.filter = filter
-    // params.set('name', filter.name)
     return axios.get(`${BASE_URL}/baby?${params}`).then(res => res.data)
 }
 

@@ -18,8 +18,8 @@ function query({
     cleaner = '',
     medical = '',
     nonSmoking = '',
-    limit=6
- 
+    limit = 1000,
+
 
 }) {
 
@@ -104,7 +104,7 @@ function query({
             const collection = db.collection('sitters');
             collection.createIndex({ "location": "2dsphere" });
             // return collection.find({}).toArray()
-            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, isClean,isMedical,isSmoke, {}] }).sort({ [sortBy]: -1 }).sort({ [sortBy]: -1 }).limit(+limit).toArray()
+            return collection.find({ $and: [timeGapFilter, ageFilter, nameFilter, locationFilter, wageFilter, isClean, isMedical, isSmoke, {}] }).sort({ [sortBy]: -1 }).limit(+limit).toArray()
 
         })
 }
