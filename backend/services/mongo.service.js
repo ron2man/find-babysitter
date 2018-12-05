@@ -14,7 +14,6 @@ function connectToDb() {
     return new Promise((resolve, reject)=>{
         MongoClient.connect(url, (err, client) => {
             if (err) return reject('Cannot connect to Mongo');
-            console.log("Connected successfully to server");
             dbConnection = client.db(dbName);
             resolve(dbConnection)
         });

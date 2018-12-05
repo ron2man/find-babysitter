@@ -57,6 +57,7 @@ export default {
       this.$store
         .dispatch({ type: "checkAvalability", reservation })
         .then(res => {
+          console.log(res)
           if (res.length !== 0) console.log("sry already Taken babe");
           else {
             console.log('res sentttt')
@@ -94,12 +95,12 @@ export default {
       startTimestamp: "",
       endTimestamp: "",
       startTime: {
-        HH: "16",
-        mm: "00"
+        HH: "HH",
+        mm: "MM"
       },
       endTime: {
-        HH: "20",
-        mm: "00"
+        HH: "HH",
+        mm: "MM"
       },
       year: "",
       day: "",

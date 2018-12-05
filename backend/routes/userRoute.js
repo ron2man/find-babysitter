@@ -23,7 +23,6 @@ function addUserRoutes(app) {
 
         babyService.checkSitterLogin(typedDetails)
             .then(user => {
-                console.log('expect to full sitter user obj if correct pwd and username:', user);
                 if (user.length) {
                     req.session.user = user[0]
                     res.json(user[0])

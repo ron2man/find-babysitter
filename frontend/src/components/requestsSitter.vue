@@ -38,8 +38,8 @@ export default {
     getTime(timeStamp){
        return moment(timeStamp).format('hh:mm')
     },
-    answerReservation(id,parent,status){
-      this.$store.dispatch({ type: "request",details: id,parent,status })
+    answerReservation(reservation,state){
+      this.$store.dispatch({ type: "request",details: reservation,state })
     }
 },
   computed: {

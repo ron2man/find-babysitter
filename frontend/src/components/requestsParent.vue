@@ -25,7 +25,6 @@ export default {
     },
     created(){
         this.currentUser = JSON.parse(localStorage.getItem("loggedInUser"))
-        console.log(this.currentUser)
     },
     methods:{
         getClass(reservation){

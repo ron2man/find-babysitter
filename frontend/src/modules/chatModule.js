@@ -15,7 +15,6 @@ export default {
     },
     actions: {
         sendNotification(context, { user }) {
-            console.log(user)
             const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
             if (currLoggedUser.type === 'parent') return sitterServiceBack.getSitterByUsername(user)
                 .then(user => {
@@ -34,15 +33,12 @@ export default {
                 return notice.from === currLoggedUser.username
             })
             const notification = sitterServiceBack.createNotification(currLoggedUser.username)
-            console.log(notification)
             let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
             if (noticeFrom === -1) {
                 copyUser.notifications.unshift(notification)
-                console.log(copyUser,'+',Date.now())
             } else {
                 copyUser.notifications.splice(noticeFrom, 1)
                 copyUser.notifications.unshift(notification)
-                console.log(copyUser,'+',Date.now())
             }
             if (currLoggedUser.type === 'parent') return sitterServiceBack.updateSitter(copyUser)
             else return sitterServiceBack.updateParent(copyUser)

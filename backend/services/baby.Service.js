@@ -110,14 +110,10 @@ function query({
 }
 
 function checkAvalability(reservation) {
-    console.log(1546329600000, 'needeed')
-    console.log(reservation.start, 'got')
-    console.log(1546336800000, 'needeed')
-    console.log(reservation.end, 'got')
     var reservationFilter = {
         $and: [
-            { schedule: { $elemMatch: { sTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
-            { schedule: { $elemMatch: { eTime: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            { schedule: { $elemMatch: { start: { $gte: +reservation.start, $lte: +reservation.end } } } },
+            { schedule: { $elemMatch: { end: { $gte: +reservation.start, $lte: +reservation.end } } } },
             { username: reservation.to }
         ]
     }
@@ -189,7 +185,6 @@ function updateSitter(user) {
             const collection = db.collection('sitters');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    console.log(result)
                     return result;
                 })
         })
@@ -202,7 +197,6 @@ function updateParent(user) {
             const collection = db.collection('parents');
             return collection.updateOne({ _id: user._id }, { $set: user })
                 .then(result => {
-                    console.log(result)
                     return result;
                 })
         })

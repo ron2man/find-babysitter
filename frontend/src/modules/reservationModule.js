@@ -10,24 +10,42 @@ export default {
         currentReservation:null
     },
     mutations: {
-        setParentForRequest(state,details){
+        handleRequest(state,details){
+            state.currentReservation = details.reservation
     //set the values in store for curr reservation
             state.currentParent = details.parent
-            state.currentId = details.details.requestId
-            state.currentStatus = details.details.status
-    //change status res parent
+            state.currentId = details.reservation.id
+            state.currentStatus = details.status
+    // //change status res parent
             state.resParentIdx = state.currentParent.reservations.findIndex(reservation => reservation.id === state.currentId)
             state.resSitterIdx = state.currentUser.reservations.findIndex(reservation => reservation.id === state.currentId)
             state.currentParent.reservations[state.resParentIdx].status = state.currentStatus
-            if(details.status === 'decline') state.currentUser.reservations.splice(state.resSitterIdx,1) 
-            // else {
-
-            // }
-            // this.dispatch({ type: "updateParent"})
-            // this.dispatch({ type: "deleteReservation"})
+            if(state.currentStatus === 'decline') state.currentUser.reservations.splice(state.resSitterIdx,1) 
+            else if(state.currentStatus === 'confirmed'){
+                this.dispatch({type:'checkAvalability',reservation:details.reservation})
+                    .then(res => { 
+                        console.log(res)
+                        if(res.length === 0)this.commit({ type: 'acceptReservation'})
+                        else this.commit({ type: 'declineReservation'})
+                    })
+            }
+        },
+        acceptReservation(state){
+            state.currentUser.schedule.push(state.currentReservation)
+            state.currentParent.schedule.push(state.currentReservation)
+            state.currentUser.reservations.splice(state.resSitterIdx,1) 
+            state.currentParent.reservations[state.resParentIdx].status = 'confirmed'
+            this.dispatch({ type: "updateParent"})
+            this.dispatch({ type: "deleteReservation"})
         },
         setSitter(state, sitter) {
             state.currentUser = sitter
+        },
+        declineReservation(state){
+            state.currentUser.reservations.splice(state.resSitterIdx,1) 
+            state.currentParent.reservations[state.resParentIdx].status = 'decline'
+            this.dispatch({ type: "updateParent"})
+            this.dispatch({ type: "deleteReservation"})
         },
         pushReservation(state,{reservation}){
             const sender = JSON.parse(localStorage.getItem("loggedInUser"))
@@ -48,9 +66,11 @@ export default {
         sendRequest(context, reservation) {
             context.commit({ type: 'pushReservation', reservation })
         },
-        request(context,{details}){
-            sitterServiceBack.getByParentUsername(details.from)
-                .then(parent => context.commit({ type: 'setParentForRequest', parent,details }))
+        request(context,details){
+            const status = details.state
+            const reservation = details.details
+            sitterServiceBack.getByParentUsername(details.details.from)
+                .then(parent => context.commit({ type: 'handleRequest', parent,status,reservation }))
         },
         deleteReservation(context){
             sitterServiceBack.updateSitter(context.state.currentUser)

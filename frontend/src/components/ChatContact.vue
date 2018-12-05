@@ -75,14 +75,12 @@ export default {
       }
     },
     firstChat(roomname) {
-      console.log("server sending back room name: ", roomname);
     }
   },
   methods: {
     SendMsg(msg) {
       const from = this.loggedUser.username;
       const time = Date.now()
-      console.log(from)
       this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
     },
