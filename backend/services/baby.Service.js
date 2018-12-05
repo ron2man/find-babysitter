@@ -214,11 +214,33 @@ function addSitter(userdetails) {
                     return newUser
                 })
         })
-
-
 }
 
 
+function checkMessages(roomname){
+    return mongoService.connectToDb()
+        .then(db => {
+            const collection = db.collection('msgs')
+            return collection.find({roomname:`${roomname}`}).toArray()
+        })
+}
+
+function createRoom(roomname){
+    return mongoService.connectToDb()
+    .then(db => {
+        const collection = db.collection('msgs')
+        return collection.insert({roomname:`${roomname}`,msgs:[]})
+    })
+}
+
+function pushMessage(msg,roomname){
+    console.log(msg,roomname)
+    return mongoService.connectToDb()
+    .then(db => {
+        const collection = db.collection('msgs')
+        return collection.update({roomname:`${roomname}`},{$push:{msgs:{msg:`${msg.msg}`,createdAt:`${msg.createdAt}`,from:`${msg.from}`}}})
+    })
+}
 
 module.exports = {
     query,
@@ -231,7 +253,10 @@ module.exports = {
     checkSitterLogin,
     checkParentLogin,
     addSitter,
-    checkAvalability
+    checkAvalability,
+    checkMessages,
+    createRoom,
+    pushMessage
 }
 
 // historymsgs = {['etishimrit']:[]}

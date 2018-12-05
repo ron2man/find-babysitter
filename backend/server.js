@@ -6,6 +6,7 @@ const session = require('express-session')
 const app = express()
 const http = require('http').Server(app);
 var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
+const babyService = require('./services/baby.Service')
 
 
 // const userService = require('./services/user-service')
@@ -39,19 +40,26 @@ addUserRoutes(app)
 
 // socket
 var msgs = []
+var twousersroom = ''
 
 io.on('connection', function (socket) {
 
   socket.on('firstChat', roomname => {
     socket.join(roomname)
-    if (msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
+    babyService.checkMessages(roomname)
+      .then(res => {
+        if(res.length !== 0 ) io.to(roomname).emit('getHistory', res);
+        else babyService.createRoom(roomname)
+        twousersroom = roomname
+      })
+    // if (msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
   });
 
   socket.on('SendMsg', details => {
     //details,details = room name
     io.to(details.details).emit('SendMsg', details.msg,details.from);
     const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
-    console.log(newMsg)
+    babyService.pushMessage(newMsg,twousersroom)
     if (!msgs[`${details.details}`]) {
       msgs[`${details.details}`] = []
       msgs[`${details.details}`].push(newMsg)

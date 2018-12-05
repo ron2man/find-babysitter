@@ -6,7 +6,7 @@
   <body>
     <ul id="messages">
       <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">
-        {{msg.from}}:{{msg.msg}} - {{msg.createdAt | relativeTime}}
+        {{msg.from}}:{{msg.msg}} - {{+msg.createdAt | relativeTime}}
         </li>
     </ul>
     <div class="input-box">
@@ -38,7 +38,6 @@ export default {
   created() {
     this.getHistory
     this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log(this.loggedUser)
     const type = this.checkParentOrSitter();
     if (type === "parent") {
       this.roomname = `${this.loggedUser.username}${
@@ -68,10 +67,13 @@ export default {
       }
     },
     getHistory(history) {
-      if (history.length) {
-        for (var i = 0; i < history.length; i++) {
-          this.msgs.push(history[i]);
+      const historyMsgs = history[0].msgs
+      if (historyMsgs) {
+        for (var i = 0; i < historyMsgs.length; i++) {
+          console.log(historyMsgs[i])
+          this.msgs.push(historyMsgs[i]);
         }
+            console.log(this.msgs)
       }
     },
     firstChat(roomname) {
@@ -92,9 +94,10 @@ export default {
       else return "sitter";
     },
     createdMsg(msg){
+      console.log(msg)
       return {
-        from:this.loggedUser.username,
-        msg,
+        from:msg[1],
+        msg:msg[0],
         createdAt: Date.now()
       }
     }
