@@ -53,8 +53,7 @@ export default {
   },
   sockets: {
     SendMsg(msg) {
-      const newMsg = this.createdMsg(msg)
-      this.msgs.push(newMsg);
+      this.msgs.push(msg);
       if (this.counter === 0) {
         const type = this.checkParentOrSitter();
         if (type === "parent") {
@@ -79,6 +78,7 @@ export default {
   },
   methods: {
     SendMsg(msg) {
+      
       const from = this.loggedUser.username;
       const time = Date.now()
       this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
@@ -91,14 +91,7 @@ export default {
       if (this.loggedUser.type === "parent") return "parent";
       else return "sitter";
     },
-    createdMsg(msg){
-      return {
-        from:this.loggedUser.username,
-        msg,
-        createdAt: Date.now()
-      }
     }
-  }
 };
 </script>
 

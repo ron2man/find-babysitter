@@ -48,10 +48,12 @@ io.on('connection', function (socket) {
   });
 
   socket.on('SendMsg', details => {
-    //details,details = room name
-    io.to(details.details).emit('SendMsg', details.msg,details.from);
-    const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
-    console.log(newMsg)
+    const newMsg = {
+      from: details.from,
+      msg: details.msg,
+      createdAt: details.time
+    }
+    io.to(details.details).emit('SendMsg', newMsg);
     if (!msgs[`${details.details}`]) {
       msgs[`${details.details}`] = []
       msgs[`${details.details}`].push(newMsg)

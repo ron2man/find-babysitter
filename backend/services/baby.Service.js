@@ -218,6 +218,13 @@ function addSitter(userdetails) {
 
 }
 
+function getMsgs(){
+    return mongoService.connectToDb()
+    .then(db => {
+        const collection = db.collection('msgs')
+        return collection.find({})
+    })
+}
 
 
 module.exports = {
@@ -231,7 +238,8 @@ module.exports = {
     checkSitterLogin,
     checkParentLogin,
     addSitter,
-    checkAvalability
+    checkAvalability,
+    getMsgs
 }
 
 // historymsgs = {['etishimrit']:[]}
