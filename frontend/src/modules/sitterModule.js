@@ -101,10 +101,6 @@ export default {
             context.commit('setSort', sortBy)
             sitterServiceBack.query(context.state.filterLocation, context.state.filterProperty, context.state.sortBy, sortBy)
                 .then(sitters => {
-<<<<<<< HEAD
-                    // console.log('sitters in store', sitters);
-=======
->>>>>>> 3c7a4bb5fa976101e97aa130ad84a7c0c23df883
                     context.commit({ type: 'setSitters', sitters })
 
                 })

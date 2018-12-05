@@ -8,6 +8,7 @@ export default {
     mutations: {
         setNotificationUser(state, { user }) {
             state.currNoticeUser = user
+
             this.dispatch({ type: 'pushNotification', user })
         }
     },
@@ -32,7 +33,9 @@ export default {
             const noticeFrom = context.state.currNoticeUser.notifications.findIndex(notice => {
                 return notice.from === currLoggedUser.username
             })
+            console.log(noticeFrom)
             const notification = sitterServiceBack.createNotification(currLoggedUser.username)
+            console.log(notification)
             let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
             if (noticeFrom === -1) {
                 copyUser.notifications.unshift(notification)
