@@ -4,14 +4,18 @@
     <title>Socket.IO chat</title>
   </head>
   <body>
-    <ul id="messages">
-      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.username}">
-        {{msg.from}}:{{msg.msg}} - {{+msg.createdAt | relativeTime}}
+    <ul class="messages">
+      <li v-for="msg in msgs" :key="msg.createdAt" :class="{sender: msg.from === loggedUser.name.fullName}">
+        <div class="msg-container" :class="{sender: msg.from === loggedUser.name.fullName}">
+          <div class="msg-from"  :class="{msgfromsender: msg.from === loggedUser.name.fullName}">{{msg.from}}</div>
+          <div class="msg-msg">{{msg.msg}}</div>
+          <div class="msg-time">{{+msg.createdAt | relativeTime}}</div>
+        </div>
         </li>
     </ul>
     <div class="input-box">
       <input id="m" autocomplete="off" v-model="msg">
-      <button @click="SendMsg(msg)">Send</button>
+      <button @click="SendMsg(msg)"><i class="fas fa-comment"></i></button>
     </div>
   </body>
 </section>
@@ -70,10 +74,8 @@ export default {
       const historyMsgs = history[0].msgs
       if (historyMsgs) {
         for (var i = 0; i < historyMsgs.length; i++) {
-          console.log(historyMsgs[i])
           this.msgs.push(historyMsgs[i]);
         }
-            console.log(this.msgs)
       }
     },
     firstChat(roomname) {
@@ -81,10 +83,12 @@ export default {
   },
   methods: {
     SendMsg(msg) {
-      const from = this.loggedUser.username;
+      const from = this.loggedUser.name.fullName;
       const time = Date.now()
       this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
+      console.log(from)
+      console.log(this.loggedUser.fullName)
     },
     firstChat() {
       this.$socket.emit("firstChat", this.roomname);
@@ -94,7 +98,6 @@ export default {
       else return "sitter";
     },
     createdMsg(msg){
-      console.log(msg)
       return {
         from:msg[1],
         msg:msg[0],
@@ -116,45 +119,97 @@ export default {
 body {
   font: 13px Helvetica, Arial;
 }
+
+.msg-time{
+    font-size: 15px;
+    color: grey;
+}
+
+.msg-msg{
+  margin-bottom: 4px;
+}
+
+.msg-from{
+  text-transform: capitalize;
+  color: #984a59;
+  font-weight: bold;
+}
+
 .input-box {
   background: rgb(255, 255, 255);
   padding: 3px;
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   width: 100%;
 }
 .input-box input {
-  border: 0;
-  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
   width: 90%;
   margin-right: 0.5%;
+  margin-bottom: 2px;
+  height: 50px;
+  background-color: #ffffff;
+  line-height: 29px;
+  padding: 10px;
+  font-size: 28px;
+  margin: 3px;
 }
 .input-box button {
-  width: 9%;
-  background: rgb(130, 224, 255);
-  border: none;
-  padding: 10px;
+    margin-bottom: 2px;
+    width: 112px;
+    height: 60px;
+    margin-left: 18px;
+    color: white;
+    background-color: #984a59;
+    line-height: 26px;
+    transition: .3s all;
+  }
+
+.input-box button:hover{
+  background-color: #e06c83;
+  cursor: pointer;
+} 
+
+    *:focus {
+    outline: none;
 }
-#messages {
+
+
+
+
+.messages {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
+  overflow: hidden;
 }
-#messages li {
+.messages li {
   padding: 5px 10px;
   text-align: left;
   border:1px solid black;
   border-radius: 10px;
+  border-top-left-radius: 0px;
   margin:5px;
   width: fit-content;
   font-size: 20px;
+  margin-left:5px;
+}
+
+.fa-comment:before {
+    content: "\F075";
+    font-size: 40px;
 }
 
 .sender{
-    align-self: flex-end;
-      background-color: rgb(138, 138, 255);
+  background-color:#984a59;
+  align-self: flex-end;
+}
+
+.msgfromsender{
+  color:white;
 }
 </style>
