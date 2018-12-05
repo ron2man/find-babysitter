@@ -31,10 +31,6 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 app.use(history())
 app.use(express.static('public'));
 

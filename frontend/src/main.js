@@ -13,7 +13,10 @@ Vue.use(Element)
 
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'http://localhost:3003/',
+    connection: process.env.NODE_ENV === 'production'
+    ? '/'
+    : 'http://localhost:3003'
+,
     vuex: {
         store,
         actionPrefix: 'SOCKET_',
