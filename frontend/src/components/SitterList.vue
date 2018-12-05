@@ -5,8 +5,6 @@
         <search2></search2>
       </div>
       <hr>
-      <div class="grid-container">
-        <second-filter class="filter"></second-filter>
         <el-select class="sort-item" v-model="sortBy" clearable placeholder="Sort" @input="setSort">
           <el-option
             v-for="item in sortTypes"
@@ -15,6 +13,8 @@
             :value="item.value"
           ></el-option>
         </el-select>
+      <div class="grid-container">
+        <second-filter class="filter"></second-filter>
 
         <div class="cards">
           <sitter-card v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-card>

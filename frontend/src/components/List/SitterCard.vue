@@ -249,10 +249,11 @@ i {
   text-align: center;
   max-width: 80px;
   width: 80px;
-  cursor: pointer;
 }
 
 .card-header .buttons .contact {
+  cursor: pointer;
+
   background-color: black;
   color: white;
   height: 50%;
