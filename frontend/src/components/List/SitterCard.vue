@@ -28,7 +28,6 @@
               <span class="bold">429</span> Times)
             </span>
           </p>
-          <!-- <i class="far fa-heart"></i> -->
         </div>
       </div>
     </div>
@@ -73,20 +72,21 @@
         </p>
       </div>
 
-      <div class="about-me">
-        <p>
-          About {{sitter.name.fName}}:
-          <br>
+      <!-- <div class="about-me"> -->
+        <!-- <p> -->
+          <!-- About {{sitter.name.fName}}: -->
+          <!-- <br> -->
           <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
           <!-- RENDER FULL DEATAILS - ABOUT -->
-        </p>
-        <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p>
+        <!-- </p> -->
+        <!-- <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p> -->
         <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
-        <p v-else>
-          {{shortDetails}} ...
-          <router-link :to="sitterUrl">read more</router-link>
-        </p>
-      </div>
+        <!-- <p v-else> -->
+          <!-- {{shortDetails}} ... -->
+          <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
+          <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div>
+        <!-- </p> -->
+      <!-- </div> -->
     </div>
     <div class="card-icons">
       <div class="icon tooltip">
@@ -141,7 +141,10 @@ export default {
         if (!user) this.$router.push(`/login?path=${path}`);
         else this.$router.push(path);
       });
-    }
+    },
+     sitterUrl() {
+      this.$router.push(`/baby/list/${this.sitter._id}`)
+    },
   },
   computed: {
     getLength() {
@@ -155,9 +158,9 @@ export default {
     shortDetails() {
       return this.sitter.about.substring(0, 100);
     },
-    sitterUrl() {
-      return `/baby/list/${this.sitter._id}`;
-    },
+    // sitterUrl() {
+    //   return `/baby/list/${this.sitter._id}`;
+    // },
     currUser() {
       return this.$store.getters.setLoginUser;
     },
@@ -380,6 +383,18 @@ i {
   margin-bottom: 3px;
 }
 
+.more-details{
+    text-decoration: none;  
+    border:1px gray solid;
+    width: 110px;
+    height: 34px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 2;
+    background-color: #fd0054;
+    color:white;
+}
+
 @media (min-width: 767px) {
   .card-header {
     height: 200px;
@@ -398,5 +413,7 @@ i {
     max-width: 90px;
     width: 90px;
   }
+
+
 }
 </style>
