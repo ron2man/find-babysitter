@@ -14,7 +14,7 @@
           class="contact"
           @click="sendMessage(sitter)"
         >
-          <h4>Book Now</h4>
+          <h4 class="book-now">Book Now</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
@@ -24,8 +24,8 @@
             <span class="rating-big bold">{{sitter.aveRate}}</span>
             </div>
             <span>
-              (Rated
-              <span class="bold">429</span> Times)
+              (
+              <span class="bold">429</span>)
             </span>
           </p>
         </div>
@@ -184,7 +184,7 @@ export default {
   border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  margin: 0 auto;
+  // margin: 0 auto;
   margin-bottom: 10px;
   margin-top: 10px;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
@@ -254,8 +254,8 @@ i {
 .card-header .buttons .contact {
   cursor: pointer;
 
-  background-color: black;
-  color: white;
+  background-color: #ffb480;
+  color: black;
   height: 50%;
   display: flex;
   flex-direction: column;
@@ -267,12 +267,20 @@ i {
   background-color: #951555;
 }
 
+.book-now{
+color:black;
+}
+
 .card-header .buttons .bookmark {
-  background-color: #fd0054;
+  background-color: #ffff9d;
   height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.rating-big{
+color:black;
 }
 
 .card-body {
@@ -296,7 +304,7 @@ i {
 
 .card-body .verifaction .icon i {
   font-size: 3em;
-  color: #9054ef;
+  color: #a26ea1;
 }
 
 .bold {
@@ -392,9 +400,17 @@ i {
     margin: 0 auto;
     text-align: center;
     line-height: 2;
-    background-color: #fd0054;
-    color:white;
+    background-color: #ffb480;
+    color: black;
+    border-radius: 10px;
 }
+
+.more-details:hover{
+cursor: pointer;
+
+}
+
+
 
 @media (min-width: 767px) {
   .card-header {

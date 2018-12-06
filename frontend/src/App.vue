@@ -96,8 +96,8 @@ header {
   height: 75px;
   line-height: 75px;
   padding: 0 15px;
-  background-color: #9054ef;
-  color: white;
+    background-color: #a26ea1;
+      color: white;
   h1 {
     a,
     a:active,
@@ -156,9 +156,10 @@ header {
   margin: 1px;
   border-radius: 50%;
   border: 5px solid black;
-  border-color: #9054ef transparent #9054ef transparent;
+  border-color: #a26ea1 transparent #a26ea1 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

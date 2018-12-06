@@ -178,7 +178,7 @@ input[type="password"],
 
 .button button {
   cursor: pointer;
-  background-color: #9054ef;
+  background-color: #a26ea1;
   color: white;
   border-radius: 10px;
 }

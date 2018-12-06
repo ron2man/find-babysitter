@@ -1,7 +1,17 @@
 <template>
   <section v-if="currSitter._id === this.$route.params.id" class="details-sitter">
     <!-- //link back to list -->
-    <router-link class="router" to="/baby/list">Back to list</router-link>
+    <div class="btn-container flex justify-contesct-end">
+      <button class="contact-btn btn" @click="sendMessage(sitter)">
+        <i class="fas fa-comments"></i>
+        <!-- <p class="btn-head">Contact</p> -->
+      </button>
+      <button class="fav-btn btn">
+        <i class="fas fa-heart"></i>
+        <!-- <p class="btn-head">Favorite</p> -->
+      </button>
+      <router-link class="router" to="/baby/list">Back to list</router-link>
+    </div>
     <div class="summery-container">
       <img :src="sitter.imgUrl">
       <div class="summery-detail-container">
@@ -9,29 +19,17 @@
         <p>{{sitter.adress.city}} | {{sitter.age}}</p>
       </div>
     </div>
-    <div class="btn-container">
-      <button class="contact-btn btn"  @click="sendMessage(sitter)">
-        <i class="fas fa-comments"></i>
-        <p class="btn-head">Contact</p>
-      </button>
-      <button class="fav-btn btn">
-        <i class="fas fa-heart"></i>
-        <p class="btn-head">Favorite</p>
-      </button>
-    </div>
-<hr>
+    <hr>
 
-
-<date-time :sitter="sitter"></date-time>
+    <date-time :sitter="sitter"></date-time>
 
     <hr>
 
-    <div class="schedule">
-    </div>
+    <div class="schedule"></div>
 
     <div class="about">
       <div class="about-box">
-      <h2 class="about-head">About</h2>
+        <h2 class="about-head">About</h2>
         <p class="date">{{sitter.joinedAt}}</p>
         <div class="rank">
           <i class="fas fa-medal"></i>
@@ -51,7 +49,7 @@
         </div>
       </div>
       <div class="font-awsome-box">
-      <h2 class="about-head">Credentials</h2>
+        <h2 class="about-head">Credentials</h2>
         <div class="icon-box" :class="{black: sitter.license}">
           <i class="fas fa-id-card item-awsome"></i>
           <span>Has driver License</span>
@@ -87,11 +85,11 @@
 </template>
 
 <script>
-import dateTime from './dateTime';
+import dateTime from "./dateTime";
 
 export default {
   components: {
-dateTime
+    dateTime
   },
   data() {
     return {
@@ -112,13 +110,12 @@ dateTime
       ratingSum = parseInt(ratingSum / this.sitter.reviews.length);
       return ratingSum;
     },
-        sendMessage(sitter) {
-      this.$store.dispatch({type:'checkLogin'})
-        .then(user => {
-          if(!user)this.$router.push("/login")
-          else this.$router.push(`profile/parent/${sitter.username}/contact`)
-        })
-    },
+    sendMessage(sitter) {
+      this.$store.dispatch({ type: "checkLogin" }).then(user => {
+        if (!user) this.$router.push("/login");
+        else this.$router.push(`profile/parent/${sitter.username}/contact`);
+      });
+    }
   },
   computed: {
     sitter() {
@@ -130,13 +127,15 @@ dateTime
 
 <style scoped lang="scss">
 .router {
-  background-color: blue;
+  background-color: #ffb480;
   display: block;
-  color: white;
+  color: black;
   height: 40px;
   line-height: 40px;
   text-decoration: none;
   margin-bottom: 20px;
+  width: 150px;
+  float: right;
 }
 
 .summery-container {
@@ -153,16 +152,11 @@ img {
 }
 
 .sitter-name {
-  color: blue;
-  font-weight: bold;
+    color: #ffb480;
+    font-weight: bold;
 }
 
-.btn-container {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
+
 
 .btn {
   height: 40px;
@@ -170,21 +164,22 @@ img {
 }
 
 .btn-head {
-  display: inline-block;
-  width: 100px;
+  width: 150px;
+  // display: inline-block;
+  // width: 100px;
 }
 
 .about-box {
   border: 1px solid black;
   padding: 20px;
-  width: 600px;
 }
 
 .about-head {
+  font-size: 20;
   margin-bottom: 20px;
   font-weight: bold;
-  color: blue;
-}
+  color: #ffb480;
+  }
 
 .date {
   text-align: left;
@@ -227,7 +222,6 @@ img {
 }
 
 .font-awsome-box {
-  width: 400px;
   margin: 5px;
 }
 
@@ -249,15 +243,17 @@ img {
 }
 
 .contact-btn {
-  background-color: #1e0411;
-  color: white;
+  background-color: #ffff9d;
+  color: black;
   border: 0;
+  width: 150px;
 }
 
 .fav-btn {
-  color: white;
+  color: #ffff9d;
   background-color: #951555;
   border: 0;
+  width: 150px;
 }
 
 .about {
@@ -284,6 +280,11 @@ img {
   line-height: 22px;
 }
 
+ .fa-medal{
+  color:#a26ea1;
+
+ }
+
 .fa-medal:before {
   line-height: 60px;
   font-size: 40px;
@@ -292,4 +293,6 @@ img {
 .stars {
   margin-bottom: 20px;
 }
+
+
 </style>

@@ -1,9 +1,13 @@
 <template>
-  <div class="filter">
-    <div>
+  <div class="filter" :class="{ active: isOpen }">
+    <div class="btn-filer" @click="useFilter">
+      <i class="fas fa-filter filter-item"></i>
+    </div>
+
+    <div class="flex column">
       <!-- FILTER BY NAME -->
       <div class="full-name">
-        <p>Full Name:</p>
+        <!-- <p>Full Name:</p> -->
         <input type="text" v-model="secondFilter.fullName" placeholder="Search by Name">
       </div>
 
@@ -24,21 +28,39 @@
         <p>Choose the preference:</p>
         <label for="medical">
           <input v-model="secondFilter.isMedical" type="checkbox" id="medical" name="medical">
-         Medical treatment
+          Medical treatment
         </label>
         <br>
         <label for="non-smoker">
-          <input v-model="secondFilter.isNonSmoking" type="checkbox" id="non-smoker" name="non-smoker">
-         Non Smoker
+          <input
+            v-model="secondFilter.isNonSmoking"
+            type="checkbox"
+            id="non-smoker"
+            name="non-smoker"
+          >
+          Non Smoker
         </label>
         <br>
         <label for="cleaner">
           <input v-model="secondFilter.isCleaner" type="checkbox" id="cleaner" name="cleaner">
-         Cleaner
+          Cleaner
         </label>
       </div>
 
-
+      <el-select
+        class="filter sort-item"
+        v-model="sortBy"
+        clearable
+        placeholder="Sort"
+        @input="setSort"
+      >
+        <el-option
+          v-for="item in sortTypes"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
 
       <button @click="setFilter">Send</button>
     </div>
@@ -49,9 +71,10 @@
 import vueSlider from "vue-slider-component";
 
 export default {
-  name:'secondFilter',
+  name: "secondFilter",
   data() {
     return {
+      isOpen: false,
       secondFilter: {
         fullName: "",
         ageRange: [0, 100],
@@ -62,18 +85,37 @@ export default {
         // experience: [0, 4],
         isNonSmoking: "",
         isMedical: "",
-        isCleaner: "",
+        isCleaner: ""
         // hasDriverLicense: "",
         // hasCar: "",
         // isCleaning: ""
-      }
+      },
+      sortTypes: [
+        {
+          value: "aveRate",
+          label: "Rate"
+        },
+        {
+          value: "age",
+          label: "Age"
+        }
+      ],
+      sortBy: ""
     };
   },
   methods: {
     setFilter() {
       this.$store.dispatch("setFilterProperty", this.secondFilter);
+    },
+    setSort() {
+      sortBy: "",
+        this.$store.dispatch({ type: "setSort", sortBy: this.sortBy });
+    },
+    useFilter() {
+      this.isOpen = !this.isOpen;
     }
   },
+
   components: {
     vueSlider
   }
@@ -81,19 +123,56 @@ export default {
 </script>
 
 <style lang="scss">
+.filter .full-name {
+  margin-top: 40px;
+}
+
 .filter {
-  // max-width: 80%;
+  .btn-filer {
+    display: flex;
+    position: fixed;
+    left: 330px;
+    top: 200px;
+    color: black;
+    z-index: 3;
+    background-color: rgb(192, 161, 161);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .filter-item {
+    align-self: center;
+  }
+
+  .btn-filer :hover {
+cursor: pointer;
+  }
+
+  transition: 0.3s;
+  // max-width: 100%;
   background-color: black;
   color: white;
   margin-top: 10px;
-
+  grid-area: menu;
+  width: 300px;
+  width: 26%;
+  position: fixed;
+  top: -9px;
+  height: 100%;
+  z-index: 1;
+  transform: translate(-100%);
   div {
     max-width: 90%;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     input {
       background-color: white;
     }
   }
+}
+.filter.active {
+  transform: translate(0);
 }
 </style>

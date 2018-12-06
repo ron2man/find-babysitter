@@ -13,7 +13,7 @@
         </div>
         </li>
     </ul>
-    <div class="input-box">
+    <div class="input-box flex">
       <input id="m" autocomplete="off" v-model="msg">
       <button @click="SendMsg(msg)"><i class="fas fa-comment"></i></button>
     </div>
@@ -140,8 +140,11 @@ body {
   padding: 3px;
   position: fixed;
   bottom: 0px;
-  width: 100%;
-}
+  width: 86%;
+
+  
+  }
+  
 .input-box input {
   border: 1px solid grey;
   border-radius: 10px;
@@ -156,14 +159,16 @@ body {
   margin: 3px;
 }
 .input-box button {
-    margin-bottom: 2px;
+       margin-bottom: 2px;
     width: 112px;
-    height: 60px;
+    height: 53px;
     margin-left: 18px;
     color: white;
     background-color: #984a59;
     line-height: 26px;
+    -webkit-transition: .3s all;
     transition: .3s all;
+    border-radius: 10px;
   }
 
 .input-box button:hover{
@@ -211,5 +216,9 @@ body {
 
 .msgfromsender{
   color:white;
+}
+
+.msg-input{
+width:200px;
 }
 </style>

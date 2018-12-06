@@ -1,6 +1,6 @@
 <template>
-  <section class="date-time">
-    <datepicker :inline="true" v-model="date" :format="customFormatter" :highlighted="highlighted"></datepicker>
+  <section class="date-time flex column">
+    <datepicker class="date-picker" :inline="true" v-model="date" :format="customFormatter" :highlighted="highlighted"></datepicker>
     <div class="time-container">
       <div class="inputs time-start">
         <p class="time-head">Start Time:</p>
@@ -122,12 +122,17 @@ export default {
 
 <style  scoped lang="scss">
 .time-container {
-  margin-left: 30px;
+margin:0 auto;
 }
-.date-time {
-  display: flex;
-  margin: auto;
-  text-align: center;
+// .date-time {
+//   display: flex;
+//   margin: auto;
+//   text-align: center;
+// }
+.date-picker{
+    margin: 0 auto;
+    margin-bottom: 20px;
+
 }
 
 .time-start {
@@ -135,7 +140,7 @@ export default {
 }
 
 .date-time {
-  width: 800px;
+    margin: 0 auto;
 }
 
 .time-end {
@@ -147,7 +152,6 @@ button {
   border-radius: 10px;
   height: 72px;
   width: 130px;
-  margin-top: 40px;
   background-color: #951555;
   color: white;
   cursor: pointer;

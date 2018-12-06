@@ -5,14 +5,7 @@
         <search2></search2>
       </div>
       <hr>
-        <el-select class="sort-item" v-model="sortBy" clearable placeholder="Sort" @input="setSort">
-          <el-option
-            v-for="item in sortTypes"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
+
       <div class="grid-container">
         <second-filter class="filter"></second-filter>
 
@@ -38,34 +31,11 @@ import SecondFilter from "./List/SecondFilter.vue";
 export default {
   name: "sitterList",
   created() {},
-  data() {
-    return {
-     
-      sortTypes: [
-        {
-          value: "aveRate",
-          label: "Rate"
-        },
-        {
-          value: "age",
-          label: "Age"
-        }
-      ],
-       sortBy: "",
-    };
-  },
 
-  methods: {
-    setSort() {
-       sortBy: "",
-      this.$store.dispatch({type:'setSort', sortBy:this.sortBy})
-    }
-  },
   computed: {
     sitters() {
       return this.$store.getters.getSitters;
-    },
-
+    }
   },
   components: {
     SitterPreview,
@@ -78,6 +48,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+}
+
 .search {
   padding: 15px;
   background: black;
@@ -85,7 +60,7 @@ export default {
 }
 .grid-container {
   display: block;
-  max-width: 100%;
+  // max-width: 100%;
 }
 @media (min-width: 767px) {
   .grid-container {
@@ -100,20 +75,21 @@ export default {
     // color: white;
     width: 300px;
     // height: 300px;
+    // width: 100%;
   }
   .cards {
     grid-area: main;
-    display: grid;
-    grid-template-columns: auto auto;
+    // display: grid;
+    // grid-template-columns: auto auto;
     grid-gap: 20px;
   }
 }
 @media (min-width: 1200px) {
   .cards {
-    grid-template-columns: auto auto auto;
+    // grid-template-columns: auto auto auto;
     grid-gap: 5px;
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
-      0 12px 20px 0 rgba(0, 0, 0, 0.19);
+    // box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
+    //   0 12px 20px 0 rgba(0, 0, 0, 0.19);
   }
 }
 </style>
