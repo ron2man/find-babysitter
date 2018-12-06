@@ -45,8 +45,8 @@
           <span class="head-span">Language:</span>
           <span
             class="about-details-item"
-            v-for="language in sitter.languages"
-            :key="language"
+            v-for="(language,i) in sitter.languages"
+            :key="i"
           >{{language}}</span>
         </div>
       </div>
@@ -81,7 +81,7 @@
     <h2 class="about-head">Reviews</h2>
     <div class="reviews-box">
       <p class="review" v-for="review in sitter.reviews" :key="review.txt">"{{review.txt}}"</p>
-      <i class="fas fa-star orange stars" v-for="n in getNumberOfStars" :key="n"></i>
+      <i class="fas fa-star orange stars" v-for="(n,i) in getNumberOfStars" :key="i"></i>
     </div>
   </section>
 </template>
