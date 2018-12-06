@@ -40,7 +40,6 @@ export default {
     BasicVueChat
   },
   created() {
-    this.getHistory
     this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
     const type = this.checkParentOrSitter();
     if (type === "parent") {
@@ -77,8 +76,6 @@ export default {
         }
       }
     },
-    firstChat(roomname) {
-    }
   },
   methods: {
     SendMsg(msg) {
@@ -86,8 +83,6 @@ export default {
       const time = Date.now()
       this.$socket.emit("SendMsg", { details: this.roomname, msg,from,time});
       this.msg = "";
-      console.log(from)
-      console.log(this.loggedUser.fullName)
     },
     firstChat() {
       this.$socket.emit("firstChat", this.roomname);
@@ -96,13 +91,6 @@ export default {
       if (this.loggedUser.type === "parent") return "parent";
       else return "sitter";
     },
-    createdMsg(msg){
-      return {
-        from:msg[1],
-        msg:msg[0],
-        createdAt: Date.now()
-      }
-    }
 }
 }
 </script>
