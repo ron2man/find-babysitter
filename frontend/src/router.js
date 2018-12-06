@@ -13,6 +13,7 @@ import SitterProfile from './components/SitterProfile.vue'
 import Notifications from './components/Notifications.vue'
 import requestsSitter from './components/requestsSitter.vue'
 import requestsParent from './components/requestsParent.vue'
+import Profile from './views/Profile.vue'
 
 
 
@@ -49,6 +50,11 @@ export default new Router({
       path: '/baby/list',
       name: 'list',
       component: SitterList
+    },
+    {
+      path: '/profiletest',
+      name: 'profiletest',
+      component: Profile
     },
     {
       path: '/baby/profile/parent/:userName',
