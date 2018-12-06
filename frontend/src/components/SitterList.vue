@@ -7,8 +7,8 @@
       <hr>
         <el-select class="sort-item" v-model="sortBy" clearable placeholder="Sort" @input="setSort">
           <el-option
-            v-for="item in sortTypes"
-            :key="item.value"
+            v-for="(item,i) in sortTypes"
+            :key="i"
             :label="item.label"
             :value="item.value"
           ></el-option>
@@ -17,7 +17,7 @@
         <second-filter class="filter"></second-filter>
 
         <div class="cards">
-          <sitter-card v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-card>
+          <sitter-card v-if="sitters" v-for="(sitter,i) in sitters" :sitter="sitter" :key="i"></sitter-card>
           <!-- <sitter-card></sitter-card>
           <sitter-card></sitter-card>-->
         </div>

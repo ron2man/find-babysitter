@@ -6,6 +6,7 @@
         v-model="date"
         :format="customFormatter"
         :highlighted="highlighted"
+        @click="closeMsg()"
       ></datepicker>
       <div class="time-container">
         <div class="inputs time-start">
@@ -31,7 +32,11 @@
         <button @click="book(sitter)">Book Now!</button>
       </div>
     </div>
-    <div class="book-answer">{{bookMsg}}</div>
+    <div class="book-answer" v-if="this.alertMsg">
+      <i class="fas fa-exclamation-circle" v-if="!sent"></i>
+      <i class="fas fa-check-circle" v-if="sent"></i>
+      <div class="alert-msg">{{this.bookMsg}}</div>
+    </div>
   </section>
 </template>
 
@@ -50,6 +55,7 @@ export default {
     book(sitter) {
       decodeURI;
       if (!this.startTimestamp || !this.endTimestamp || !this.date) {
+        this.alertMsg = true;
         this.bookMsg = "Feel All The fields please!";
         return;
       }
@@ -62,17 +68,21 @@ export default {
         id: this.makeId(),
         status: "pending"
       };
-      if(reservation.start > reservation.end){
-      this.bookMsg = "Please enter valid time"
-      return;
+      if (reservation.start >= reservation.end) {
+        this.alertMsg = true;
+        this.bookMsg = "Please enter valid time";
+        return;
       }
       this.$store
         .dispatch({ type: "checkAvalability", reservation })
         .then(res => {
-          if (res.length !== 0)
+          if (res.length !== 0) {
+            this.alertMsg = true;
             this.bookMsg = "Sorry, this date already booked";
-          else {
+          } else {
+            this.alertMsg = true;
             this.bookMsg = "Invatation sent, waiting for reply";
+            this.sent=true;
             this.$store.dispatch({ type: "sendRequest", reservation, sitter });
           }
         });
@@ -90,21 +100,21 @@ export default {
       this.date = moment(date).format("YYYY-MM-D");
     },
     getTimestampStart(time) {
-      this.bookMsg = "";
-      if(this.date){
+      this.alertMsg = false;
+      if (this.date) {
         this.startTimestamp = moment(
           `${this.date},${time.HH}:${time.mm}`
         )._d.getTime();
       }
     },
     getTimestampEnd(time, data) {
-      this.bookMsg = "";
-        if(this.date){
+      this.alertMsg = false;
+      if (this.date) {
         this.endTimestamp = moment(
           `${this.date},${time.HH}:${time.mm}`
         )._d.getTime();
-    }
-  }
+      }
+    },
   },
   data() {
     return {
@@ -131,14 +141,26 @@ export default {
           // Disable an array of dates
         ]
       },
-      sent: false,
-      bookMsg: ""
-    }
+      bookMsg: "",
+      alertMsg: false,
+      sent:false
+    };
   }
-}
+};
 </script>
 
 <style  scoped lang="scss">
+.fa-exclamation-circle:before {
+  color: #951555;
+  font-size: 40px;
+  content: "\F06A";
+}
+
+.fa-check-circle:before{
+  color: #951555;
+  font-size: 40px;
+}
+
 .time-container {
   margin-left: 30px;
 }
@@ -150,6 +172,10 @@ export default {
 
 .time-start {
   margin-bottom: 20px;
+}
+
+.alert-msg{
+  margin-left: 10px;
 }
 
 .date-time {
@@ -180,5 +206,17 @@ button:hover {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.book-answer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 50px;
+  line-height: 50px;
+  width: 280px;
+  padding: 10px;
 }
 </style>
