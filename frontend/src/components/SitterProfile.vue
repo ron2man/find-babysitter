@@ -1,11 +1,13 @@
 <template>
   <section>
+    <Profile :user="getCurrUser"></Profile>
+    <!-- {{getCurrUser}} -->
     <div class="profile-header-container">
       <img
         src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
       >
-      <div class="summery-detail-container"  v-if="this.userName">
-        <h1>Send  {{this.userName}} a message</h1>
+      <div class="summery-detail-container" v-if="this.userName">
+        <h1>Send {{this.userName}} a message</h1>
         <!-- <p class="sitter-name"> hello{{parent.nickName}}</p> -->
       </div>
     </div>
@@ -20,17 +22,27 @@
 </template>
 
 <script>
+import Profile from './../views/Profile.vue'
+
 export default {
+  components: {
+    Profile
+  },
   data() {
     return {
       currSitter: null,
-      userName:''
+      userName: ""
     };
   },
 
   created() {
     this.userName = this.$route.params.sitterName;
-  }
+  },
+  computed:{
+    getCurrUser(){
+      return this.$store.getters.getCurrentProfile;
+    }
+  },
 };
 </script>
 
