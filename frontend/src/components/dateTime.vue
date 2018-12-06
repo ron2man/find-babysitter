@@ -5,6 +5,7 @@
         :inline="true"
         v-model="date"
         :format="customFormatter"
+        :disabledDates="disabledDates"
         :highlighted="highlighted"
         @click="closeMsg()"
       ></datepicker>
@@ -118,6 +119,7 @@ export default {
   },
   data() {
     return {
+      today: new Date(),
       startTimestamp: "",
       endTimestamp: "",
       startTime: {
@@ -128,18 +130,20 @@ export default {
         HH: "HH",
         mm: "MM"
       },
-      year: "",
+      year: "2018",
       day: "",
       month: "",
-      date: "",
+      date: new Date(2018,12,5),
       highlighted: {
-        to: "", // Disable all dates up to specific date
         from: "", // Disable all dates after specific date
         days: "", // Disable Saturday's and Sunday's
         daysOfMonth: "", // Disable 29th, 30th and 31st of each month
         dates: [
           // Disable an array of dates
         ]
+      },
+      disabledDates: {
+        to: new Date(2018,12,5) // Disble all dates after specific date
       },
       bookMsg: "",
       alertMsg: false,
