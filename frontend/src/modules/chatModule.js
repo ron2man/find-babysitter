@@ -15,7 +15,7 @@ export default {
             const noticeFrom = state.currNoticeUser.notifications.findIndex(notice => {
                 return notice.from === currLoggedUser.username
             })
-            const notification = sitterServiceBack.createNotification(currLoggedUser.username)
+            const notification = sitterServiceBack.createNotification(currLoggedUser)
             if (noticeFrom >= 0) state.currNoticeUser.notifications.splice(noticeFrom, 1)
             state.currNoticeUser.notifications.unshift(notification)
             if(currLoggedUser.type === 'parent') this.dispatch('updateCurrSitter',state.currNoticeUser)

@@ -105,9 +105,10 @@ function updateParent(user) {
 
 
 
-function createNotification(from) {
+function createNotification(currUser) {
     return {
-        from,
+        from:currUser.username,
+        img:currUser.imgUrl,
         isRead: false,
         createdAt: Date.now()
     }

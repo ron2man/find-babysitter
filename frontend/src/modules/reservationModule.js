@@ -14,6 +14,7 @@ export default {
             state.currentReservation = details.reservation
     //set the values in store for curr reservation
             state.currentParent = details.parent
+            state.currentReservation.imgUrl = details.parent.imgUrl
             state.currentId = details.reservation.id
             state.currentStatus = details.status
     // //change status res parent
@@ -48,6 +49,7 @@ export default {
         },
         pushReservation(state,{reservation}){
             const sender = JSON.parse(localStorage.getItem("loggedInUser"))
+            reservation.imgUrl = sender.imgUrl
             reservation.sitter.reservations.push(reservation.reservation)
             sender.reservations.push(reservation.reservation)
             localStorage.setItem('loggedInUser', JSON.stringify(sender))
