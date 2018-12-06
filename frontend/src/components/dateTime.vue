@@ -62,6 +62,10 @@ export default {
         id: this.makeId(),
         status: "pending"
       };
+      if(reservation.start > reservation.end){
+      this.bookMsg = "Please enter valid time"
+      return;
+      }
       this.$store
         .dispatch({ type: "checkAvalability", reservation })
         .then(res => {
@@ -87,18 +91,20 @@ export default {
     },
     getTimestampStart(time) {
       this.bookMsg = "";
-      if (this.date)
+      if(this.date){
         this.startTimestamp = moment(
           `${this.date},${time.HH}:${time.mm}`
         )._d.getTime();
+      }
     },
     getTimestampEnd(time, data) {
       this.bookMsg = "";
-      if (this.date)
+        if(this.date){
         this.endTimestamp = moment(
           `${this.date},${time.HH}:${time.mm}`
         )._d.getTime();
     }
+  }
   },
   data() {
     return {
@@ -127,9 +133,9 @@ export default {
       },
       sent: false,
       bookMsg: ""
-    };
+    }
   }
-};
+}
 </script>
 
 <style  scoped lang="scss">
