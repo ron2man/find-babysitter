@@ -18,7 +18,8 @@
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      counter:0
     };
   },
   created() {
@@ -29,7 +30,7 @@ export default {
       this.$store.dispatch({ type: "changeNotificationStatus", from });
       this.$router.push(`/baby/profile/sitter/${from}/contact`);
     }
-  }
+  },
 };
 </script>
 

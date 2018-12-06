@@ -53,9 +53,18 @@ export default {
     VueTimepicker
   },
   methods: {
+    makeArrayOfSchedule() {
+      const schedules = this.sitter.schedule;
+      const arrayDates = []
+      schedules.map(schedule => {
+        const dateToPush = moment(schedule.start).format("YYYY,MM,D");
+        const newDate = new Date(dateToPush);
+        arrayDates.push(newDate);
+      });
+      return arrayDates
+    },
     book(sitter) {
-      decodeURI;
-      if (!this.startTimestamp || !this.endTimestamp || !this.date) {
+      if (!this.startTimestamp || !this.startTimestamp || !this.date) {
         this.alertMsg = true;
         this.bookMsg = "Feel All The fields please!";
         return;
@@ -67,7 +76,8 @@ export default {
         to: sitter.username,
         from: JSON.parse(localStorage.getItem("loggedInUser")).username,
         id: this.makeId(),
-        status: "pending"
+        status: "pending",
+        imgUrl: ""
       };
       if (reservation.start >= reservation.end) {
         this.alertMsg = true;
@@ -83,7 +93,7 @@ export default {
           } else {
             this.alertMsg = true;
             this.bookMsg = "Invatation sent, waiting for reply";
-            this.sent=true;
+            this.sent = true;
             this.$store.dispatch({ type: "sendRequest", reservation, sitter });
           }
         });
@@ -115,13 +125,13 @@ export default {
           `${this.date},${time.HH}:${time.mm}`
         )._d.getTime();
       }
-    },
+    }
   },
   data() {
     return {
       today: new Date(),
-      startTimestamp: "",
-      endTimestamp: "",
+      startTimestamp: null,
+      endTimestamp: null,
       startTime: {
         HH: "HH",
         mm: "MM"
@@ -133,21 +143,20 @@ export default {
       year: "2018",
       day: "",
       month: "",
-      date: new Date(2018,12,5),
+      date: new Date(2018, 12, 5),
       highlighted: {
         from: "", // Disable all dates after specific date
         days: "", // Disable Saturday's and Sunday's
         daysOfMonth: "", // Disable 29th, 30th and 31st of each month
-        dates: [
+        dates: this.makeArrayOfSchedule()
           // Disable an array of dates
-        ]
       },
       disabledDates: {
-        to: new Date(2018,12,5) // Disble all dates after specific date
+        to: new Date(2018, 12, 5) // Disble all dates after specific date
       },
       bookMsg: "",
       alertMsg: false,
-      sent:false
+      sent: false
     };
   }
 };
@@ -160,7 +169,7 @@ export default {
   content: "\F06A";
 }
 
-.fa-check-circle:before{
+.fa-check-circle:before {
   color: #951555;
   font-size: 40px;
 }
@@ -178,7 +187,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.alert-msg{
+.alert-msg {
   margin-left: 10px;
 }
 
