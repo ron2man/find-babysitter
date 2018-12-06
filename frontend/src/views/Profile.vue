@@ -4,6 +4,7 @@
     <div class="profile-head flex space-between align-items-center">
       <div class="profile-image main" :style="{backgroundImage: 'url(' + user.imgUrl + ')' }"></div>
       <div class="name">
+          {{user.notifications}}
         <h2>{{user.name.fullName}}</h2>
         <!-- <h3>Edit Profile</h3> -->
       </div>
@@ -12,52 +13,28 @@
       </div>
     </div>
     <div class="buffer"></div>
+          <!-- <router-link class="item-route align-self-center" to="notifications">Inbox</router-link> -->
+      <!-- <router-link class="item-route align-self-center" to="requests">Requests</router-link> -->
+      <!-- <router-link class="item-route align-self-center" to="details">Schedule</router-link> -->
     <div class="tabs flex space-evenly">
-      <a href class="tab inbox active">inbox
-        <!-- HERE COMES NOTIFICATION -->
-        <span>(1)</span>
-      </a>
+
+      <router-link to="notifications" class="tab inbox active">inbox
+        <span>({{user.notifications.length}})</span>
+      </router-link>
+
       <p class="div">|</p>
-      <a href class="tab schedule">
-        Calender
+      
+      <router-link to="schedule" class="tab schedule">
+        Schedule
         <span>(2)</span>
-      </a>
+      </router-link>
+
       <p class="div">|</p>
-      <a href class="tab history">Requested</a>
+      
+      <router-link to="requests" class="tab history">Requested</router-link>
     </div>
 
-    <div class="inbox">
-      <!-- START MESSAGE -->
-      <div class="message flex align-items-center space-between active" :class="{ active: notification.isRead }" v-for="(notification, index) in user.notifications" :key="index" >
-        <div class="profile-image"></div>
-        <div class="msg-text">
-            <!-- {{notification}} -->
-          <h3 class="sender-name">{{notification.from}}</h3>
-          <h3 class="text-preview">this is my message to you</h3>
-          <h4 class="time">{{notification.createdAt}} - 10 days ago</h4>
-        </div>
-        <div class="icon">
-          <!-- <i class="far fa-comment-alt"></i> -->
-          3
-          <i class="fas fa-circle"></i>
-        </div>
-      </div>
-      <!-- END MESSAGE -->
-      <!-- START MESSAGE -->
-      <!-- <div class="message flex align-items-center space-between">
-        <div class="profile-image"></div>
-        <div class="msg-text">
-          <h3 class="sender-name">Lilah Asulin</h3>
-          <h3 class="text-preview">this is my message to you</h3>
-          <h4 class="time">26/11/2018 - 10 days ago</h4>
-        </div>
-        <div class="icon">
-          <i class="far fa-comment-alt"></i> -->
-          <!-- <i class="fas fa-circle"></i> -->
-        <!-- </div> -->
-      <!-- </div> -->
-      <!-- END MESSAGE -->
-    </div>
+  
   </div>
 </template>
 
