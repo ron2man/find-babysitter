@@ -24,7 +24,6 @@ export default {
             else if(state.currentStatus === 'confirmed'){
                 this.dispatch({type:'checkAvalability',reservation:details.reservation})
                     .then(res => { 
-                        console.log(res)
                         if(res.length === 0)this.commit({ type: 'acceptReservation'})
                         else this.commit({ type: 'declineReservation'})
                     })

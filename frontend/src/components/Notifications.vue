@@ -1,6 +1,5 @@
 <template>
   <section class="notification-box">
-    laksdjklasjdkjsdlkj
     <div
       class="notice-item-container"
       v-for="notification in this.user.notifications"

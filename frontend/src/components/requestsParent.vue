@@ -9,6 +9,7 @@
         <p class="notice-head">Sitter: {{reservation.to}}</p>
         <p class="notice-head">From: {{getTime(reservation.start)}}</p>
         <p class="notice-head">To: {{getTime(reservation.end)}}</p>
+        <p  class="notice-head">date: {{reservation.date}}</p>
         <p class="notice-head">Status: {{reservation.status}}</p>
     </div>
   </section>

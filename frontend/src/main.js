@@ -10,6 +10,9 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Element)
 
+Vue.filter('relativeTime', (timestamp) => {
+    return moment(timestamp).fromNow();
+})
 
 Vue.use(new VueSocketIO({
     debug: true,
@@ -24,9 +27,6 @@ Vue.use(new VueSocketIO({
     },
 }))
 
-Vue.filter('relativeTime', (timestamp) => {
-    return moment(timestamp).fromNow();
-})
 
 Vue.config.productionTip = false
 

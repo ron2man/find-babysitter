@@ -7,6 +7,7 @@
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Parent: {{reservation.from}}</p>
+        <p  class="notice-head">date: {{reservation.date}}</p>
         <p class="notice-head">From: {{getTime(reservation.start)}}</p>
         <p class="notice-head">To: {{getTime(reservation.end)}}</p>
       <button class="notification-item approve" @click="answerReservation(reservation,'confirmed')">Approve</button>

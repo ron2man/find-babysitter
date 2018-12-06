@@ -6,16 +6,14 @@ const session = require('express-session')
 const app = express()
 const http = require('http').Server(app);
 var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
-const history = require('connect-history-api-fallback');
+const babyService = require('./services/baby.Service')
 
 
 // const userService = require('./services/user-service')
 
 const addSitterRoutes = require('./routes/sitterRoute')
 const addUserRoutes = require('./routes/userRoute')
-const mongoService = require('./services/mongo.service')
 
-var historymsgs = {}
 
 app.use(cors({
   origin: ['http://localhost:8080'],
@@ -31,36 +29,31 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-app.use(history())
 app.use(express.static('public'));
 
 addSitterRoutes(app)
 addUserRoutes(app)
 
 // socket
-var msgs = []
+var twousersroom = ''
 
 io.on('connection', function (socket) {
 
   socket.on('firstChat', roomname => {
     socket.join(roomname)
-    if (msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
+    babyService.checkMessages(roomname)
+      .then(res => {
+        if(res.length !== 0 ) io.to(roomname).emit('getHistory', res);
+        else babyService.createRoom(roomname)
+        twousersroom = roomname
+      })
   });
 
   socket.on('SendMsg', details => {
-    const newMsg = {
-      from: details.from,
-      msg: details.msg,
-      createdAt: details.time
-    }
-    io.to(details.details).emit('SendMsg', newMsg);
-    if (!msgs[`${details.details}`]) {
-      msgs[`${details.details}`] = []
-      msgs[`${details.details}`].push(newMsg)
-    }
-    else msgs[`${details.details}`].push(newMsg)
-  })
-
+    //details,details = room name
+    io.to(details.details).emit('SendMsg', details.msg,details.from);
+    const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
+    babyService.pushMessage(newMsg,twousersroom)
 })
 
 const PORT = process.env.PORT || 3003;
