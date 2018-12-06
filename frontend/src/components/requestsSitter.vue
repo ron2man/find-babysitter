@@ -2,8 +2,8 @@
   <section v-if="sitter">
     <div
       class="requests-item-container"
-      v-for="reservation in sitter.reservations"
-      :key="reservation.id"
+      v-for="(reservation,i) in sitter.reservations"
+      :key="i"
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Parent: {{reservation.from}}</p>

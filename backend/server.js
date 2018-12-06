@@ -29,17 +29,12 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
 app.use(express.static('public'));
 
 addSitterRoutes(app)
 addUserRoutes(app)
 
 // socket
-var msgs = []
 var twousersroom = ''
 
 io.on('connection', function (socket) {
@@ -48,25 +43,17 @@ io.on('connection', function (socket) {
     socket.join(roomname)
     babyService.checkMessages(roomname)
       .then(res => {
-        if(res.length !== 0 ) io.to(roomname).emit('getHistory', res);
+        if (res.length !== 0) io.to(roomname).emit('getHistory', res);
         else babyService.createRoom(roomname)
         twousersroom = roomname
       })
-    // if (msgs[roomname]) io.to(roomname).emit('getHistory', msgs[roomname]);
   });
 
   socket.on('SendMsg', details => {
-    //details,details = room name
-    io.to(details.details).emit('SendMsg', details.msg,details.from);
-    const newMsg = {from: details.from,msg: details.msg,createdAt:details.time}
-    babyService.pushMessage(newMsg,twousersroom)
-    if (!msgs[`${details.details}`]) {
-      msgs[`${details.details}`] = []
-      msgs[`${details.details}`].push(newMsg)
-    }
-    else msgs[`${details.details}`].push(newMsg)
+    const newMsg = { from: details.from, msg: details.msg, createdAt: details.time }
+    io.to(details.details).emit('SendMsg', newMsg);
+    babyService.pushMessage(newMsg, twousersroom)
   })
-
 })
 
 const PORT = process.env.PORT || 3003;

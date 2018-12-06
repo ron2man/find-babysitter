@@ -8,11 +8,31 @@ export default {
     mutations: {
         setNotificationUser(state, { user }) {
             state.currNoticeUser = user
-
-            this.dispatch({ type: 'pushNotification', user })
+            this.commit({ type: 'pushNotification'})
+        },
+        pushNotification(state){
+            const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
+            const noticeFrom = state.currNoticeUser.notifications.findIndex(notice => {
+                return notice.from === currLoggedUser.username
+            })
+            const notification = sitterServiceBack.createNotification(currLoggedUser)
+            if (noticeFrom >= 0) state.currNoticeUser.notifications.splice(noticeFrom, 1)
+            state.currNoticeUser.notifications.unshift(notification)
+            if(currLoggedUser.type === 'parent') this.dispatch('updateCurrSitter',state.currNoticeUser)
+            else this.dispatch('updateCurrParent',state.currNoticeUser)
+        },
+        changeNotification(state,from){
+            const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
+            const noticeFrom = currLoggedUser.notifications.findIndex(notice => {
+                return notice.from === from
+            })
+            if (noticeFrom > -1) {
+                currLoggedUser.notifications[noticeFrom].isRead = true
+                localStorage.setItem('loggedInUser', JSON.stringify(currLoggedUser))
+                if(currLoggedUser.type === 'parent') this.dispatch('updateCurrParent',currLoggedUser)
+                else this.dispatch('updateCurrSitter',currLoggedUser)    
         }
-    },
-    getters: {
+    }
     },
     actions: {
         sendNotification(context, { user }) {
@@ -28,36 +48,14 @@ export default {
                     return user
                 })
         },
-        pushNotification(context) {
-            const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
-            const noticeFrom = context.state.currNoticeUser.notifications.findIndex(notice => {
-                return notice.from === currLoggedUser.username
-            })
-            console.log(noticeFrom)
-            const notification = sitterServiceBack.createNotification(currLoggedUser.username)
-            console.log(notification)
-            let copyUser = Object.assign({}, { ...context.state.currNoticeUser });
-            if (noticeFrom === -1) {
-                copyUser.notifications.unshift(notification)
-            } else {
-                copyUser.notifications.splice(noticeFrom, 1)
-                copyUser.notifications.unshift(notification)
-            }
-            if (currLoggedUser.type === 'parent') return sitterServiceBack.updateSitter(copyUser)
-            else return sitterServiceBack.updateParent(copyUser)
+        changeNotificationStatus(context,  {from} ) {
+            context.commit('changeNotification',from)
+            },
+        updateCurrSitter(context,user){
+            sitterServiceBack.updateSitter(user)
         },
-        changeNotificationStatus(context, { from }) {
-            const currLoggedUser = JSON.parse(localStorage.getItem("loggedInUser"))
-            const noticeFrom = currLoggedUser.notifications.findIndex(notice => {
-                return notice.from === from
-            })
-            if (noticeFrom > -1) {
-                let copyUser = Object.assign({}, { ...currLoggedUser });
-                copyUser.notifications[noticeFrom].isRead = true
-                localStorage.setItem('loggedInUser', JSON.stringify(copyUser))
-                if (currLoggedUser.type === 'parent') return sitterServiceBack.updateSitter(copyUser)
-                else sitterServiceBack.updateParent(copyUser)
-            }
+        updateCurrParent(context,user){
+            sitterServiceBack.updateParent(user)
         }
     }
 }

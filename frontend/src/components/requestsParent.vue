@@ -2,8 +2,8 @@
   <section>
     <div
       class="requests-item-container"
-      v-for="reservation in this.currentUser.reservations"
-      :key="reservation.start"
+      v-for="(reservation,i) in this.currentUser.reservations"
+      :key="i"
      :class="getClass(reservation)">
       <i class="fas fa-comments message-awsome"></i>
         <p class="notice-head">Sitter: {{reservation.to}}</p>

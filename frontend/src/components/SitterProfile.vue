@@ -1,36 +1,48 @@
 <template>
   <section>
-    <div class="profile-header-container">
-      <img
-        src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
-      >
-      <div class="summery-detail-container"  v-if="this.userName">
-        <h1>Send  {{this.userName}} a message</h1>
-        <!-- <p class="sitter-name"> hello{{parent.nickName}}</p> -->
-      </div>
-    </div>
-    <div class="tabs-container flex flex-space-around">
-      <router-link class="item-route align-self-center" to="notifications">Inbox</router-link>
-      <router-link class="item-route align-self-center" to="requests">Requests</router-link>
-      <router-link class="item-route align-self-center" to="details">Schedule</router-link>
-      <router-link class="last-item-route align-self-center" to="Schedule">Album</router-link>
-    </div>
+    <Profile :user="getCurrUser"></Profile>
     <router-view/>
+    <!-- <div class="profile-header-container"> -->
+      <!-- <img
+        src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?resize=256%2C256&quality=100&ssl=1"
+      > -->
+      <!-- <div class="summery-detail-container" v-if="this.userName"> -->
+        <!-- <h1>Send {{this.userName}} a message</h1> -->
+        <!-- <p class="sitter-name"> hello{{parent.nickName}}</p> -->
+      <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div class="tabs-container flex flex-space-around"> -->
+      <!-- <router-link class="item-route align-self-center" to="notifications">Inbox</router-link> -->
+      <!-- <router-link class="item-route align-self-center" to="requests">Requests</router-link> -->
+      <!-- <router-link class="item-route align-self-center" to="details">Schedule</router-link> -->
+      <!-- <router-link class="last-item-route align-self-center" to="Schedule">Album</router-link> -->
+    <!-- </div> -->
+    <!-- <router-view/> -->
   </section>
 </template>
 
 <script>
+import Profile from './../views/Profile.vue'
+
 export default {
+  components: {
+    Profile
+  },
   data() {
     return {
       currSitter: null,
-      userName:''
+      userName: ""
     };
   },
 
   created() {
     this.userName = this.$route.params.sitterName;
-  }
+  },
+  computed:{
+    getCurrUser(){
+      return this.$store.getters.getCurrentProfile;
+    }
+  },
 };
 </script>
 

@@ -13,6 +13,9 @@ import SitterProfile from './components/SitterProfile.vue'
 import Notifications from './components/Notifications.vue'
 import requestsSitter from './components/requestsSitter.vue'
 import requestsParent from './components/requestsParent.vue'
+import Profile from './views/Profile.vue'
+import Inbox from './components/Profile/Inbox.vue'
+import Schedule from './components/Profile/Schedule.vue'
 
 
 
@@ -51,15 +54,22 @@ export default new Router({
       component: SitterList
     },
     {
+      path: '/profiletest',
+      name: 'profiletest',
+      component: Profile
+    },
+    {
       path: '/baby/profile/parent/:userName',
       name: 'parentProfile',
       component: ParentProfile,
       children: [
-        { path: 'notifications', name: 'notifications', component: Notifications },
+        { path: 'notifications', name: 'notifications', component: Inbox },
+        // { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
         { path: 'requests', name: 'requests', component: requestsParent },
-        { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+        { path: 'schedule', name: 'schedule', component: Schedule }
+        // { path: 'sceduale', name: 'sceduale', component: scedualeZone }
       ]
     },
     {
@@ -67,11 +77,13 @@ export default new Router({
       name: 'sitterProfile',
       component: SitterProfile,
       children: [
-        { path: 'notifications', name: 'notifications', component: Notifications },
+        { path: 'notifications', name: 'notifications', component: Inbox },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
         { path: 'requests', name: 'requests', component: requestsSitter },
-        { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+        { path: 'schedule', name: 'schedule', component: Schedule }
+
+        // { path: 'sceduale', name: 'sceduale', component: scedualeZone }
       ]
     },
     {

@@ -131,8 +131,8 @@ export default {
   .btn-filer {
     display: flex;
     position: fixed;
-    left: 330px;
-    top: 200px;
+   left: 130px;
+    top: 337px;
     color: black;
     z-index: 3;
     background-color: rgb(192, 161, 161);

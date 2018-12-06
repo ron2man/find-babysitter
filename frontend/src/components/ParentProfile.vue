@@ -50,7 +50,7 @@ export default {
 }
 
 .back-route {
-  background-color: #3d9970;
+  background-color: #ffb480;
   display: block;
   color: white;
   height: 40px;
