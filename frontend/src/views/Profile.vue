@@ -30,7 +30,7 @@
 
       <p class="div">|</p>
 
-      <router-link to="requests" class="tab history">Requested</router-link>
+      <router-link to="requests" class="tab history">Requested <span>({{user.reservations.length}})</span></router-link>
     </div>
   </div>
 </template>
