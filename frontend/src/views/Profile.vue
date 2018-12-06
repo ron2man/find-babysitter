@@ -4,7 +4,6 @@
     <div class="profile-head flex space-between align-items-center">
       <div class="profile-image main" :style="{backgroundImage: 'url(' + user.imgUrl + ')' }"></div>
       <div class="name">
-          {{user.notifications}}
         <h2>{{user.name.fullName}}</h2>
         <!-- <h3>Edit Profile</h3> -->
       </div>
@@ -13,36 +12,35 @@
       </div>
     </div>
     <div class="buffer"></div>
-          <!-- <router-link class="item-route align-self-center" to="notifications">Inbox</router-link> -->
-      <!-- <router-link class="item-route align-self-center" to="requests">Requests</router-link> -->
-      <!-- <router-link class="item-route align-self-center" to="details">Schedule</router-link> -->
+    <!-- <router-link class="item-route align-self-center" to="notifications">Inbox</router-link> -->
+    <!-- <router-link class="item-route align-self-center" to="requests">Requests</router-link> -->
+    <!-- <router-link class="item-route align-self-center" to="details">Schedule</router-link> -->
     <div class="tabs flex space-evenly">
-
-      <router-link to="notifications" class="tab inbox active">inbox
+      <router-link to="notifications" class="tab inbox active">
+        inbox
         <span>({{user.notifications.length}})</span>
       </router-link>
 
       <p class="div">|</p>
-      
+
       <router-link to="schedule" class="tab schedule">
         Schedule
-        <span>(2)</span>
+        <span>({{user.schedule.length}})</span>
       </router-link>
 
       <p class="div">|</p>
-      
+
       <router-link to="requests" class="tab history">Requested</router-link>
     </div>
-
-  
   </div>
 </template>
 
 <script>
 export default {
-  props: ["user"],
-  data() {
-    return {};
+  computed: {
+    user() {
+      return this.$store.getters.getCurrentProfile;
+    }
   }
 };
 </script>

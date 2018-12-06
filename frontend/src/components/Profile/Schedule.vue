@@ -1,15 +1,15 @@
 <template>
   <div class="schedule">
     <div class="schedule-item" v-for="(item, idx) in getSchedules" :key="idx">
-        {{item}} 
+        <!-- {{item}}  -->
       <div class="date-time flex align-items-center flex-space-evenly">
         <div class="date">
           <i class="fas fa-calendar-alt" style="padding:0 10px"></i>
           <span>{{item.start | getDate}}</span>
         </div>
-        <div class="start-time">14:00</div>
+        <div class="start-time">{{item.start | getTime}}</div>
         <p>-</p>
-        <div class="end-time">20:00</div>
+        <div class="end-time">{{item.end | getTime}}</div>
       </div>
       <div class="address">Habonim 4 Ramat Gan</div>
     </div>
@@ -28,6 +28,13 @@ export default {
       getDate(timestamp){
           var time = new Date(timestamp)
           return `${time.getDay()}/${time.getMonth()}/${time.getFullYear()}`
+      },
+      getTime(timestamp){
+          var time = new Date(timestamp)
+          var minutes = new Date(timestamp).getMinutes()
+          console.log(minutes)
+          if (minutes === 0) minutes = '00'
+          return `${time.getHours()}:${minutes}`
       }
   }
 };

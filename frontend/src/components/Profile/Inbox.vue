@@ -10,7 +10,7 @@
       v-for="(notification, index) in getNotifications"
       :key="index"
     >
-      <div class="profile-image"></div>
+      <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
       <div class="msg-text">
         <!-- {{notification}} -->
         <h3 class="sender-name">{{notification.from}}</h3>
