@@ -1,54 +1,52 @@
-const babyService = require('../services/baby.Service')
+const sitterService = require('../services/sitter.service')
 
 
-function addSitterRoutes(app){
+function addSitterRoutes(app) {
     // LIST
-    app.get('/baby?', (req, res) => {
-        babyService.query(req.query)
+    app.get('/baby', (req, res) => {
+        sitterService.query(req.query)
             .then(sitters => res.json(sitters))
-            
+
     })
 
-    app.get('/baby/check?', (req, res) => {
-        return babyService.checkAvalability(req.query)
+    app.get('/baby/check', (req, res) => {
+        return sitterService.checkAvalability(req.query)
             .then(sitter => {
-                    res.json(sitter)
-                })  
+                res.json(sitter)
+            })
     })
 
 
     // SINGLE - GET Full details including reviews
     app.get('/baby/:id', (req, res) => {
         const sitterId = req.params.id;
-        babyService.getById(sitterId)
+        sitterService.getById(sitterId)
             .then(sitter => res.json(sitter))
     })
 
     app.get('/baby/sitter/:username', (req, res) => {
         const username = req.params.username;
-        return babyService.getByUsernameSitter(username)
+        return sitterService.getByUsernameSitter(username)
             .then(sitter => res.json(sitter))
     })
 
     app.get('/baby/parent/:username', (req, res) => {
         const username = req.params.username;
-        return babyService.getByUsernameParent(username)
+        return sitterService.getByUsernameParent(username)
             .then(sitter => res.json(sitter))
     })
-
-
 
     // DELETE
     app.delete('/baby/:id', (req, res) => {
         const sitterId = req.params.id;
-        babyService.remove(sitterId)
+        sitterService.remove(sitterId)
             .then(() => res.end(`sitter ${sitterId} Deleted `))
     })
 
     // CREATE
     app.post('/baby', (req, res) => {
         const user = req.body;
-        babyService.add(user)
+        sitterService.add(user)
             .then(sitter => {
                 res.json(sitter)
             })
@@ -57,13 +55,13 @@ function addSitterRoutes(app){
     // UPDATE
     app.put('/baby/sitter/:id', (req, res) => {
         const user = req.body;
-        return babyService.updateSitter(user)
+        return sitterService.updateSitter(user)
             .then(sitter => res.json(sitter))
     })
 
     app.put('/baby/parent/:id', (req, res) => {
         const user = req.body;
-        return babyService.updateParent(user)
+        return sitterService.updateParent(user)
             .then(sitter => res.json(sitter))
     })
 

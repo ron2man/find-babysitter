@@ -1,11 +1,11 @@
-const babyService = require('../services/baby.Service')
+const sitterService = require('../services/sitter.service')
 
 
 function addUserRoutes(app) {
 
     app.post('/signup', (req, res) => {
         const userdetails = req.body        
-        babyService.addSitter(userdetails)
+        sitterService.addSitter(userdetails)
             .then(user => {
                 res.json(user)
             })
@@ -13,7 +13,7 @@ function addUserRoutes(app) {
     
     app.put('/login', (req, res) => {
         const typedDetails = req.body
-        babyService.checkParentLogin(typedDetails)
+        sitterService.checkParentLogin(typedDetails)
             .then(user => {
                 if (user.length) {                    
                     req.session.user = user[0]
@@ -21,7 +21,7 @@ function addUserRoutes(app) {
                 }
             })
 
-        babyService.checkSitterLogin(typedDetails)
+        sitterService.checkSitterLogin(typedDetails)
             .then(user => {
                 if (user.length) {
                     req.session.user = user[0]
