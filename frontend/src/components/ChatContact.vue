@@ -57,11 +57,6 @@ export default {
     SendMsg(msg) {
       this.msgs.push(msg);
       if (this.counter === 0) {
-        const type = this.checkParentOrSitter();
-        if (type === "parent") {
-          const user = this.$route.params.userName;
-          this.$store.dispatch({ type: "sendNotification", user });
-        } else {
           const user = this.$route.params.userName;
           this.$store.dispatch({ type: "sendNotification", user });
         }
@@ -75,7 +70,6 @@ export default {
           this.msgs.push(historyMsgs[i]);
         }
       }
-    },
   },
   methods: {
     SendMsg(msg) {

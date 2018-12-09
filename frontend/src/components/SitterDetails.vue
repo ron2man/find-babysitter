@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import dateTime from "./dateTime";
+import dateTime from "./DateTime";
 
 export default {
   components: {
