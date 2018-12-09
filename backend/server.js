@@ -38,5 +38,5 @@ var twousersroom = ''
 const socketService = require('./services/socket.service')
 socketService(io)
 
-const PORT = process.env.PORT || 3003;
-http.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
+const port = process.env.PORT || 3003;
+http.listen(port, () => console.log(`Example app listening on port ${port}`))
