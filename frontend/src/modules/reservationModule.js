@@ -7,6 +7,7 @@ export default {
     },
     mutations: {
         handleRequest(state, details) {
+        //sitter is the current user
             state.currentSitter = details.currentSitter
             state.currentParent = details.parent
             state.currentReservation = details.reservation
@@ -39,6 +40,7 @@ export default {
             this.dispatch({ type: "updateSitter" })
         },
         pushReservation(state, details) {
+            //only parent push reservation
         state.currentSitter = details.reservation.sitter
         state.currentReservation = details.reservation.reservation
         state.currentParent = details.currUser
@@ -63,7 +65,7 @@ export default {
         request(context, details) {
             const currentSitter = context.rootState.currUser
             const reservation = { ...details.reservation }
-            reservation.status = details.state
+            reservation.status = details.status
             sitterServiceBack.getByParentUsername(reservation.from)
                 .then(parent => {
                     context.commit({ type: 'handleRequest', reservation, parent,currentSitter })
@@ -76,13 +78,6 @@ export default {
         },
         updateParent(context) {
             sitterServiceBack.updateParent(context.state.currentParent)
-        },
-        getSitterId(context, { id }) {
-            return sitterServiceBack.getById(id)
-                .then(sitter => {
-                    context.commit('setSitter', sitter)
-                    return sitter
-                })
         },
     },
     getters: {

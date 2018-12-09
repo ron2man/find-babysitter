@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="this.currentUser">
     <div
       class="requests-item-container"
       v-for="(reservation,i) in this.currentUser.reservations"
@@ -25,7 +25,7 @@ export default {
         }
     },
     created(){
-        this.currentUser = JSON.parse(localStorage.getItem("loggedInUser"))
+        this.currentUser = this.$store.getters.getCurrentProfile
     },
     methods:{
         getClass(reservation){
