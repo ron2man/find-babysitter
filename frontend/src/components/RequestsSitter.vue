@@ -57,8 +57,8 @@ export default {
       else if (reservation.status === "confirmed") return { green: true };
       else return { red: true };
     },
-    answerReservation(reservation, state) {
-      this.$store.dispatch({ type: "request", reservation,state});
+    answerReservation(reservation, status) {
+      this.$store.dispatch({ type: "request", reservation,status});
     },
       currentProfile() {
       return this.$store.getters.getCurrentProfile;

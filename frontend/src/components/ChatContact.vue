@@ -40,7 +40,7 @@ export default {
     BasicVueChat
   },
   created() {
-    this.loggedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    this.loggedUser =  this.$store.getters.getCurrentProfile
     const type = this.checkParentOrSitter();
     if (type === "parent") {
       this.roomname = `${this.loggedUser.username}${
@@ -61,15 +61,16 @@ export default {
           this.$store.dispatch({ type: "sendNotification", user });
         }
         this.counter++;
-      }
-    },
+      },
     getHistory(history) {
+      console.log(history)
       const historyMsgs = history[0].msgs
       if (historyMsgs) {
         for (var i = 0; i < historyMsgs.length; i++) {
           this.msgs.push(historyMsgs[i]);
         }
       }
+  }
   },
   methods: {
     SendMsg(msg) {
