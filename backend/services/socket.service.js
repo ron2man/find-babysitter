@@ -1,6 +1,8 @@
 const sitterService = require('../services/sitter.service')
 
 module.exports = io => {
+    var twousersroom = ''
+
     io.on('connection', socket => {
 
         socket.on('firstChat', roomname => {
