@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const app = express()
 const http = require('http').Server(app);
-var io = require('socket.io')(http, { origins: 'http://localhost:8080' });
+const io = require('socket.io')(http, { origins: 'http://localhost:8080' });
 const babyService = require('./services/baby.Service')
 
 
@@ -37,7 +37,7 @@ addUserRoutes(app)
 // socket
 var twousersroom = ''
 
-io.on('connection', function (socket) {
+io.on('connection', socket => {
 
   socket.on('firstChat', roomname => {
     socket.join(roomname)
