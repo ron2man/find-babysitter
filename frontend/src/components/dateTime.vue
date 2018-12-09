@@ -65,7 +65,7 @@ export default {
         end: this.endTimestamp,
         date: this.date,
         to: sitter.username,
-        from: JSON.parse(localStorage.getItem("loggedInUser")).username,
+        from: this.$store.getters.getCurrentProfile.username,
         id: this.makeId(),
         status: "pending",
         imgUrl: ""

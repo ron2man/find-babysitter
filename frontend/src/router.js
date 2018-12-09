@@ -16,7 +16,7 @@ import Inbox from './components/Profile/Inbox.vue'
 import Schedule from './components/Profile/Schedule.vue'
 
 import Notifications from './components/Notifications.vue'
-import scedualeZone from './components/scedualeZone.vue'
+import ScedualeZone from './components/ScedualeZone.vue'
 
 
 Vue.use(Router)
@@ -69,7 +69,7 @@ export default new Router({
         { path: 'contact', name: 'contact', component: ChatContact },
         { path: 'requests', name: 'requests', component: RequestsParent },
         { path: 'schedule', name: 'schedule', component: Schedule }
-        // { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+        // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
       ]
     },
     {
@@ -83,7 +83,7 @@ export default new Router({
         { path: 'requests', name: 'requests', component: RequestsSitter },
         { path: 'schedule', name: 'schedule', component: Schedule }
 
-        // { path: 'sceduale', name: 'sceduale', component: scedualeZone }
+        // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
       ]
     },
     {
