@@ -24,7 +24,6 @@
         </div>
         <button @click="book(sitter)">Book Now!</button>
       </div>
-    </div>
     <div class="book-answer" v-if="this.alertMsg">
       <i class="fas fa-exclamation-circle" v-if="!sent"></i>
       <i class="fas fa-check-circle" v-if="sent"></i>
@@ -66,7 +65,7 @@ export default {
         end: this.endTimestamp,
         date: this.date,
         to: sitter.username,
-        from: JSON.parse(localStorage.getItem("loggedInUser")).username,
+        from: this.$store.getters.getCurrentProfile.username,
         id: this.makeId(),
         status: "pending",
         imgUrl: ""

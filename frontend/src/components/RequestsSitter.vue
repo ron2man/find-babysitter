@@ -16,17 +16,15 @@
     </div>
 
     <!-- {{sitter.reservations}} -->
-    <div
+    <div  v-if="sitter"
       class="requests-item-container"
       v-for="(reservation,i) in sitter.reservations"
-      :key="i"
-      :class="getClass(reservation)"
-    >
+      :key="i">
       <i class="fas fa-comments message-awsome"></i>
       <p class="notice-head">Parent: {{reservation.from}}</p>
       <p class="notice-head">date: {{reservation.date}}</p>
-      <p class="notice-head">From: {{getTime(reservation.start)}}</p>
-      <p class="notice-head">To: {{getTime(reservation.end)}}</p>
+      <p class="notice-head">From: {{reservation.start | formatTime}}</p>
+      <p class="notice-head">To: {{reservation.end | formatTime}}</p>
       <button
         class="notification-item approve"
         @click="answerReservation(reservation,'confirmed')"
@@ -49,9 +47,9 @@ export default {
     };
   },
   created() {
-    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const currentUser = this.currentProfile()
     const id = currentUser._id;
-    this.$store.dispatch({ type: "getSitterId", id }).then(console.log());
+    this.$store.dispatch({ type: "getById", id })
   },
   methods: {
     getClass(reservation) {
@@ -59,21 +57,22 @@ export default {
       else if (reservation.status === "confirmed") return { green: true };
       else return { red: true };
     },
-    getTime(timeStamp) {
-      return moment(timeStamp).format("hh:mm");
-    },
     answerReservation(reservation, state) {
-      this.$store.dispatch({ type: "request", details: reservation, state });
+      this.$store.dispatch({ type: "request", reservation,state});
+    },
+      currentProfile() {
+      return this.$store.getters.getCurrentProfile;
     }
   },
   computed: {
-    // sitter() {
-    //   return this.$store.getters.getCurrentUser;
-    // },
-
     sitter() {
-      return this.$store.getters.getCurrentProfile;
-    }
+      return this.$store.getters.getCurrentSitter;
+    },
+  },
+  filters: {
+    formatTime(timeStamp) {
+      return moment(timeStamp).format("hh:mm");
+    },
   }
 };
 </script>
@@ -97,17 +96,29 @@ export default {
   display: flex;
 }
 
+.notification-item{
+cursor: pointer;
+}
+
 .yellow {
   background-color: yellow;
 }
 
 .red,
 .declined {
-  background-color: red;
+  background-color: rgb(151, 0, 0);
+}
+
+.declined:hover{
+    background-color: rgb(255, 0, 0);
 }
 
 .green,
 .approve {
-  background-color: green;
+  background-color: rgb(0, 71, 0);
+}
+
+.approve:hover{
+    background-color: rgb(0, 255, 0);
 }
 </style>

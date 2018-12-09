@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const BASE_URL =  process.env.NODE_ENV === 'production'
-    ? '/'
+const BASE_URL =  process.env.NODE_ENV !== 'development'
+    ? ''
     : 'http://localhost:3003'
 
 
@@ -59,7 +59,7 @@ function Limitquery(limit = 6, sortBy = 'aveRate') {
 
 }
 
-function checkAvalability({ reservation }) {
+function checkAvalability(reservation) {
     const params = new URLSearchParams
     params.set('start', reservation.start)
     params.set('end', reservation.end)
