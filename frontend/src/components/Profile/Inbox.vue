@@ -31,7 +31,6 @@ export default {
   computed: {
     getNotifications() {
       return this.$store.getters.getCurrentProfile.notifications;
-      // return this.$store.getters.getCurrentProfile;
     }
   },
   methods: {

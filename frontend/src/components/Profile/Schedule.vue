@@ -21,7 +21,7 @@
       <div class="buttons flex flex-space-evenly">
         <a :href="getCalenderUrl(item)" target="_blank">Add To Calender</a>
         |
-        <p>Send Message</p>|
+        <p @click="goToChat(item.from)">Send Message</p>|
         <p>Cancel</p>
       </div>
     </div>
@@ -30,16 +30,15 @@
 
 
 <script>
-// TODO - 
+// TODO -
 // - AGRIGATE DATA WITH PARENT OBJECT
-// IN STORE - SORT SCHEDULE 
+// IN STORE - SORT SCHEDULE
 // 1. Add Send MSG link
 // 2. Calculate days to the event
 // 3. Calculate Distance from you
 // 4. cancel link
-// 
+//
 export default {
-
   computed: {
     getSchedules() {
       return this.$store.getters.getCurrentProfile.schedule;
@@ -58,17 +57,21 @@ export default {
     }
   },
   methods: {
+    goToChat(from) {
+      this.$store.dispatch({ type: "changeNotificationStatus", from });
+      this.$router.push(`/baby/profile/sitter/${from}/contact`);
+    },
     getCalenderUrl(schedule) {
       var startTime = new Date(schedule.start).toISOString();
       startTime = startTime.replace(/-/g, "");
       startTime = startTime.replace(/:/g, "");
       startTime = startTime.replace(".", "");
-      startTime = startTime.substring(0,15) + "Z"
+      startTime = startTime.substring(0, 15) + "Z";
       var endTime = new Date(schedule.end).toISOString();
       endTime = endTime.replace(/-/g, "");
       endTime = endTime.replace(/:/g, "");
       endTime = endTime.replace(".", "");
-      endTime = endTime.substring(0,15) + "Z"
+      endTime = endTime.substring(0, 15) + "Z";
 
       var url = `https://calendar.google.com/calendar/r/eventedit?text=BabySitting+at+${
         schedule.from
