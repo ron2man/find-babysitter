@@ -57,6 +57,8 @@ export default {
   line-height: 40px;
   text-decoration: none;
   margin-bottom: 20px;
+  width: 150px;
+  float: right;
 }
 
 .profile-header-container {
