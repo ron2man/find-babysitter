@@ -13,7 +13,7 @@
       <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
       <div class="msg-text">
         <!-- {{notification}} -->
-        <h3 class="sender-name">{{notification.from | relativeTime}}</h3>
+        <h3 class="sender-name">{{notification.from}}</h3>
         <!-- <h3 class="text-preview">this is my message to you</h3> -->
         <h4 class="time">{{notification.createdAt | relativeTime}}</h4>
       </div>
