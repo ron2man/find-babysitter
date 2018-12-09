@@ -1,22 +1,17 @@
 <template>
   <div class="profile-container">
-    <!-- La La La {{user}} -->
     <div class="profile-head flex space-between align-items-center">
       <div class="profile-image main" :style="{backgroundImage: 'url(' + user.imgUrl + ')' }"></div>
       <div class="name">
         <h2>{{user.name.fullName}}</h2>
-        <!-- <h3>Edit Profile</h3> -->
       </div>
       <div class="edit-icon">
         <i class="fas fa-user-edit"></i>
       </div>
     </div>
     <div class="buffer"></div>
-    <!-- <router-link class="item-route align-self-center" to="notifications">Inbox</router-link> -->
-    <!-- <router-link class="item-route align-self-center" to="requests">Requests</router-link> -->
-    <!-- <router-link class="item-route align-self-center" to="details">Schedule</router-link> -->
     <div class="tabs flex space-evenly">
-      <router-link to="notifications" class="tab inbox active">
+      <router-link to="notifications" class="tab inbox">
         inbox
         <span>({{user.notifications.length}})</span>
       </router-link>
@@ -72,13 +67,13 @@ a:link {
 }
 
 .profile-head {
-  background-color: gray;
+  background-color: #ffff9d;
   /* height: 85px; */
   padding: 10px 0;
 }
 
 .buffer {
-  height: 15px;
+  height: 3px;
   background-color: black;
 }
 
@@ -121,12 +116,12 @@ a:link {
 /*  */
 .tabs {
   /* border-bottom: 1px solid black; */
-  background-color: #ccc;
+  background-color: #a26ea1;
 }
 
 .tabs .tab {
   text-align: center;
-  color: red;
+  color: white;
   text-transform: capitalize;
   /* font-weight: bold; */
   max-height: 50px;
@@ -159,6 +154,12 @@ p.div {
 
 .active {
   font-weight: bold;
+  text-transform: capitalize;
+}
+
+.router-link-active{
+  font-weight: 700;
+  color: black;
   text-transform: capitalize;
 }
 </style>

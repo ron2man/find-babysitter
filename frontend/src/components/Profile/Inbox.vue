@@ -6,7 +6,7 @@
     <div
       @click="goToChat(notification.from)"
       class="message flex align-items-center"
-      :class="{ active: notification.isRead }"
+      :class="{ active: !notification.isRead }"
       v-for="(notification, index) in getNotifications"
       :key="index"
     >
@@ -18,8 +18,8 @@
         <h4 class="time">{{notification.createdAt | relativeTime}}</h4>
       </div>
       <div class="icon">
-        <!-- <i class="far fa-comment-alt"></i> -->
-        <i class="fas fa-circle"></i>
+        <i v-if="notification.isRead" class="far fa-comment-alt"></i>
+        <i v-else class="fas fa-circle"></i>
       </div>
     </div>
   </div>
