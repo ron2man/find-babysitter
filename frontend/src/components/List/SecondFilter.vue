@@ -126,13 +126,18 @@ export default {
 .filter .full-name {
   margin-top: 40px;
 }
+.filter.filter{
+      width: 65%;
+}
+
 
 .filter {
+     
   .btn-filer {
     display: flex;
     position: fixed;
-   left: 130px;
-    top: 337px;
+    left: 270px;
+    top: 330px;
     color: black;
     z-index: 3;
     background-color: rgb(192, 161, 161);
@@ -162,13 +167,14 @@ cursor: pointer;
   top: -9px;
   height: 100%;
   z-index: 1;
-  transform: translate(-100%);
-  div {
-    max-width: 90%;
-    margin: 0 auto;
+    transform: translate(-105%);
+    div {
+    // max-width: 90%;
+    // margin: 0 auto;
     margin-bottom: 30px;
     input {
       background-color: white;
+          width: 80%;
     }
   }
 }
