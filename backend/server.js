@@ -39,7 +39,7 @@ addUserRoutes(app)
 // socket
 
 const port = process.env.PORT || 3003;
-app.listen(port, () => {
+http.listen(port, () => {
   console.log(`App listening on port ${port} !`);
 });
 
