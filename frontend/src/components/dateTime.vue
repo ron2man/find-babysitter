@@ -24,7 +24,6 @@
         </div>
         <button @click="book(sitter)">Book Now!</button>
       </div>
-    </div>
     <div class="book-answer" v-if="this.alertMsg">
       <i class="fas fa-exclamation-circle" v-if="!sent"></i>
       <i class="fas fa-check-circle" v-if="sent"></i>

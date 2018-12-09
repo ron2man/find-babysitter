@@ -41,9 +41,7 @@ export default {
             state.currentSitter = sitter
         },
         setSort(state, payload) {
-            // console.log('mutatation sortab',payload);
             state.sortBy = payload
-
         },
     },
     actions: {

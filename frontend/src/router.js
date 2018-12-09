@@ -8,15 +8,15 @@ import SitterDetails from './components/SitterDetails.vue'
 import ParentProfile from './components/ParentProfile.vue'
 import UserDetails from './components/UserDetails.vue'
 import ChatContact from './components/ChatContact.vue'
-import scedualeZone from './components/scedualeZone.vue'
 import SitterProfile from './components/SitterProfile.vue'
-import Notifications from './components/Notifications.vue'
-import requestsSitter from './components/requestsSitter.vue'
-import requestsParent from './components/requestsParent.vue'
+import RequestsSitter from './components/RequestsSitter.vue'
+import RequestsParent from './components/RequestsParent.vue'
 import Profile from './views/Profile.vue'
 import Inbox from './components/Profile/Inbox.vue'
 import Schedule from './components/Profile/Schedule.vue'
 
+import Notifications from './components/Notifications.vue'
+import scedualeZone from './components/scedualeZone.vue'
 
 
 Vue.use(Router)
@@ -67,7 +67,7 @@ export default new Router({
         // { path: 'notifications', name: 'notifications', component: Notifications },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
-        { path: 'requests', name: 'requests', component: requestsParent },
+        { path: 'requests', name: 'requests', component: RequestsParent },
         { path: 'schedule', name: 'schedule', component: Schedule }
         // { path: 'sceduale', name: 'sceduale', component: scedualeZone }
       ]
@@ -80,7 +80,7 @@ export default new Router({
         { path: 'notifications', name: 'notifications', component: Inbox },
         { path: 'details', name: 'details', component: UserDetails },
         { path: 'contact', name: 'contact', component: ChatContact },
-        { path: 'requests', name: 'requests', component: requestsSitter },
+        { path: 'requests', name: 'requests', component: RequestsSitter },
         { path: 'schedule', name: 'schedule', component: Schedule }
 
         // { path: 'sceduale', name: 'sceduale', component: scedualeZone }

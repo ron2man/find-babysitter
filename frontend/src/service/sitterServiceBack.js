@@ -59,7 +59,7 @@ function Limitquery(limit = 6, sortBy = 'aveRate') {
 
 }
 
-function checkAvalability({ reservation }) {
+function checkAvalability(reservation) {
     const params = new URLSearchParams
     params.set('start', reservation.start)
     params.set('end', reservation.end)
