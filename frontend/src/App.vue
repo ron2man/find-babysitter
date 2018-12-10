@@ -43,15 +43,15 @@
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
         <p>|</p>
-        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span> 3</span></p>
+        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{currUser.notifications.length}}</span></p>
         <p>|</p>
-        <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span> 5</span></p>
+        <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
         <p>|</p>
         <p class="logout" @click="checkIfLogin">Logout</p>
       </template>
       <!-- BEFORE LOGIN -->
       <template v-else>
-        <p class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</p>
+        <p class="login-txt" @click="checkIfLogin">Login</p>
         <p>|</p>
         <p>Signup</p>
       </template>
@@ -68,6 +68,11 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted(){
+    // INJECT NOTIFICATIONS TO DOCUMENT>TITLE
+    if (this.currUser) document.title = `Find a BabySitter (${this.currUser.reservations.length + this.currUser.notifications.length})`
+    else document.title = 'Find a BabySitter'
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
