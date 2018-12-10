@@ -53,21 +53,21 @@
 } 
 
 .main-color {
-    color: #a26ea1
+    color: $main-color;
 }
 
 .second-color {
-    color: #d5d5d5;    
+    color:  $second-color;  
     // color: #888888;    
     // color: #ffff9d;    
 }
 
 .main-background {
-    background-color: #a26ea1;
+    background-color: $main-color;
 }
 
 .second-background {
-    background-color: #d5d5d5;
+    background-color: $second-color;
     // background-color: #888888;
 }
 

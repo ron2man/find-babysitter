@@ -5,106 +5,49 @@
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
         <h3 class="name main-color">{{sitter.name.fullName}}</h3>
-        <h4 class="address">{{showDistance}}</h4>
-        <h5>{{sitter.age}} years old</h5>
-        <!-- <h5 class="rating">
-          {{sitter.aveRate}}
-          <i style="font-size:1rem" class="fas fa-star star"></i> (1234)
-        </h5> -->
+        <div class="distance-time flex flex-space-evenly align-items-center">
+          <h4 class="address">{{showDistance}}</h4>
+          <h5>{{sitter.age}} years old</h5>
+          
+        </div>
       </div>
-      <!-- <div class="buttons">
-        <div v-if="notSitter" class="contact" @click="sendMessage(sitter)">
-          <h4 class="book-now">Book Now</h4>
-          <i class="far fa-comments"></i>
-        </div>
-        <div class="bookmark">
-          <div class="flex">
-            <i class="fas fa-star star"></i>
-            <span class="rating-big bold">{{sitter.aveRate}}</span>
-          </div>
-          <span>
-            (
-            <span class="bold">429</span>)
-          </span>
-        </div>
-      </div>-->
     </div>
-
 
     <!-- START BUTTONS - BOOK ME + MORE DETAILS -->
-    <div class="card-buttons flex align-items-center flex-space-evenly main-background">
-      <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
-      <router-link class="btn main-color" :to="sitterUrl"><i class="far fa-calendar-plus"></i> Book Me</router-link>
-      <p class="main-color"> | </p>
-      <router-link class="btn main-color" :to="sitterUrl"><i class="fas fa-info"></i> More details</router-link>
+    <div
+      class="card-buttons flex align-items-center flex-space-evenly second-color main-background"
+    >
+      <router-link class="btn second-color bold" to="/">
+        <i class="far fa-calendar-plus"></i> Book Me
+      </router-link>
+      <p class="second-color">|</p>
+      <router-link class="btn second-color bold" to="/">
+        <i class="fas fa-info"></i> More details
+      </router-link>
     </div>
     <!-- END BUTTONS - BOOK ME + MORE DETAILS -->
-
-    <!-- START DETAILS - WAGE + RATING -->
-    <div class="card-wage-rating flex align-items-center flex-space-evenly main-background">
-      <h5 class="wage">{{sitter.hWage}} ILS</h5>
-              <h5><span class="rate flex align-items-center">{{sitter.aveRate}}  <i style="font-size:1rem" class="fas fa-star star"></i></span>
-                <span class="votes">(1234)</span>
-           
-        </h5>
+    <div class="card-about">
+      <p
+        class="about-me main-color bold"
+      >" I will design 2 modernmodern modern modern minimalist logo in 24 hrs "</p>
+      <p><span class="bold">Availability:</span> {{sitter.time}}</p>
+      <p><span class="bold">Expertise:</span> {{sitter.agePrefs}}</p>
     </div>
+    <!-- START DETAILS - WAGE + RATING -->
+    <div class="card-wage-rating flex align-items-center flex-space-evenly mai1n-background">
+      <h5 class="wage">{{sitter.hWage}} ILS</h5>
 
-    <!-- <div class="card-body">
-      <div class="verifaction">
-        <div class="icon">
-          <i class="fas fa-medal"></i>
+      <div class="rating flex align-items-center">
+        <div class="rates-voting">
+          <h5 class="rate">{{sitter.aveRate}}</h5>
+          <h5 class="voting">(1k+)</h5>
         </div>
-        <div class="text">
-          <p class="bold">Several children at the same time</p>
+        <div class="star">
+          <i style="font-size:1.5rem;padding-left:10px;" class="fas fa-star star"></i>
         </div>
       </div>
-
-      <div class="looking-for">
-        <p>
-          <span class="bold">Looking For:</span>
-          {{sitter.time}}
-        </p>
-      </div>
-      <div class="looking-for" v-if="sitter.experience">
-        <p>
-          <span class="bold">Experience:</span>
-          {{sitter.experience}} years
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Love to work with:</span>
-          {{sitter.agePrefs}}
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Age:</span>
-          {{sitter.age}}
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Hourly wages:</span>
-          {{sitter.hWage}} ILS
-        </p>
-      </div> -->
-
-      <!-- <div class="about-me"> -->
-      <!-- <p> -->
-      <!-- About {{sitter.name.fName}}: -->
-      <!-- <br> -->
-      <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
-      <!-- RENDER FULL DEATAILS - ABOUT -->
-      <!-- </p> -->
-      <!-- <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p> -->
-      <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
-      <!-- <p v-else> -->
-      <!-- {{shortDetails}} ... -->
-      <!-- <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div> -->
-      <!-- </p> -->
-      <!-- </div> -->
-    <!-- </div> -->
+    </div>
+    <!-- END DETAILS - WAGE + RATING -->
 
     <div class="card-icons">
       <div class="icon tooltip">
@@ -145,7 +88,9 @@ import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 
 export default {
   props: ["sitter"],
-  created() {},
+  created() {
+    console.log("sitter - ", this.sitter, "this currUser -", this.currUser);
+  },
   methods: {
     calcDistance() {
       // calculates great-circle distances between the two points
@@ -183,7 +128,6 @@ export default {
       });
     },
     sitterUrl() {
-      console.log(this.sitter._id)
       this.$router.push(`/baby/list/${this.sitter._id}`);
     }
   },
@@ -192,9 +136,7 @@ export default {
       let distance = this.calcDistance();
       let roundDistance = Math.round(distance);
 
-      if (distance < 1)
-        return `${Math.round(distance * 1000)} m - can't get closer`;
-      else if (roundDistance < 10) return `${roundDistance} Km - very close`;
+      if (distance < 1) return `${Math.round(distance * 1000)}m`;
       else return `${roundDistance} Km`;
 
       return distance;
@@ -225,13 +167,13 @@ export default {
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
 .card {
+  border: 1px solid #ccc;
   margin: 0 auto;
   text-align: left;
   max-width: 466px;
   min-width: 320px;
   max-width: 320px;
   box-sizing: border-box;
-  // border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin-bottom: 10px;
@@ -241,14 +183,14 @@ export default {
 .card-header {
   height: 120px;
   border-bottom: 1px solid gray;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  // border-top-left-radius: 10px;
+  // border-top-right-radius: 10px;
 }
 
 .card-header .image {
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 100px;
-  height: 100px;
+  // box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 90px;
+  height: 90px;
   background-color: #ccc;
   background-position: center center;
   -webkit-background-size: cover;
@@ -265,41 +207,54 @@ export default {
   padding: 0 10px;
   h4 {
     padding: 5px 0;
-    font-size: 1.3em;
+    font-weight: bold;
+    // font-size: 1.2em;
   }
   h5 {
-    // font-size: 1.2em;
+    padding: 5px 0;
+
+    // font-size: 1em;
+    // color: white;
   }
 }
 
 .card-buttons {
-  padding: 10px;
-  .btn{
-    i{
+  // padding: 10px;
+  .btn {
+    i {
       padding: 0 10px;
       font-size: 1rem;
     }
     text-decoration: none;
-    padding:10px;
-    border-radius:3px;
+    padding: 10px;
+    border-radius: 3px;
   }
 }
 
 .card-wage-rating {
   padding: 10px;
-  .wage{
-    font-size:2em;
+  // border-bottom: 1px solid #ccc;
+  .wage {
+    font-size: 2em;
   }
-  .rate{
-    font-size:1.7em;
+  .rate {
+    font-size: 1.5em;
   }
-  .votes{
-    font-size:1em;
+  .voting {
+    color: #ccc;
+    font-size: 0.8em;
+  }
+  .votes {
+    font-size: 1em;
   }
 }
 
 .star {
-  color: orange;
+  color: goldenrod;
+}
+
+.rating {
+  text-align: center;
 }
 
 .rating-big {
@@ -308,7 +263,21 @@ export default {
 }
 
 i {
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+
+.card-about {
+  padding: 10px;
+  p {
+    font-size: 0.8em;
+    padding: 5px 0;
+    text-transform: capitalize;
+  }
+  p.about-me {
+    // color: black;
+    font-size: initial;
+    line-height: 1.5em;
+  }
 }
 
 .card-header .buttons {
@@ -369,7 +338,7 @@ i {
 }
 
 .card-body .verifaction .icon i {
-  font-size: 3em;
+  // font-size: 3em;
   color: #a26ea1;
 }
 
@@ -397,7 +366,7 @@ i {
 .card-icons {
   border: 0;
   border-top: 1px gray solid;
-  padding: 15px 0;
+  padding: 7px 0;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
@@ -476,17 +445,13 @@ i {
 }
 
 @media (min-width: 767px) {
-  .card-header {
-    height: 200px;
-  }
-
   .card-header .image {
     width: 100px;
     height: 100px;
   }
 
   i {
-    font-size: 2em;
+    // font-size: 2em;
   }
 
   .card-header .buttons {
