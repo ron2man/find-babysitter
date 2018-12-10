@@ -1,24 +1,24 @@
-const sitterService = require('../services/sitter.service')
+const chatService = require('../services/chat.service')
 
 module.exports = io => {
-    var twousersroom = ''
+    var twoUsersRoom = ''
 
     io.on('connection', socket => {
 
-        socket.on('firstChat', roomname => {
-            socket.join(roomname)
-            sitterService.checkMessages(roomname)
+        socket.on('firstChat', roomName => {
+            socket.join(roomName)
+            chatService.checkMessages(roomName)
                 .then(res => {
-                    if (res.length !== 0) io.to(roomname).emit('getHistory', res);
-                    else sitterService.createRoom(roomname)
-                    twousersroom = roomname
+                    if (res.length !== 0) io.to(roomName).emit('getHistory', res);
+                    else chatService.createRoom(roomName)
+                    twoUsersRoom = roomName
                 })
         });
 
         socket.on('SendMsg', details => {
             const newMsg = { from: details.from, msg: details.msg, createdAt: details.time }
             io.to(details.details).emit('SendMsg', newMsg);
-            sitterService.pushMessage(newMsg, twousersroom)
+            chatService.pushMessage(newMsg, twoUsersRoom)
         })
     })
 

@@ -138,7 +138,7 @@ body {
 .input-box input {
   border: 1px solid grey;
   border-radius: 10px;
-  width: 290px;
+  width: 80%;
   margin-bottom: 2px;
   height: 50px;
   background-color: #ffffff;
@@ -149,7 +149,7 @@ body {
 }
 .input-box button {
   margin-bottom: 2px;
-  width: 200px;
+  width: 20%;
   height: 53px;
   color: white;
   background-color: #984a59;
