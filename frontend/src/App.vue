@@ -1,37 +1,62 @@
 <template>
   <div id="app">
-    <!-- <Menu></Menu> -->
+    <!-- OLD HEADER -->
     <!-- START HEADER -->
-    <header class="flex flex-space-between">
-      <!-- <div> -->
-      <!-- <router-link @click="checkIfLogin"> -->
-      <div class="flex column">
-        <i class="fas fa-user login-icon" @click="goToProfile"></i>
-        
-      </div>
-
-      <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
-      <!-- </router-link> -->
-      <!-- </div> -->
-      <h1 class="logo">
+    <!-- <header class="flex flex-space-between align-items-center"> -->
+    <!-- <div> -->
+    <!-- <router-link @click="checkIfLogin"> -->
+    <!-- <div class="flex column"> -->
+    <!-- <i class="fas fa-user login-icon" @click="goToProfile"></i> -->
+    <!-- </div> -->
+    <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
+    <!-- </router-link> -->
+    <!-- </div> -->
+    <!-- <h1 class="logo">
         <router-link to="/">BabySitter</router-link>
-      </h1>
-
-    
+      </h1>  
       <nav class="right-nav-items flex flex-space-between align-items-center">
       <h2 class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</h2>
         <i class="fas fa-bars"></i>
       </nav>
+    </header>-->
+    <!-- END OLD HEADER -->
+    <header class="flex main-background">
+      <nav>
+        <i class="fas fa-bars"></i>
+      </nav>
+      <h1 class="logo">
+        <router-link to="/">Find a BabySitter</router-link>
+      </h1>
     </header>
-    <!-- END HEADER -->
+
     <main>
-      <div v-if="isLoading"  class="loader-container">
-      <div class="lds-dual-ring"></div>
+      <div v-if="isLoading" class="loader-container">
+        <div class="lds-dual-ring"></div>
       </div>
       <router-view v-else></router-view>
     </main>
 
-    <footer></footer>
+
+    <footer class="main-background flex align-items-center flex-space-evenly">
+      <!-- CONECTED -->
+      <template v-if="currUser">
+        <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
+        <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
+        <p>|</p>
+        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span> 3</span></p>
+        <p>|</p>
+        <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span> 5</span></p>
+        <p>|</p>
+        <p class="logout" @click="checkIfLogin">Logout</p>
+      </template>
+      <!-- BEFORE LOGIN -->
+      <template v-else>
+        <p class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</p>
+        <p>|</p>
+        <p>Signup</p>
+      </template>
+      <!-- <div class="login">Login</div> -->
+    </footer>
   </div>
 </template>
 
@@ -45,17 +70,15 @@ export default {
     return {};
   },
   created() {
-    
     this.$store.dispatch({ type: "getsittersList" });
     this.$store.dispatch({ type: "checkIfLogin" });
   },
   methods: {
     checkIfLogin() {
-      if(this.currUser){
+      if (this.currUser) {
         this.$router.push("/login");
-        this.$store.dispatch("logout")
-      } 
-      else {
+        this.$store.dispatch("logout");
+      } else {
         this.$store.dispatch({ type: "checkIfLogin" }).then(ans => {
           if (ans) this.$router.push("/");
           else this.$router.push("/login");
@@ -63,12 +86,17 @@ export default {
         this.curFrUser = this.$store.getters.setLoginUser;
       }
     },
-    goToProfile(){
-      if (!this.currUser) this.$router.push('/login')
-      else if (this.currUser.type==='sitter') this.$router.push(`/baby/profile/sitter/${this.currUser.username}/notifications`);
-      else if (this.currUser.type==='parent') this.$router.push(`/baby/profile/parent/${this.currUser.username}/notifications`);
+    goToProfile() {
+      if (!this.currUser) this.$router.push("/login");
+      else if (this.currUser.type === "sitter")
+        this.$router.push(
+          `/baby/profile/sitter/${this.currUser.username}/notifications`
+        );
+      else if (this.currUser.type === "parent")
+        this.$router.push(
+          `/baby/profile/parent/${this.currUser.username}/notifications`
+        );
     }
-   
   },
   computed: {
     currUser() {
@@ -91,13 +119,13 @@ export default {
   text-decoration: none;
 }
 header {
-  font-size: 1.7em;
+  font-size: 1.5em;
   text-decoration: none;
-  height: 75px;
-  line-height: 75px;
+  height: 50px;
+  line-height: 50px;
   padding: 0 15px;
-    background-color: #a26ea1;
-      color: white;
+  // background-color: #a26ea1;
+  color: white;
   h1 {
     a,
     a:active,
@@ -106,10 +134,13 @@ header {
       text-decoration: none;
     }
   }
+  nav {
+    padding-right: 20px;
+  }
 }
 
 #nav {
-  // padding: 30px;
+  padding: 0 30px;
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -133,13 +164,13 @@ header {
   line-height: 2;
 }
 
-.right-nav-items{
-    width: 100px;
+.right-nav-items {
+  width: 100px;
 }
 
-.loader-container{
+.loader-container {
   height: 50vh;
-  display:flex;
+  display: flex;
 }
 
 .lds-dual-ring {
@@ -166,6 +197,33 @@ header {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+footer {
+  color: white;
+  height: 50px;
+  line-height: 50px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border-radius: 50%;
+    align-self: center;
+    margin: 0 5px;
+  }
+  .name{
+    text-transform: capitalize;
+  }
+  i {
+    padding: 0 5px;
   }
 }
 </style>
