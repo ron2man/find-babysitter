@@ -48,6 +48,30 @@
 .outline-second-color{
     outline: 3px solid $second-color;
 }
-.border-bottom-second-color{
+.border-bottom-second-color {
     border-bottom: 3px solid $second-color;
 } 
+
+.main-color {
+    color: #a26ea1
+}
+
+.second-color {
+    color: #d5d5d5;    
+    // color: #888888;    
+    // color: #ffff9d;    
+}
+
+.main-background {
+    background-color: #a26ea1;
+}
+
+.second-background {
+    background-color: #d5d5d5;
+    // background-color: #888888;
+}
+
+
+h1.main-color {
+    font-size: 1.5em;
+}

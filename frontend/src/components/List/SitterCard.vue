@@ -1,15 +1,18 @@
 <template>
-  <div class="card" @click="calcDistance">
-    <div class="card-header">
+  <div class="card">
+    <!-- PICTURE - NAME - DISTANCE - AGE -->
+    <div class="card-header flex flex-space-evenly second-background">
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
-        <h2 class="name">{{sitter.name.fullName}}</h2>
-        <h3 class="address">{{sitter.location.addressText}}</h3>
-        <h3 class="address">{{showDistance}}</h3>
-        <!-- <p>{{sitter.adress.city}}</p> -->
-        <!-- <p>{{sitter.adress.district}}</p> -->
+        <h3 class="name main-color">{{sitter.name.fullName}}</h3>
+        <h4 class="address">{{showDistance}}</h4>
+        <h5>{{sitter.age}} years old</h5>
+        <!-- <h5 class="rating">
+          {{sitter.aveRate}}
+          <i style="font-size:1rem" class="fas fa-star star"></i> (1234)
+        </h5> -->
       </div>
-      <div class="buttons">
+      <!-- <div class="buttons">
         <div v-if="notSitter" class="contact" @click="sendMessage(sitter)">
           <h4 class="book-now">Book Now</h4>
           <i class="far fa-comments"></i>
@@ -24,9 +27,29 @@
             <span class="bold">429</span>)
           </span>
         </div>
-      </div>
+      </div>-->
     </div>
-    <div class="card-body">
+
+
+    <!-- START BUTTONS - BOOK ME + MORE DETAILS -->
+    <div class="card-buttons flex align-items-center flex-space-evenly main-background">
+      <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
+      <router-link class="btn main-color" :to="sitterUrl"><i class="far fa-calendar-plus"></i> Book Me</router-link>
+      <p class="main-color"> | </p>
+      <router-link class="btn main-color" :to="sitterUrl"><i class="fas fa-info"></i> More details</router-link>
+    </div>
+    <!-- END BUTTONS - BOOK ME + MORE DETAILS -->
+
+    <!-- START DETAILS - WAGE + RATING -->
+    <div class="card-wage-rating flex align-items-center flex-space-evenly main-background">
+      <h5 class="wage">{{sitter.hWage}} ILS</h5>
+              <h5><span class="rate flex align-items-center">{{sitter.aveRate}}  <i style="font-size:1rem" class="fas fa-star star"></i></span>
+                <span class="votes">(1234)</span>
+           
+        </h5>
+    </div>
+
+    <!-- <div class="card-body">
       <div class="verifaction">
         <div class="icon">
           <i class="fas fa-medal"></i>
@@ -65,7 +88,7 @@
           <span class="bold">Hourly wages:</span>
           {{sitter.hWage}} ILS
         </p>
-      </div>
+      </div> -->
 
       <!-- <div class="about-me"> -->
       <!-- <p> -->
@@ -78,11 +101,11 @@
       <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
       <!-- <p v-else> -->
       <!-- {{shortDetails}} ... -->
-      <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
-      <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div>
+      <!-- <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div> -->
       <!-- </p> -->
       <!-- </div> -->
-    </div>
+    <!-- </div> -->
+
     <div class="card-icons">
       <div class="icon tooltip">
         <i class="fas fa-smoking-ban" :class="{black: !sitter.smoking}"></i>
@@ -131,18 +154,18 @@ export default {
       let sitterLng = this.sitter.location.coordinates[0];
       let sitterLat = this.sitter.location.coordinates[1];
 
-        var R = 6371; // Radius of the earth in km
-        let dLat = deg2rad(sitterLat - userLat); // deg2rad below
-        let dLon = deg2rad(sitterLng - userLng);
-        let a =
-          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(deg2rad(userLat)) *
-            Math.cos(deg2rad(sitterLat)) *
-            Math.sin(dLon / 2) *
-            Math.sin(dLon / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c; // Distance in km
-        return d;
+      var R = 6371; // Radius of the earth in km
+      let dLat = deg2rad(sitterLat - userLat); // deg2rad below
+      let dLon = deg2rad(sitterLng - userLng);
+      let a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(userLat)) *
+          Math.cos(deg2rad(sitterLat)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in km
+      return d;
 
       function deg2rad(deg) {
         return deg * (Math.PI / 180);
@@ -160,18 +183,20 @@ export default {
       });
     },
     sitterUrl() {
+      console.log(this.sitter._id)
       this.$router.push(`/baby/list/${this.sitter._id}`);
     }
   },
   computed: {
-    showDistance(){
+    showDistance() {
       let distance = this.calcDistance();
-      let roundDistance = Math.round(distance)
+      let roundDistance = Math.round(distance);
 
-      if (distance < 1) return `${Math.round(distance*1000)} m - can't get closer`
-      else if (roundDistance < 10) return `${roundDistance} Km - very close`
-      else  return `${roundDistance} Km`
-      
+      if (distance < 1)
+        return `${Math.round(distance * 1000)} m - can't get closer`;
+      else if (roundDistance < 10) return `${roundDistance} Km - very close`;
+      else return `${roundDistance} Km`;
+
       return distance;
     },
     getLength() {
@@ -200,31 +225,31 @@ export default {
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
 .card {
+  margin: 0 auto;
   text-align: left;
   max-width: 466px;
-  min-width: 360px;
+  min-width: 320px;
+  max-width: 320px;
   box-sizing: border-box;
-  border: 1px solid grey;
+  // border: 1px solid grey;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  // margin: 0 auto;
   margin-bottom: 10px;
   margin-top: 10px;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-header {
-  height: 150px;
-  display: flex;
-  justify-content: space-between;
+  height: 120px;
   border-bottom: 1px solid gray;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .card-header .image {
-  width: 60px;
-  height: 60px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 100px;
+  height: 100px;
   background-color: #ccc;
-  background-image: url(https://ffx-small-sites.s3.amazonaws.com/findababysitter/production/ProfileImages/9062d7166ec64150bfcb0a8fe4addb13.jpg);
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -238,25 +263,43 @@ export default {
 .card-header .details {
   align-self: center;
   padding: 0 10px;
+  h4 {
+    padding: 5px 0;
+    font-size: 1.3em;
+  }
+  h5 {
+    // font-size: 1.2em;
+  }
 }
 
-.card-header .details .name {
-  color: #771144;
+.card-buttons {
+  padding: 10px;
+  .btn{
+    i{
+      padding: 0 10px;
+      font-size: 1rem;
+    }
+    text-decoration: none;
+    padding:10px;
+    border-radius:3px;
+  }
+}
+
+.card-wage-rating {
+  padding: 10px;
+  .wage{
+    font-size:2em;
+  }
+  .rate{
+    font-size:1.7em;
+  }
+  .votes{
+    font-size:1em;
+  }
 }
 
 .star {
   color: orange;
-}
-
-h2,
-h3,
-h4,
-p,
-div,
-body,
-html {
-  padding: 0;
-  margin: 0;
 }
 
 .rating-big {

@@ -2,9 +2,9 @@
   <section v-if="this.sitters">
 
     <div class="filter-sort-container second-background flex flex-space-evenly">
-      <p @click="toggleSort" class="main-color">Sort</p>
+      <p @click="toggleSort" class="main-color">Sort <i class="fas fa-caret-down"></i></p>
       <p>|</p>
-    <p @click="toggleFilter" class="main-color">Filter</p>
+    <p @click="toggleFilter" class="main-color">Filter <i class="fas fa-caret-down"></i></p>
 
     </div>
     <div class="list">
