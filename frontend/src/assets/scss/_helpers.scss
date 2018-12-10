@@ -1,5 +1,7 @@
+@import '_vars';
+
 // FLEX
-.flex{
+.flex {
     display: flex;
 }
 
@@ -43,3 +45,9 @@
     justify-content: flex-end;
 }
 
+.outline-second-color{
+    outline: 3px solid $second-color;
+}
+.border-bottom-second-color{
+    border-bottom: 3px solid $second-color;
+} 

@@ -20,7 +20,7 @@
       </nav>
     </header>-->
     <!-- END OLD HEADER -->
-    <header class="flex main-background">
+    <header class="flex border-bottom-second-color main-background">
       <nav>
         <i class="fas fa-bars"></i>
       </nav>
@@ -37,7 +37,7 @@
     </main>
 
 
-    <footer class="main-background flex align-items-center flex-space-evenly">
+    <footer class="main-background flex align-items-center flex-space-evenly outline-second-color">
       <!-- CONECTED -->
       <template v-if="currUser">
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
@@ -129,8 +129,8 @@ header {
   height: 50px;
   line-height: 50px;
   padding: 0 15px;
-  // background-color: #a26ea1;
   color: white;
+  
   h1 {
     a,
     a:active,

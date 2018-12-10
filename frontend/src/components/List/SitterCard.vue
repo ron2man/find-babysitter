@@ -1,33 +1,28 @@
 <template>
-  <div class="card">
+  <div class="card" @click="calcDistance">
     <div class="card-header">
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
         <h2 class="name">{{sitter.name.fullName}}</h2>
         <h3 class="address">{{sitter.location.addressText}}</h3>
-         <!-- <p>{{sitter.adress.city}}</p> -->
+        <h3 class="address">{{showDistance}}</h3>
+        <!-- <p>{{sitter.adress.city}}</p> -->
         <!-- <p>{{sitter.adress.district}}</p> -->
       </div>
       <div class="buttons">
-        <div
-          v-if="notSitter"
-          class="contact"
-          @click="sendMessage(sitter)"
-        >
+        <div v-if="notSitter" class="contact" @click="sendMessage(sitter)">
           <h4 class="book-now">Book Now</h4>
           <i class="far fa-comments"></i>
         </div>
         <div class="bookmark">
-          <p>
-            <div class="flex">
+          <div class="flex">
             <i class="fas fa-star star"></i>
             <span class="rating-big bold">{{sitter.aveRate}}</span>
-            </div>
-            <span>
-              (
-              <span class="bold">429</span>)
-            </span>
-          </p>
+          </div>
+          <span>
+            (
+            <span class="bold">429</span>)
+          </span>
         </div>
       </div>
     </div>
@@ -73,19 +68,19 @@
       </div>
 
       <!-- <div class="about-me"> -->
-        <!-- <p> -->
-          <!-- About {{sitter.name.fName}}: -->
-          <!-- <br> -->
-          <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
-          <!-- RENDER FULL DEATAILS - ABOUT -->
-        <!-- </p> -->
-        <!-- <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p> -->
-        <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
-        <!-- <p v-else> -->
-          <!-- {{shortDetails}} ... -->
-          <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
-          <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div>
-        <!-- </p> -->
+      <!-- <p> -->
+      <!-- About {{sitter.name.fName}}: -->
+      <!-- <br> -->
+      <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
+      <!-- RENDER FULL DEATAILS - ABOUT -->
+      <!-- </p> -->
+      <!-- <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p> -->
+      <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
+      <!-- <p v-else> -->
+      <!-- {{shortDetails}} ... -->
+      <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
+      <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div>
+      <!-- </p> -->
       <!-- </div> -->
     </div>
     <div class="card-icons">
@@ -127,10 +122,32 @@ import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 
 export default {
   props: ["sitter"],
-  created() {
-    // console.log(this.sitter)
-  },
+  created() {},
   methods: {
+    calcDistance() {
+      // calculates great-circle distances between the two points
+      let userLng = this.currUser.location.coordinates[0];
+      let userLat = this.currUser.location.coordinates[1];
+      let sitterLng = this.sitter.location.coordinates[0];
+      let sitterLat = this.sitter.location.coordinates[1];
+
+        var R = 6371; // Radius of the earth in km
+        let dLat = deg2rad(sitterLat - userLat); // deg2rad below
+        let dLon = deg2rad(sitterLng - userLng);
+        let a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(deg2rad(userLat)) *
+            Math.cos(deg2rad(sitterLat)) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c; // Distance in km
+        return d;
+
+      function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+      }
+    },
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
@@ -142,11 +159,21 @@ export default {
         else this.$router.push(path);
       });
     },
-     sitterUrl() {
-      this.$router.push(`/baby/list/${this.sitter._id}`)
-    },
+    sitterUrl() {
+      this.$router.push(`/baby/list/${this.sitter._id}`);
+    }
   },
   computed: {
+    showDistance(){
+      let distance = this.calcDistance();
+      let roundDistance = Math.round(distance)
+
+      if (distance < 1) return `${Math.round(distance*1000)} m - can't get closer`
+      else if (roundDistance < 10) return `${roundDistance} Km - very close`
+      else  return `${roundDistance} Km`
+      
+      return distance;
+    },
     getLength() {
       if (this.sitter.description.length > 180) {
         const newDesc = this.sitter.description.substring(180, length - 1);
@@ -158,17 +185,13 @@ export default {
     shortDetails() {
       return this.sitter.about.substring(0, 100);
     },
-    // sitterUrl() {
-    //   return `/baby/list/${this.sitter._id}`;
-    // },
     currUser() {
       return this.$store.getters.setLoginUser;
     },
-    notSitter(){
-      if (this.currUser){
-        if(this.currUser.type!=='sitter') return true
-      }
-      else return true
+    notSitter() {
+      if (this.currUser) {
+        if (this.currUser.type !== "sitter") return true;
+      } else return true;
     }
   }
 };
@@ -267,8 +290,8 @@ i {
   background-color: #951555;
 }
 
-.book-now{
-color:black;
+.book-now {
+  color: black;
 }
 
 .card-header .buttons .bookmark {
@@ -279,8 +302,8 @@ color:black;
   justify-content: center;
 }
 
-.rating-big{
-color:black;
+.rating-big {
+  color: black;
 }
 
 .card-body {
@@ -392,25 +415,22 @@ color:black;
   margin-bottom: 3px;
 }
 
-.more-details{
-    text-decoration: none;  
-    border:1px gray solid;
-    width: 110px;
-    height: 34px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 2;
-    background-color: #ffb480;
-    color: black;
-    border-radius: 10px;
+.more-details {
+  text-decoration: none;
+  border: 1px gray solid;
+  width: 110px;
+  height: 34px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2;
+  background-color: #ffb480;
+  color: black;
+  border-radius: 10px;
 }
 
-.more-details:hover{
-cursor: pointer;
-
+.more-details:hover {
+  cursor: pointer;
 }
-
-
 
 @media (min-width: 767px) {
   .card-header {
@@ -430,7 +450,5 @@ cursor: pointer;
     max-width: 90px;
     width: 90px;
   }
-
-
 }
 </style>
