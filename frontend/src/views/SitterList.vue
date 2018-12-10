@@ -1,13 +1,20 @@
 <template>
   <section v-if="this.sitters">
+
+    <div class="filter-sort-container second-background flex flex-space-evenly">
+      <p @click="toggleSort" class="main-color">Sort</p>
+      <p>|</p>
+    <p @click="toggleFilter" class="main-color">Filter</p>
+
+    </div>
     <div class="list">
-      <div class="search">
+      <div class="search" v-if="isSortOpen">
         <search2></search2>
       </div>
-      <hr>
-      
+      <!-- <hr> -->
+
       <div class="grid-container">
-        <second-filter class="filter"></second-filter>
+        <second-filter v-if="isFilterOpen" class="filter"></second-filter>
 
         <div class="cards">
           <sitter-card v-if="sitters" v-for="(sitter,i) in sitters" :sitter="sitter" :key="i"></sitter-card>
@@ -16,20 +23,38 @@
         </div>
       </div>
     </div>
-    <hr>
+    <!-- <hr> -->
     <!-- <sitter-preview v-if="sitters" v-for="sitter in sitters" :sitter="sitter" :key="sitter._id"></sitter-preview> -->
   </section>
 </template>
 
 <script>
-import SitterPreview from "./SitterPreview";
-import SitterFilter from "./SitterFilter";
-import Search2 from "./Home/Search2.vue";
-import SitterCard from "./List/SitterCard.vue";
-import SecondFilter from "./List/SecondFilter.vue";
+import SitterPreview from "@/components/List/SitterPreview";
+import SitterFilter from "@/components/List/SitterFilter";
+import SitterCard from "@/components/List/SitterCard.vue";
+import SecondFilter from "@/components/List/SecondFilter.vue";
+import Search2 from "@/components/Home/Search2.vue";
 
 export default {
   name: "sitterList",
+  data(){
+    return {
+      //START FILTER - SORT - CONTAINER
+      isFilterOpen: false,
+      isSortOpen: false,
+      //END FILTER - SORT - CONTAINER
+    }
+  },
+  methods:{
+    toggleFilter(){
+      this.isFilterOpen = !this.isFilterOpen;
+      this.isSortOpen = false;
+    },
+    toggleSort(){
+      this.isSortOpen = !this.isSortOpen;
+      this.isFilterOpen = false;
+    }
+  },
   created() {},
 
   computed: {
@@ -48,6 +73,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.filter-sort-container {
+  padding: 15px;
+}
+
+
+
+
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));

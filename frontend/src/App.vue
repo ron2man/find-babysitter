@@ -42,17 +42,17 @@
       <template v-if="currUser">
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
-        <p>|</p>
+        <p class="second-color">|</p>
         <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{currUser.notifications.length}}</span></p>
-        <p>|</p>
+        <p class="second-color">|</p>
         <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
-        <p>|</p>
+        <p class="second-color">|</p>
         <p class="logout" @click="checkIfLogin">Logout</p>
       </template>
       <!-- BEFORE LOGIN -->
       <template v-else>
         <p class="login-txt" @click="checkIfLogin">Login</p>
-        <p>|</p>
+        <p class="second-color">|</p>
         <p>Signup</p>
       </template>
       <!-- <div class="login">Login</div> -->
