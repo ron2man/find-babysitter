@@ -1,7 +1,7 @@
 // colors
 
-$main-color: #bbc6d0;
-$second-color: #fff7f0;
+$main-color: #a26ea1;
+$second-color: #d5d5d5;
 
 
 
@@ -10,13 +10,25 @@ $bg-color: rgb(245, 214, 214);
 
 
 .main-color {
-    background-color: #ffff9d;    
+    color: #a26ea1
 }
 
 .second-color {
-    color: #455064
+    color: #d5d5d5;    
+    // color: #888888;    
+    // color: #ffff9d;    
 }
 
-.main-color-background {
+.main-background {
     background-color: #a26ea1;
+}
+
+.second-background {
+    background-color: #d5d5d5;
+    // background-color: #888888;
+}
+
+
+h1.main-color {
+    font-size: 1.5em;
 }

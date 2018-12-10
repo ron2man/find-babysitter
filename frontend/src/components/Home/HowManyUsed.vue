@@ -1,5 +1,5 @@
 <template>
-  <section class="main-color-background">
+  <section class="main-background">
     <div class="container">
       <img src="@/assets/images/heart.png">
     </div>
