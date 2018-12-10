@@ -6,7 +6,7 @@
       <div class="details">
         <h3 class="name main-color">{{sitter.name.fullName}}</h3>
         <div class="distance-time flex flex-space-evenly align-items-center">
-          <h4 class="address">{{showDistance}}</h4>
+          <h4 class="address" v-if="currUser">{{showDistance}}</h4>
           <h5>{{sitter.age}} years old</h5>
           
         </div>
@@ -17,7 +17,7 @@
     <div
       class="card-buttons flex align-items-center flex-space-evenly second-color main-background"
     >
-    <template v-if="currUser.type === 'parent'">
+    <template v-if="currUser && currUser.type !== 'sitter'">
       <router-link class="btn second-color bold" :to="`/baby/list/${this.sitter._id}`">
         <i class="far fa-calendar-plus"></i> Book Me
       </router-link>
@@ -174,8 +174,8 @@ export default {
   margin: 0 auto;
   text-align: left;
   max-width: 466px;
-  min-width: 330px;
-  max-width: 330px;
+  min-width: 320px;
+  max-width: 320px;
   box-sizing: border-box;
   // border-bottom-left-radius: 10px;
   // border-bottom-right-radius: 10px;
