@@ -17,11 +17,13 @@
     <div
       class="card-buttons flex align-items-center flex-space-evenly second-color main-background"
     >
-      <router-link class="btn second-color bold" to="/">
+    <template v-if="currUser.type === 'parent'">
+      <router-link class="btn second-color bold" :to="`/baby/list/${this.sitter._id}`">
         <i class="far fa-calendar-plus"></i> Book Me
       </router-link>
       <p class="second-color">|</p>
-      <router-link class="btn second-color bold" to="/">
+    </template>
+      <router-link class="btn second-color bold" :to="`/baby/list/${this.sitter._id}`">
         <i class="fas fa-info"></i> More details
       </router-link>
     </div>
@@ -89,7 +91,7 @@ import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 export default {
   props: ["sitter"],
   created() {
-    console.log("sitter - ", this.sitter, "this currUser -", this.currUser);
+    // console.log("sitter - ", this.sitter, "this currUser -", this.currUser);
   },
   methods: {
     calcDistance() {
@@ -129,6 +131,7 @@ export default {
     },
     sitterUrl() {
       this.$router.push(`/baby/list/${this.sitter._id}`);
+      // this.$router.push(`/baby/list/${this.sitter._id}`);
     }
   },
   computed: {
@@ -171,11 +174,11 @@ export default {
   margin: 0 auto;
   text-align: left;
   max-width: 466px;
-  min-width: 320px;
-  max-width: 320px;
+  min-width: 330px;
+  max-width: 330px;
   box-sizing: border-box;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
 }
