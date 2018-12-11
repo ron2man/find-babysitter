@@ -113,7 +113,7 @@ export default {
     sendMessage(sitter) {
       this.$store.dispatch({ type: "checkLogin" }).then(user => {
         if (!user) this.$router.push("/login");
-        else this.$router.push(`profile/parent/${sitter.username}/contact`);
+        else this.$router.push(`/baby/profile/parent/${sitter.username}/contact`);
       });
     }
   },

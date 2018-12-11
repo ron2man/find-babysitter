@@ -48,6 +48,7 @@
         <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
         <p class="second-color">|</p>
         <p class="logout" @click="checkIfLogin">Logout</p>
+
       </template>
       <!-- BEFORE LOGIN -->
       <template v-else>
@@ -62,6 +63,7 @@
 
 <script>
 import Menu from "./components/Menu.vue";
+
 export default {
   components: {
     Menu
@@ -77,6 +79,14 @@ export default {
   created() {
     this.$store.dispatch({ type: "getsittersList" });
     this.$store.dispatch({ type: "checkIfLogin" });
+  },
+  sockets:{
+    getNotifactions(){
+      console.log('dudi')
+      this.$store.dispatch({ type: "checkIfLogin" });
+    }
+    
+
   },
   methods: {
     checkIfLogin() {
@@ -101,7 +111,8 @@ export default {
         this.$router.push(
           `/baby/profile/parent/${this.currUser.username}/notifications`
         );
-    }
+    },
+    
   },
   computed: {
     currUser() {

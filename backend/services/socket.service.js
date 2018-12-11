@@ -20,6 +20,22 @@ module.exports = io => {
             io.to(details.details).emit('SendMsg', newMsg);
             chatService.pushMessage(newMsg, twoUsersRoom)
         })
+
+        socket.on('createMyOwnRoom', roomName=>{
+            socket.join(roomName)
+            console.log('roomName',roomName);
+        })
+
+        socket.on('notifications', roomName =>{
+            io.to(roomName).emit('getNotifactions');
+            console.log('roomName111',roomName);
+            
+        })
+
+
+
     })
+
+
 
 }
