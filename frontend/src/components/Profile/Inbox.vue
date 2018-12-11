@@ -1,5 +1,5 @@
 <template>
-  <div class="inbox">
+  <div class="inbox" v-if="user">
     <!-- TODO:
     1. CHANGE - isRead to isUnread-->
     <!-- START MESSAGE -->
@@ -7,7 +7,7 @@
       @click="goToChat(notification.from)"
       class="message flex align-items-center"
       :class="{ active: !notification.isRead }"
-      v-for="(notification, index) in getNotifications"
+      v-for="(notification, index) in user.notifications"
       :key="index"
     >
       <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
@@ -27,19 +27,29 @@
 
 <script>
 export default {
-  // props: ['notifications'],
-  computed: {
-    getNotifications() {
-      return this.$store.getters.getCurrentProfile.notifications;
-      // return this.$store.getters.getCurrentProfile;
+  date(){
+    return {
+      currentUser:null
     }
+  },
+  created(){
+    this.currentUser = this.$store.getters.getCurrentProfile
+    const id = this.currentUser._id
+    if(this.currentUser.type === 'sitter') this.$store.dispatch({ type: "getById", id })
+    else this.$store.dispatch({ type: "getParentById", id })
+  },
+  computed: {
+    user() { 
+      if(this.currentUser.type === 'sitter') return this.$store.getters.getCurrentSitter;
+      else return this.$store.getters.getCurrentParent;
+    },
   },
   methods: {
     goToChat(from) {
       this.$store.dispatch({ type: "changeNotificationStatus", from });
       this.$router.push(`/baby/profile/sitter/${from}/contact`);
     }
-  }
+  },
 };
 </script>
 

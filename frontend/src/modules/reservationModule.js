@@ -19,6 +19,7 @@ export default {
                 this.dispatch({ type: 'checkAvalability', reservation: state.currentReservation })
                     .then(res => {
                         if (res.length === 0) this.commit({ type: 'acceptReservation',parentIdx,sitterIdx })
+                        else this.commit({ type: 'declineReservation',parentIdx,sitterIdx })
                     })
             }
         },
