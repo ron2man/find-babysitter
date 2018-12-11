@@ -11,12 +11,9 @@ import ChatContact from './components/ChatContact.vue'
 import SitterProfile from './components/SitterProfile.vue'
 import RequestsSitter from './components/RequestsSitter.vue'
 import RequestsParent from './components/RequestsParent.vue'
-import Profile from './views/Profile.vue'
 import Inbox from './components/Profile/Inbox.vue'
 import Schedule from './components/Profile/Schedule.vue'
 
-import Notifications from './components/Notifications.vue'
-import ScedualeZone from './components/ScedualeZone.vue'
 
 
 Vue.use(Router)
