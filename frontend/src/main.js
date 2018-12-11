@@ -8,11 +8,15 @@ import VueSocketIO from 'vue-socket.io'
 import moment from 'moment'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import VueChatScroll from 'vue-chat-scroll'
+
 Vue.use(Element)
 
 Vue.filter('relativeTime', (timestamp) => {
     return moment(timestamp).fromNow();
 })
+
+Vue.use(VueChatScroll)
 
 Vue.use(new VueSocketIO({
     debug: true,

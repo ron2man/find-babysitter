@@ -1,5 +1,7 @@
+@import '_vars';
+
 // FLEX
-.flex{
+.flex {
     display: flex;
 }
 
@@ -43,3 +45,33 @@
     justify-content: flex-end;
 }
 
+.outline-second-color{
+    outline: 3px solid $second-color;
+}
+.border-bottom-second-color {
+    border-bottom: 3px solid $second-color;
+} 
+
+.main-color {
+    color: $main-color;
+}
+
+.second-color {
+    color:  $second-color;  
+    // color: #888888;    
+    // color: #ffff9d;    
+}
+
+.main-background {
+    background-color: $main-color;
+}
+
+.second-background {
+    background-color: $second-color;
+    // background-color: #888888;
+}
+
+
+h1.main-color {
+    font-size: 1.5em;
+}

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
-import SitterList from './components/SitterList.vue'
+import SitterList from './views/SitterList.vue'
 import Sign from './views/Sign.vue'
 import SitterDetails from './components/SitterDetails.vue'
 import ParentProfile from './components/ParentProfile.vue'
@@ -53,11 +53,11 @@ export default new Router({
       name: 'list',
       component: SitterList
     },
-    {
-      path: '/profiletest',
-      name: 'profiletest',
-      component: Profile
-    },
+    // {
+    //   path: '/profiletest',
+    //   name: 'profiletest',
+    //   component: Profile
+    // },
     {
       path: '/baby/profile/parent/:userName',
       name: 'parentProfile',

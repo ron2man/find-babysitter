@@ -19,19 +19,12 @@ function query({
     medical = '',
     nonSmoking = '',
     limit = 1000,
-
-
 }) {
-
-
 
     // START QUERY BY WAGE
     var wageFilter = {
         hWage: { $gte: +minWage, $lte: +maxWage }
     }
-    // END QUERY BY WAGE
-
-
     // START QUERY BY LOCATION
     var locationFilter = {
         location:
@@ -45,27 +38,18 @@ function query({
             }
         }
     }
-    // END QUERY BY LOCATION
-
     // START QUERY BY NAME SEARCH
     // const regEx = new RegExp( '.*' + name + '.*', 'i') 
     var nameFilter = {
         'name.fullName': { $regex: '.*' + name + '.*', $options: 'i' }
     }
-
-    // END QUERY BY NAME SEARCH
-
     // START QUERY BY AGE
     var ageFilter = {
         age: { $gte: +minAge, $lte: +maxAge }
     }
-    // END QUERY BY AGE
-
     // START QUERY BY TIME GAP
     // if (filter.sTime) var startTime = +sTime;
     // if (filter.eTime) var endTime = +eTime;
-
-
     var isClean = ''
     var cleanerVal = (cleaner === 'true') ? true : false
     // if (cleanerVal === 'false') cleanerVal = false
@@ -83,10 +67,6 @@ function query({
     // if (cleanerVal === 'false') cleanerVal = false
     if (smokingVal) isSmoke = { "smoking": false }
     else isSmoke = {}
-
-
-
-
     // RETURN DATA WITH AVAILABLE REQUESTED TIME SLOT
     var timeGapFilter = {
         $nor:
@@ -94,11 +74,6 @@ function query({
             { schedule: { $elemMatch: { eTime: { $gte: +sTime, $lte: +eTime } } } }]
     }
     // END QUERY BY TIME GAP
-
-
-
-
-
     return mongoService.connectToDb()
         .then(db => {
             const collection = db.collection('sitters');
@@ -123,7 +98,6 @@ function checkAvalability(reservation) {
             return collection.find(reservationFilter).toArray()
         })
 }
-
 
 function checkParentLogin(typedDetails) {
     return parent = mongoService.connectToDb()
@@ -216,32 +190,6 @@ function addSitter(userdetails) {
         })
 }
 
-
-function checkMessages(roomname){
-    return mongoService.connectToDb()
-        .then(db => {
-            const collection = db.collection('msgs')
-            return collection.find({roomname:`${roomname}`}).toArray()
-        })
-}
-
-function createRoom(roomname){
-    return mongoService.connectToDb()
-    .then(db => {
-        const collection = db.collection('msgs')
-        return collection.insert({roomname:`${roomname}`,msgs:[]})
-    })
-}
-
-function pushMessage(msg,roomname){
-    console.log(msg,roomname)
-    return mongoService.connectToDb()
-    .then(db => {
-        const collection = db.collection('msgs')
-        return collection.update({roomname:`${roomname}`},{$push:{msgs:{msg:`${msg.msg}`,createdAt:`${msg.createdAt}`,from:`${msg.from}`}}})
-    })
-}
-
 module.exports = {
     query,
     getById,
@@ -254,9 +202,6 @@ module.exports = {
     checkParentLogin,
     addSitter,
     checkAvalability,
-    checkMessages,
-    createRoom,
-    pushMessage
 }
 
 // historymsgs = {['etishimrit']:[]}

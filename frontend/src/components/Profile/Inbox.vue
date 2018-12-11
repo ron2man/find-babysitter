@@ -27,9 +27,16 @@
 
 <script>
 export default {
+<<<<<<< HEAD
   date(){
     return {
       currentUser:null
+=======
+  // props: ['notifications'],
+  computed: {
+    getNotifications() {
+      return this.$store.getters.getCurrentProfile.notifications;
+>>>>>>> fb224596a73497afd35bc54ba85c64436af99cea
     }
   },
   created(){

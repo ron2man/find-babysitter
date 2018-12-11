@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http, { origins: 'http://localhost:8080' });
+const io = process.env.PORT
+? require('socket.io')(http)
+: require('socket.io')(http, { origins: 'http://localhost:8080' });
 
 app.use(cookieParser());
 app.use(session({

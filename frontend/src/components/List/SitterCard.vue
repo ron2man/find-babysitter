@@ -1,93 +1,56 @@
 <template>
   <div class="card">
-    <div class="card-header">
+    <!-- PICTURE - NAME - DISTANCE - AGE -->
+    <div class="card-header flex flex-space-evenly second-background">
       <div class="image" :style="{backgroundImage: 'url(' + sitter.imgUrl + ')' }"></div>
       <div class="details">
-        <h2 class="name">{{sitter.name.fullName}}</h2>
-        <h3 class="address">{{sitter.location.addressText}}</h3>
-         <!-- <p>{{sitter.adress.city}}</p> -->
-        <!-- <p>{{sitter.adress.district}}</p> -->
-      </div>
-      <div class="buttons">
-        <div
-          v-if="notSitter"
-          class="contact"
-          @click="sendMessage(sitter)"
-        >
-          <h4 class="book-now">Book Now</h4>
-          <i class="far fa-comments"></i>
-        </div>
-        <div class="bookmark">
-          <p>
-            <div class="flex">
-            <i class="fas fa-star star"></i>
-            <span class="rating-big bold">{{sitter.aveRate}}</span>
-            </div>
-            <span>
-              (
-              <span class="bold">429</span>)
-            </span>
-          </p>
+        <h3 class="name main-color">{{sitter.name.fullName}}</h3>
+        <div class="distance-time flex flex-space-evenly align-items-center">
+          <h4 class="address" v-if="currUser">{{showDistance}}</h4>
+          <h5>{{sitter.age}} years old</h5>
+          
         </div>
       </div>
     </div>
-    <div class="card-body">
-      <div class="verifaction">
-        <div class="icon">
-          <i class="fas fa-medal"></i>
-        </div>
-        <div class="text">
-          <p class="bold">Several children at the same time</p>
-        </div>
-      </div>
 
-      <div class="looking-for">
-        <p>
-          <span class="bold">Looking For:</span>
-          {{sitter.time}}
-        </p>
-      </div>
-      <div class="looking-for" v-if="sitter.experience">
-        <p>
-          <span class="bold">Experience:</span>
-          {{sitter.experience}} years
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Love to work with:</span>
-          {{sitter.agePrefs}}
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Age:</span>
-          {{sitter.age}}
-        </p>
-      </div>
-      <div class="looking-for">
-        <p>
-          <span class="bold">Hourly wages:</span>
-          {{sitter.hWage}} ILS
-        </p>
-      </div>
-
-      <!-- <div class="about-me"> -->
-        <!-- <p> -->
-          <!-- About {{sitter.name.fName}}: -->
-          <!-- <br> -->
-          <!-- CHECK IF IN SITTER LIST OR PROFILE  -->
-          <!-- RENDER FULL DEATAILS - ABOUT -->
-        <!-- </p> -->
-        <!-- <p v-if="this.sitter._id === this.$route.params.id">{{sitter.about}}</p> -->
-        <!-- RENDER SHORT DEATAILS - ABOUT + READ MORE -->
-        <!-- <p v-else> -->
-          <!-- {{shortDetails}} ... -->
-          <!-- <router-link class="more-details" :to="sitterUrl" v-if="notSitter">More details</router-link> -->
-          <div class="more-details" @click="sitterUrl" v-if="notSitter">More details</div>
-        <!-- </p> -->
-      <!-- </div> -->
+    <!-- START BUTTONS - BOOK ME + MORE DETAILS -->
+    <div
+      class="card-buttons flex align-items-center flex-space-evenly second-color main-background"
+    >
+    <template v-if="currUser && currUser.type !== 'sitter'">
+      <router-link class="btn second-color bold" :to="`/baby/list/${this.sitter._id}`">
+        <i class="far fa-calendar-plus"></i> Book Me
+      </router-link>
+      <p class="second-color">|</p>
+    </template>
+      <router-link class="btn second-color bold" :to="`/baby/list/${this.sitter._id}`">
+        <i class="fas fa-info"></i> More details
+      </router-link>
     </div>
+    <!-- END BUTTONS - BOOK ME + MORE DETAILS -->
+    <div class="card-about">
+      <p
+        class="about-me main-color bold"
+      >" I will design 2 modernmodern modern modern minimalist logo in 24 hrs "</p>
+      <p><span class="bold">Availability:</span> {{sitter.time}}</p>
+      <p><span class="bold">Expertise:</span> {{sitter.agePrefs}}</p>
+    </div>
+    <!-- START DETAILS - WAGE + RATING -->
+    <div class="card-wage-rating flex align-items-center flex-space-evenly mai1n-background">
+      <h5 class="wage">{{sitter.hWage}} ILS</h5>
+
+      <div class="rating flex align-items-center">
+        <div class="rates-voting">
+          <h5 class="rate">{{sitter.aveRate}}</h5>
+          <h5 class="voting">(1k+)</h5>
+        </div>
+        <div class="star">
+          <i style="font-size:1.5rem;padding-left:10px;" class="fas fa-star star"></i>
+        </div>
+      </div>
+    </div>
+    <!-- END DETAILS - WAGE + RATING -->
+
     <div class="card-icons">
       <div class="icon tooltip">
         <i class="fas fa-smoking-ban" :class="{black: !sitter.smoking}"></i>
@@ -128,9 +91,33 @@ import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 export default {
   props: ["sitter"],
   created() {
-    // console.log(this.sitter)
+    // console.log("sitter - ", this.sitter, "this currUser -", this.currUser);
   },
   methods: {
+    calcDistance() {
+      // calculates great-circle distances between the two points
+      let userLng = this.currUser.location.coordinates[0];
+      let userLat = this.currUser.location.coordinates[1];
+      let sitterLng = this.sitter.location.coordinates[0];
+      let sitterLat = this.sitter.location.coordinates[1];
+
+      var R = 6371; // Radius of the earth in km
+      let dLat = deg2rad(sitterLat - userLat); // deg2rad below
+      let dLon = deg2rad(sitterLng - userLng);
+      let a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(userLat)) *
+          Math.cos(deg2rad(sitterLat)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in km
+      return d;
+
+      function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+      }
+    },
     goToDetails(id) {
       this.$router.push(`/baby/${id}`);
     },
@@ -142,11 +129,21 @@ export default {
         else this.$router.push(path);
       });
     },
-     sitterUrl() {
-      this.$router.push(`/baby/list/${this.sitter._id}`)
-    },
+    sitterUrl() {
+      this.$router.push(`/baby/list/${this.sitter._id}`);
+      // this.$router.push(`/baby/list/${this.sitter._id}`);
+    }
   },
   computed: {
+    showDistance() {
+      let distance = this.calcDistance();
+      let roundDistance = Math.round(distance);
+
+      if (distance < 1) return `${Math.round(distance * 1000)}m`;
+      else return `${roundDistance} Km`;
+
+      return distance;
+    },
     getLength() {
       if (this.sitter.description.length > 180) {
         const newDesc = this.sitter.description.substring(180, length - 1);
@@ -158,17 +155,13 @@ export default {
     shortDetails() {
       return this.sitter.about.substring(0, 100);
     },
-    // sitterUrl() {
-    //   return `/baby/list/${this.sitter._id}`;
-    // },
     currUser() {
       return this.$store.getters.setLoginUser;
     },
-    notSitter(){
-      if (this.currUser){
-        if(this.currUser.type!=='sitter') return true
-      }
-      else return true
+    notSitter() {
+      if (this.currUser) {
+        if (this.currUser.type !== "sitter") return true;
+      } else return true;
     }
   }
 };
@@ -177,31 +170,31 @@ export default {
 <style lang="scss" scoped>
 /* MOBILE FIRST   */
 .card {
+  border: 1px solid #ccc;
+  margin: 0 auto;
   text-align: left;
   max-width: 466px;
-  min-width: 360px;
+  min-width: 320px;
+  max-width: 320px;
   box-sizing: border-box;
-  border: 1px solid grey;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  // margin: 0 auto;
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
   margin-bottom: 10px;
   margin-top: 10px;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-header {
-  height: 150px;
-  display: flex;
-  justify-content: space-between;
+  height: 120px;
   border-bottom: 1px solid gray;
+  // border-top-left-radius: 10px;
+  // border-top-right-radius: 10px;
 }
 
 .card-header .image {
-  width: 60px;
-  height: 60px;
+  // box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 12px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 90px;
+  height: 90px;
   background-color: #ccc;
-  background-image: url(https://ffx-small-sites.s3.amazonaws.com/findababysitter/production/ProfileImages/9062d7166ec64150bfcb0a8fe4addb13.jpg);
   background-position: center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -215,25 +208,56 @@ export default {
 .card-header .details {
   align-self: center;
   padding: 0 10px;
+  h4 {
+    padding: 5px 0;
+    font-weight: bold;
+    // font-size: 1.2em;
+  }
+  h5 {
+    padding: 5px 0;
+
+    // font-size: 1em;
+    // color: white;
+  }
 }
 
-.card-header .details .name {
-  color: #771144;
+.card-buttons {
+  // padding: 10px;
+  .btn {
+    i {
+      padding: 0 10px;
+      font-size: 1rem;
+    }
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 3px;
+  }
+}
+
+.card-wage-rating {
+  padding: 10px;
+  // border-bottom: 1px solid #ccc;
+  .wage {
+    font-size: 2em;
+  }
+  .rate {
+    font-size: 1.5em;
+  }
+  .voting {
+    color: #ccc;
+    font-size: 0.8em;
+  }
+  .votes {
+    font-size: 1em;
+  }
 }
 
 .star {
-  color: orange;
+  color: goldenrod;
 }
 
-h2,
-h3,
-h4,
-p,
-div,
-body,
-html {
-  padding: 0;
-  margin: 0;
+.rating {
+  text-align: center;
 }
 
 .rating-big {
@@ -242,7 +266,21 @@ html {
 }
 
 i {
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+
+.card-about {
+  padding: 10px;
+  p {
+    font-size: 0.8em;
+    padding: 5px 0;
+    text-transform: capitalize;
+  }
+  p.about-me {
+    // color: black;
+    font-size: initial;
+    line-height: 1.5em;
+  }
 }
 
 .card-header .buttons {
@@ -267,8 +305,8 @@ i {
   background-color: #951555;
 }
 
-.book-now{
-color:black;
+.book-now {
+  color: black;
 }
 
 .card-header .buttons .bookmark {
@@ -279,8 +317,8 @@ color:black;
   justify-content: center;
 }
 
-.rating-big{
-color:black;
+.rating-big {
+  color: black;
 }
 
 .card-body {
@@ -303,7 +341,7 @@ color:black;
 }
 
 .card-body .verifaction .icon i {
-  font-size: 3em;
+  // font-size: 3em;
   color: #a26ea1;
 }
 
@@ -331,7 +369,7 @@ color:black;
 .card-icons {
   border: 0;
   border-top: 1px gray solid;
-  padding: 15px 0;
+  padding: 7px 0;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;
@@ -392,45 +430,36 @@ color:black;
   margin-bottom: 3px;
 }
 
-.more-details{
-    text-decoration: none;  
-    border:1px gray solid;
-    width: 110px;
-    height: 34px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 2;
-    background-color: #ffb480;
-    color: black;
-    border-radius: 10px;
+.more-details {
+  text-decoration: none;
+  border: 1px gray solid;
+  width: 110px;
+  height: 34px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2;
+  background-color: #ffb480;
+  color: black;
+  border-radius: 10px;
 }
 
-.more-details:hover{
-cursor: pointer;
-
+.more-details:hover {
+  cursor: pointer;
 }
-
-
 
 @media (min-width: 767px) {
-  .card-header {
-    height: 200px;
-  }
-
   .card-header .image {
     width: 100px;
     height: 100px;
   }
 
   i {
-    font-size: 2em;
+    // font-size: 2em;
   }
 
   .card-header .buttons {
     max-width: 90px;
     width: 90px;
   }
-
-
 }
 </style>
