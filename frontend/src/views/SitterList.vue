@@ -1,18 +1,19 @@
 <template>
   <section v-if="this.sitters">
-
     <div class="filter-sort-container second-background flex flex-space-evenly">
-      <p @click="toggleSort" class="main-color">Sort</p>
+      <p @click="toggleSort" class="main-color">Sort
+        <i class="fas fa-caret-down"></i>
+      </p>
       <p>|</p>
-    <p @click="toggleFilter" class="main-color">Filter</p>
-
+      <p @click="toggleFilter" class="main-color">Filter
+        <i class="fas fa-caret-down"></i>
+      </p>
     </div>
     <div class="list">
       <div class="search" v-if="isSortOpen">
         <search2></search2>
       </div>
       <!-- <hr> -->
-
       <div class="grid-container">
         <second-filter v-if="isFilterOpen" class="filter"></second-filter>
 
@@ -37,20 +38,20 @@ import Search2 from "@/components/Home/Search2.vue";
 
 export default {
   name: "sitterList",
-  data(){
+  data() {
     return {
       //START FILTER - SORT - CONTAINER
       isFilterOpen: false,
-      isSortOpen: false,
+      isSortOpen: false
       //END FILTER - SORT - CONTAINER
-    }
+    };
   },
-  methods:{
-    toggleFilter(){
+  methods: {
+    toggleFilter() {
       this.isFilterOpen = !this.isFilterOpen;
       this.isSortOpen = false;
     },
-    toggleSort(){
+    toggleSort() {
       this.isSortOpen = !this.isSortOpen;
       this.isFilterOpen = false;
     }
@@ -73,18 +74,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .filter-sort-container {
   padding: 15px;
 }
 
-
-
-
-
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 }
 
 .search {
@@ -100,8 +96,8 @@ export default {
   .grid-container {
     display: grid;
     grid-template-areas: "menu main main main";
-    grid-gap: 10px;
-    padding: 10px;
+    // grid-gap: 5px;
+    // padding: 10px;
   }
 
   .filter {
@@ -115,13 +111,20 @@ export default {
     grid-area: main;
     // display: grid;
     // grid-template-columns: auto auto;
-    grid-gap: 20px;
+    // grid-gap: 5px;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1250px) {
+    .grid-container {
+      border: 1px solid #ccc;
+    max-width: 1250px;
+    margin: 0 auto;
+    // grid-gap:10px;
+    }
   .cards {
+    
     // grid-template-columns: auto auto auto;
-    grid-gap: 5px;
+    grid-gap: 15px;
     // box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
     //   0 12px 20px 0 rgba(0, 0, 0, 0.19);
   }

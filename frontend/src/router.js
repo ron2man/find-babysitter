@@ -53,11 +53,11 @@ export default new Router({
       name: 'list',
       component: SitterList
     },
-    {
-      path: '/profiletest',
-      name: 'profiletest',
-      component: Profile
-    },
+    // {
+    //   path: '/profiletest',
+    //   name: 'profiletest',
+    //   component: Profile
+    // },
     {
       path: '/baby/profile/parent/:userName',
       name: 'parentProfile',
