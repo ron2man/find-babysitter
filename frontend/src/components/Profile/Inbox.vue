@@ -27,38 +27,16 @@
 
 <script>
 export default {
-  data(){
-    return {
-      currentUser:null
-    }
-  },
-  created() {
-     const currentUser = JSON.parse(localStorage.getItem('loggedInUser'))
-    if (currentUser) {      
-      const type = currentUser.type;
-      const userId = currentUser._id;
-      console.log(userId)
-      if(type === 'sitter') this.$store.dispatch({ type: "getSitterById", userId })
-      else this.$store.dispatch("getParentById", userId);
-      
-    }
-  },
-  computed: {
-    getNotifications() {
-      return this.$store.getters.getCurrentProfile.notifications;
-    }
-  },
   created(){
-    this.currentUser = this.$store.getters.getCurrentProfile
-    const id = this.currentUser._id
-    if(this.currentUser.type === 'sitter') this.$store.dispatch({ type: "getById", id })
-    else this.$store.dispatch({ type: "getParentById", id })
   },
   computed: {
     user() { 
       if(this.currentUser.type === 'sitter') return this.$store.getters.getCurrentSitter;
       else return this.$store.getters.getCurrentParent;
     },
+        getNotifications() {
+      return this.$store.getters.getCurrentProfile;
+    }
   },
   methods: {
     goToChat(from) {

@@ -78,6 +78,7 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
+    this.$store.dispatch({ type: "checkIfLogin" });
   },
   sockets:{
     getNotifactions(){
@@ -119,7 +120,7 @@ export default {
   },
   computed: {
     currUser() {
-      return this.$store.getters.setLoginUser;
+      return this.$store.getters.getCurrentProfile;
     },
     isLoading() {
       return this.$store.getters.isLoading;

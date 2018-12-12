@@ -25,9 +25,7 @@ export default {
   created() {
     this.user = this.$store.getters.getCurrentProfile
     const id = user._id;
-    console.log(id)
     this.$store.dispatch({ type: "getById", id })
-
   },
   methods: {
     goToChat(from) {
@@ -37,7 +35,7 @@ export default {
   },
   computed:{
         sitter() {
-      return this.$store.getters.getCurrentSitter;
+      return this.$store.getters.getCurrentProfile;
     },
   }
 };
