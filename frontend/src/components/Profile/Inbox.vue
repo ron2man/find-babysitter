@@ -9,7 +9,7 @@
       :class="{ active: !notification.isRead }"
       v-for="(notification, index) in getNotifications.notifications"
       :key="index"
-    >
+    >{{notification.isRead}}
       <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
       <div class="msg-text">
         <!-- {{notification}} -->
@@ -27,20 +27,15 @@
 
 <script>
 export default {
-  // props: ['notifications'],
-  created() {
-    console.log(this.$route.params)
-     const currentUser = this.$store.getters.getCurrentProfile
-    if (currentUser) {      
-      const type = currentUser.type;
-      const userId = currentUser._id;
-      (type === "sitter")
-        ? this.$store.dispatch({ type: "getById", userId })
-        : this.$store.dispatch("getParentById", userId);
-    }
+  created(){
+    console.log(this.$store.getters.getCurrentProfile.notifications)
   },
   computed: {
-    getNotifications() {
+    user() { 
+      if(this.currentUser.type === 'sitter') return this.$store.getters.getCurrentSitter;
+      else return this.$store.getters.getCurrentParent;
+    },
+        getNotifications() {
       return this.$store.getters.getCurrentProfile;
     }
   },
@@ -49,7 +44,7 @@ export default {
       this.$store.dispatch({ type: "changeNotificationStatus", from });
       this.$router.push(`/baby/profile/sitter/${from}/contact`);
     }
-  }
+  },
 };
 </script>
 

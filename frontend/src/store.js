@@ -42,8 +42,13 @@ export default new Vuex.Store({
     // },
   },
   actions: {
-
-
+    getSitterById(context,  {userId} ) {
+      return sitterServiceBack.getById(userId)
+          .then(sitter => {
+              context.commit('setCurrUser', sitter)
+              return sitter
+          })
+        },
     checkUser({ commit }, { typedDetails }) {
       return authService.login(typedDetails)
         .then(user => {
@@ -63,36 +68,36 @@ export default new Vuex.Store({
         return userFromStorage
       }
     },
-    getParentById(context,parentId){
-      console.log('parentId',parentId);
-      
+    getParentById(context, parentId) {
+      console.log('parentId', parentId);
+
       parentService.getParentById(parentId)
-      .then(parent => {
-        context.commit('setCurrUser', parent)
-        return parent
-      })
+        .then(parent => {
+          context.commit('setCurrUser', parent)
+          return parent
+        })
     },
     checkIfLogin(context) {
       var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
       if (!userFromStorage) return false
       else {
         if (userFromStorage.type === 'sitter') {
+          console.log(userFromStorage._id)
           sitterServiceBack.getById(userFromStorage._id)
             .then(sitter => {
-              console.log('sitter',sitter);
-              
               context.commit('setCurrUser', sitter)
               return true
             })
-        }else{                    
-            parentService.getParentById(userFromStorage._id)
-              .then(parent => {
-                console.log('parent',parent);
-                context.commit('setCurrUser', parent)
-                return true
-              })
+        } else {
+          console.log(userFromStorage._id)
+          parentService.getParentById(userFromStorage._id)
+            .then(parent => {
+              console.log('parent', parent);
+              context.commit('setCurrUser', parent)
+              return true
+            })
         }
-       
+
       }
     },
     logout({ commit }) {

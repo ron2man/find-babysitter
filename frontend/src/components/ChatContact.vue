@@ -49,7 +49,7 @@ export default {
     BasicVueChat
   },
   created() {
-    this.loggedUser = this.$store.getters.getCurrentProfile;
+    this.loggedUser = JSON.parse(localStorage.getItem('loggedInUser'))
     const type = this.checkParentOrSitter();
     if (type === "parent") {
       this.roomname = `${this.loggedUser.username}${
@@ -61,6 +61,7 @@ export default {
       }`;
     }
     this.firstChat();
+
   },
   sockets: {
     SendMsg(msg) {
@@ -68,13 +69,15 @@ export default {
       if (this.counter === 0) {
         const user = this.$route.params.userName;
         this.$store.dispatch({ type: "sendNotification", user })
-          .then(user => this.$socket.emit('notifications',user._id));
+          .then(user => {
+            this.$socket.emit('notifications',user._id)}
+          );
         
         }
       this.counter++;
     },
     getHistory(history) {
-      console.log(history);
+      if(this.msgs.length !== 0) return
       const historyMsgs = history[0].msgs;
       if (historyMsgs) {
         for (var i = 0; i < historyMsgs.length; i++) {
@@ -86,7 +89,6 @@ export default {
   methods: {
     SendMsg(msg) {
       const from = this.loggedUser.name.fullName;
-      // console.log('from',this.loggedUser.name.fullName);
       const time = Date.now();
       this.$socket.emit("SendMsg", { details: this.roomname, msg, from, time });
       this.msg = "";

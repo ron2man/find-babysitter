@@ -10,6 +10,7 @@ export default {
         sortBy: 'aveRate',
         topSitters: null,
         isLoading: false,
+        currentParent:null
     },
     mutations: {
         changeLoader(state, status) {

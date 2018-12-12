@@ -1,8 +1,8 @@
 <template>
-  <section class="notification-box">
+  <section class="notification-box" v-if="sitter">
     <div
       class="notice-item-container"
-      v-for="notification in this.user.notifications"
+      v-for="notification in sitter.notifications"
       :key="notification.from"
     ><i class="fas fa-comments message-awsome" :class="{grey: notification.isRead}"></i>
       <div class="details-container">
@@ -23,7 +23,9 @@ export default {
     };
   },
   created() {
-    this.user = JSON.parse(localStorage.getItem("loggedInUser"));
+    this.user = this.$store.getters.getCurrentProfile
+    const id = user._id;
+    this.$store.dispatch({ type: "getById", id })
   },
   methods: {
     goToChat(from) {
@@ -31,6 +33,11 @@ export default {
       this.$router.push(`/baby/profile/sitter/${from}/contact`);
     }
   },
+  computed:{
+        sitter() {
+      return this.$store.getters.getCurrentProfile;
+    },
+  }
 };
 </script>
 

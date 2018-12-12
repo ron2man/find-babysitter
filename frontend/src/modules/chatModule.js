@@ -28,6 +28,7 @@ export default {
             })
             if (noticeFrom > -1) {
                 currLoggedUser.notifications[noticeFrom].isRead = true
+                currLoggedUser.notifications[noticeFrom].createdAt = Date.now()
                 localStorage.setItem('loggedInUser', JSON.stringify(currLoggedUser))
                 if(currLoggedUser.type === 'parent') this.dispatch('updateCurrParent',currLoggedUser)
                 else this.dispatch('updateCurrSitter',currLoggedUser)    
@@ -42,7 +43,7 @@ export default {
                     context.commit({ type: 'setNotificationUser', user })
                     return user
                 })
-            else sitterServiceBack.getByParentUsername(user)
+            else return sitterServiceBack.getByParentUsername(user)
                 .then(user => {
                     context.commit({ type: 'setNotificationUser', user })
                     return user
@@ -52,9 +53,11 @@ export default {
             context.commit('changeNotification',from)
             },
         updateCurrSitter(context,user){
+            context.rootState.currUser = user
             sitterServiceBack.updateSitter(user)
         },
         updateCurrParent(context,user){
+           context.rootState.currUser = user
             sitterServiceBack.updateParent(user)
         }
     }

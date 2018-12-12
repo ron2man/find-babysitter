@@ -41,16 +41,6 @@
 import moment from "moment";
 
 export default {
-  data() {
-    return {
-      currentUser: null
-    };
-  },
-  created() {
-    const currentUser = this.currentProfile()
-    const id = currentUser._id;
-    this.$store.dispatch({ type: "getById", id })
-  },
   methods: {
     getClass(reservation) {
       if (reservation.status === "pending") return { yellow: true };
@@ -60,13 +50,10 @@ export default {
     answerReservation(reservation, status) {
       this.$store.dispatch({ type: "request", reservation,status});
     },
-      currentProfile() {
-      return this.$store.getters.getCurrentProfile;
-    }
   },
   computed: {
     sitter() {
-      return this.$store.getters.getCurrentSitter;
+      return this.$store.getters.getCurrentProfile;
     },
   },
   filters: {
