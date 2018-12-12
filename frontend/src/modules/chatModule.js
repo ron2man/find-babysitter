@@ -53,10 +53,11 @@ export default {
             context.commit('changeNotification',from)
             },
         updateCurrSitter(context,user){
+            context.rootState.currUser = user
             sitterServiceBack.updateSitter(user)
         },
         updateCurrParent(context,user){
-            console.log(user)
+           context.rootState.currUser = user
             sitterServiceBack.updateParent(user)
         }
     }

@@ -28,6 +28,7 @@
 <script>
 export default {
   created(){
+    console.log(this.$store.getters.getCurrentProfile.notifications)
   },
   computed: {
     user() { 
