@@ -43,7 +43,7 @@
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
         <p class="second-color">|</p>
-        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{currUser.notifications.length}}</span></p>
+        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{getUnredNotificationLength()}}</span></p>
         <p class="second-color">|</p>
         <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
         <p class="second-color">|</p>
@@ -81,6 +81,10 @@ export default {
   },
   sockets:{
     getNotifactions(){
+<<<<<<< HEAD
+=======
+      console.log('oopla notification')
+>>>>>>> f47c732d4858221206ecd6d82c13652edd862529
       this.$store.dispatch({ type: "checkIfLogin" });
     }
     
@@ -99,12 +103,16 @@ export default {
         this.curFrUser = this.$store.getters.setLoginUser;
       }
     },
+    getUnredNotificationLength(){
+            var unreadSum = this.currUser.notifications.filter(notice => notice.isRead === false)
+            return unreadSum.length
+           },
     goToProfile() {
       if (!this.currUser) this.$router.push("/login");
       else if (this.currUser.type === "sitter")
         this.$router.push(
           `/baby/profile/sitter/${this.currUser.username}/notifications`
-        );
+        )
       else if (this.currUser.type === "parent")
         this.$router.push(
           `/baby/profile/parent/${this.currUser.username}/notifications`
