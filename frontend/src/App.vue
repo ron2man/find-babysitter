@@ -78,11 +78,9 @@ export default {
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
-    this.$store.dispatch({ type: "checkIfLogin" });
   },
   sockets:{
     getNotifactions(){
-      console.log('dudi')
       this.$store.dispatch({ type: "checkIfLogin" });
     }
     
