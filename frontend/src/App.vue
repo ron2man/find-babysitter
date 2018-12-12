@@ -24,8 +24,9 @@
       <nav>
         <i class="fas fa-bars"></i>
       </nav>
+      
       <h1 class="logo">
-        <router-link to="/">Find a BabySitter</router-link>
+        <router-link to="/"><img class="logo-img" src="../public/logo.png"></router-link>
       </h1>
     </header>
 
@@ -132,6 +133,15 @@ export default {
 
 
 <style lang="scss" scoped>
+@font-face {
+  font-family: pacifico;
+  src: url('../public/fonts/Pacifico/Pacifico.ttf');
+}
+
+.logo-img{
+      height: 44px;
+    margin-top: 4px;
+}
 #app {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -148,6 +158,7 @@ header {
   color: white;
   
   h1 {
+    font-family: pacifico;
     a,
     a:active,
     a:hover {
