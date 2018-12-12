@@ -29,6 +29,7 @@
 export default {
   // props: ['notifications'],
   created() {
+    console.log(this.$route.params)
      const currentUser = this.$store.getters.getCurrentProfile
     if (currentUser) {      
       const type = currentUser.type;

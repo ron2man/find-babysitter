@@ -106,7 +106,7 @@ export default {
       else if (this.currUser.type === "sitter")
         this.$router.push(
           `/baby/profile/sitter/${this.currUser.username}/notifications`
-        );
+        )
       else if (this.currUser.type === "parent")
         this.$router.push(
           `/baby/profile/parent/${this.currUser.username}/notifications`
