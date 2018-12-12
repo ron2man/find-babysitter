@@ -27,8 +27,8 @@ module.exports = io => {
         })
 
         socket.on('notifications', roomName =>{
+            console.log(roomName,'roomnameAfterBooking')
             io.to(roomName).emit('getNotifactions');
-            console.log('roomName111',roomName);
             
         })
 
