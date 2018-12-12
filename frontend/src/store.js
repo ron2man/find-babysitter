@@ -5,6 +5,8 @@ import sitterModule from './modules/sitterModule.js'
 import chatModule from './modules/chatModule.js'
 import authService from '../src/service/authService.js'
 import reservationModule from './modules/reservationModule.js'
+import sitterServiceBack from './service/sitterServiceBack.js'
+import parentService from './service/parentService.js'
 // import { setServers } from 'dns';
 
 
@@ -41,7 +43,7 @@ export default new Vuex.Store({
   },
   actions: {
 
-    
+
     checkUser({ commit }, { typedDetails }) {
       return authService.login(typedDetails)
         .then(user => {
@@ -61,12 +63,36 @@ export default new Vuex.Store({
         return userFromStorage
       }
     },
+    getParentById(context,parentId){
+      console.log('parentId',parentId);
+      
+      parentService.getParentById(parentId)
+      .then(parent => {
+        context.commit('setCurrUser', parent)
+        return parent
+      })
+    },
     checkIfLogin(context) {
       var userFromStorage = JSON.parse(localStorage.getItem('loggedInUser'))
       if (!userFromStorage) return false
       else {
-        context.commit({ type: 'setLoggedInUser', userFromStorage })
-        return true
+        if (userFromStorage.type === 'sitter') {
+          sitterServiceBack.getById(userFromStorage._id)
+            .then(sitter => {
+              console.log('sitter',sitter);
+              
+              context.commit('setCurrUser', sitter)
+              return true
+            })
+        }else{                    
+            parentService.getParentById(userFromStorage._id)
+              .then(parent => {
+                console.log('parent',parent);
+                context.commit('setCurrUser', parent)
+                return true
+              })
+        }
+       
       }
     },
     logout({ commit }) {

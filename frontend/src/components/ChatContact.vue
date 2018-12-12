@@ -67,8 +67,10 @@ export default {
       this.msgs.push(msg);
       if (this.counter === 0) {
         const user = this.$route.params.userName;
-        this.$store.dispatch({ type: "sendNotification", user });
-      }
+        this.$store.dispatch({ type: "sendNotification", user })
+          .then(user => this.$socket.emit('notifications',user._id));
+        
+        }
       this.counter++;
     },
     getHistory(history) {
@@ -84,6 +86,7 @@ export default {
   methods: {
     SendMsg(msg) {
       const from = this.loggedUser.name.fullName;
+      // console.log('from',this.loggedUser.name.fullName);
       const time = Date.now();
       this.$socket.emit("SendMsg", { details: this.roomname, msg, from, time });
       this.msg = "";

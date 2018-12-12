@@ -1,5 +1,5 @@
 <template>
-  <div class="inbox" v-if="user">
+  <div class="inbox" v-if="this.getNotifications">
     <!-- TODO:
     1. CHANGE - isRead to isUnread-->
     <!-- START MESSAGE -->
@@ -7,7 +7,7 @@
       @click="goToChat(notification.from)"
       class="message flex align-items-center"
       :class="{ active: !notification.isRead }"
-      v-for="(notification, index) in user.notifications"
+      v-for="(notification, index) in getNotifications.notifications"
       :key="index"
     >
       <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
@@ -27,16 +27,24 @@
 
 <script>
 export default {
-<<<<<<< HEAD
-  date(){
+  data(){
     return {
       currentUser:null
-=======
-  // props: ['notifications'],
+    }
+  },
+  created() {
+     const currentUser = this.$store.getters.getCurrentProfile
+    if (currentUser) {      
+      const type = currentUser.type;
+      const userId = currentUser._id;
+      (type === "sitter")
+        ? this.$store.dispatch({ type: "getById", userId })
+        : this.$store.dispatch("getParentById", userId);
+    }
+  },
   computed: {
     getNotifications() {
       return this.$store.getters.getCurrentProfile.notifications;
->>>>>>> fb224596a73497afd35bc54ba85c64436af99cea
     }
   },
   created(){

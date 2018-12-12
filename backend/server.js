@@ -30,6 +30,7 @@ app.use(express.static('public'));
 
 const addSitterRoutes = require('./routes/sitterRoute')
 const addUserRoutes = require('./routes/userRoute')
+const addParentRoutes = require('./routes/parentRoute')
 
 
 
@@ -37,6 +38,7 @@ const addUserRoutes = require('./routes/userRoute')
 
 addSitterRoutes(app)
 addUserRoutes(app)
+addParentRoutes(app)
 
 // socket
 

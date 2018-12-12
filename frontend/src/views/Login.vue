@@ -85,6 +85,7 @@ export default {
           if (!user) {
             this.isWrong = true;
           } else {
+            this.$socket.emit('createMyOwnRoom',user._id)
             this.isWrong = false;
             const path = this.$route.query.path
             if (path) return this.$router.push(path)

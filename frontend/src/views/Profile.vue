@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-container">
+  <div class="profile-container" v-if="user">
     <div class="profile-head flex space-between align-items-center">
       <div class="profile-image main" :style="{backgroundImage: 'url(' + user.imgUrl + ')' }"></div>
       <div class="name">
