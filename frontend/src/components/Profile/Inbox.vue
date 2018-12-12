@@ -9,7 +9,7 @@
       :class="{ active: !notification.isRead }"
       v-for="(notification, index) in getNotifications.notifications"
       :key="index"
-    >
+    >{{notification.isRead}}
       <div class="profile-image" :style="{backgroundImage: 'url(' + notification.img + ')' }"></div>
       <div class="msg-text">
         <!-- {{notification}} -->
@@ -29,14 +29,14 @@
 export default {
   // props: ['notifications'],
   created() {
-    console.log(this.$route.params)
-     const currentUser = this.$store.getters.getCurrentProfile
+     const currentUser = JSON.parse(localStorage.getItem('loggedInUser'))
     if (currentUser) {      
       const type = currentUser.type;
       const userId = currentUser._id;
-      (type === "sitter")
-        ? this.$store.dispatch({ type: "getById", userId })
-        : this.$store.dispatch("getParentById", userId);
+      console.log(userId)
+      if(type === 'sitter') this.$store.dispatch({ type: "getSitterById", userId })
+      else this.$store.dispatch("getParentById", userId);
+      
     }
   },
   computed: {

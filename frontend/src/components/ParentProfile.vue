@@ -34,7 +34,7 @@ export default {
   },
 
   created() {
-    this.userName = this.$route.params.parentName;
+    this.userName = this.$route.params.userName;
   }
 };
 </script>

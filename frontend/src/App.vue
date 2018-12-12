@@ -43,7 +43,7 @@
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
         <p class="second-color">|</p>
-        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{currUser.notifications.length}}</span></p>
+        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{getUnredNotificationLength()}}</span></p>
         <p class="second-color">|</p>
         <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
         <p class="second-color">|</p>
@@ -82,7 +82,7 @@ export default {
   },
   sockets:{
     getNotifactions(){
-      console.log('dudi')
+      console.log('oopla notification')
       this.$store.dispatch({ type: "checkIfLogin" });
     }
     
@@ -101,6 +101,10 @@ export default {
         this.curFrUser = this.$store.getters.setLoginUser;
       }
     },
+    getUnredNotificationLength(){
+            var unreadSum = this.currUser.notifications.filter(notice => notice.isRead === false)
+            return unreadSum.length
+           },
     goToProfile() {
       if (!this.currUser) this.$router.push("/login");
       else if (this.currUser.type === "sitter")

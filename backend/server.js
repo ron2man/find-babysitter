@@ -1,23 +1,26 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const app = express();
 const session = require('express-session');
 
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const app = express();
-const http = require('http').Server(app);
-const io = process.env.PORT
-? require('socket.io')(http)
-: require('socket.io')(http, { origins: 'http://localhost:8080' });
-
-app.use(cookieParser());
 app.use(session({
   secret: 'supercalifragelistiexpialidoushess',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
 }))
+
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const http = require('http').Server(app);
+const io = process.env.PORT
+? require('socket.io')(http)
+: require('socket.io')(http, { origins: 'http://localhost:8080' });
+
+app.use(cookieParser());
+
 app.use(bodyParser.json())
+
 app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie

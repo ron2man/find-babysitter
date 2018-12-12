@@ -9,6 +9,8 @@ import moment from 'moment'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import VueChatScroll from 'vue-chat-scroll'
+import axios from 'axios'
+axios.defaults.withCredentials = true
 
 Vue.use(Element)
 
