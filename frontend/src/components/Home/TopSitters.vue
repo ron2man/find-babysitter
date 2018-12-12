@@ -70,7 +70,7 @@ export default {
       img {
         width: 100%;
         object-fit: cover;
-        max-height: 200px;
+        max-height: 135px; 
       }
       h3 {
         display: inline-block;
