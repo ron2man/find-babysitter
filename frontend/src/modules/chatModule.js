@@ -4,6 +4,7 @@ export default {
 
     state: {
         currNoticeUser: null,
+        updatedUser:''
     },
     mutations: {
         setNotificationUser(state, { user }) {
@@ -28,10 +29,9 @@ export default {
             })
             if (noticeFrom > -1) {
                 currLoggedUser.notifications[noticeFrom].isRead = true
-                currLoggedUser.notifications[noticeFrom].createdAt = Date.now()
-                localStorage.setItem('loggedInUser', JSON.stringify(currLoggedUser))
                 if(currLoggedUser.type === 'parent') this.dispatch('updateCurrParent',currLoggedUser)
                 else this.dispatch('updateCurrSitter',currLoggedUser)    
+                this.dispatch('updateCurrUser',currLoggedUser)   
         }
     }
     },
@@ -53,12 +53,16 @@ export default {
             context.commit('changeNotification',from)
             },
         updateCurrSitter(context,user){
-            context.rootState.currUser = user
             sitterServiceBack.updateSitter(user)
         },
+        updateCurrUser(context,user){
+            context.rootState.currUser = user
+        },
         updateCurrParent(context,user){
-           context.rootState.currUser = user
             sitterServiceBack.updateParent(user)
-        }
-    }
+        },
+      SOCKET_getNotifactions({dispatch}){
+        dispatch({ type: "checkIfLogin" });
+      }
+    },
 }
