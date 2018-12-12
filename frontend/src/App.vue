@@ -105,11 +105,13 @@ export default {
       if (!this.currUser) this.$router.push("/login");
       else if (this.currUser.type === "sitter")
         this.$router.push(
-          `/baby/profile/sitter/${this.currUser.username}/notifications`
+          // `/baby/profile/sitter/${this.currUser.username}/notifications`
+          `/baby/profile/${this.currUser.username}`
         )
       else if (this.currUser.type === "parent")
         this.$router.push(
-          `/baby/profile/parent/${this.currUser.username}/notifications`
+          // `/baby/profile/parent/${this.currUser.username}/notifications`
+          `/baby/profile/${this.currUser.username}`
         );
     },
     

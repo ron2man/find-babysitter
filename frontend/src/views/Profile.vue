@@ -11,22 +11,24 @@
     </div>
     <div class="buffer"></div>
     <div class="tabs flex space-evenly">
-      <router-link to="notifications" class="tab inbox">
+            <!-- <router-link :to="`/baby/profile/${user.username}/notifications`" class="tab inbox"> -->
+      <router-link :to="`/baby/profile/${user.username}/notifications`" class="tab inbox">
         inbox
         <span>({{user.notifications.length}})</span>
       </router-link>
 
       <p class="div">|</p>
 
-      <router-link to="schedule" class="tab schedule">
+      <router-link :to="`/baby/profile/${user.username}/schedule`" class="tab schedule">
         Schedule
         <span>({{user.schedule.length}})</span>
       </router-link>
 
       <p class="div">|</p>
 
-      <router-link to="requests" class="tab history">Requested <span>({{user.reservations.length}})</span></router-link>
+      <router-link :to="`/baby/profile/${user.username}/requests`" class="tab history">Requested <span>({{user.reservations.length}})</span></router-link>
     </div>
+    <router-view/>
   </div>
 </template>
 

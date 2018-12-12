@@ -93,7 +93,7 @@ export default {
             if (user.type === "parent") this.$router.push("/");
             else if (user.type === "sitter")
               this.$router.push(
-                `/baby/profile/sitter/${user.username}/notifications`
+                `/baby/profile/${user.username}/notifications`
               );
           }
         });
