@@ -56,6 +56,26 @@ export default new Router({
     //   component: Profile
     // },
     {
+      path: '/baby/profile/:userName',
+      name: 'Profile',
+      component: Profile,
+      children: [
+        { path: 'notifications', name: 'notifications', component: Inbox },
+        { path: 'details', name: 'details', component: UserDetails },
+        { path: 'contact', name: 'contact', component: ChatContact },
+        { path: 'requests', name: 'requests', component: RequestsSitter },
+        { path: 'schedule', name: 'schedule', component: Schedule }
+
+        // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
+      ],
+    
+
+    // },{
+      // path: '/baby/profile/:userName/notifications',
+      // name: 'notifications',
+      // component: Inbox,
+    },
+    {
       path: '/baby/profile/parent/:userName',
       name: 'parentProfile',
       component: ParentProfile,
@@ -69,6 +89,7 @@ export default new Router({
         // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
       ]
     },
+   
     {
       path: '/baby/profile/sitter/:userName',
       name: 'sitterProfile',
@@ -83,6 +104,8 @@ export default new Router({
         // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
       ]
     },
+    
+    
     {
       path: '/baby/list/:id',
       name: 'sitterDetails',

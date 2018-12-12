@@ -1,6 +1,7 @@
 <template>
   <section>
-    <Profile :user="getCurrUser"></Profile>
+    <!-- <Profile :user="getCurrUser"></Profile> -->
+    
     <router-view/>
     <!-- <div class="profile-header-container"> -->
       <!-- <img
