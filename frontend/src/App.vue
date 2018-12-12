@@ -81,10 +81,7 @@ export default {
   },
   sockets:{
     getNotifactions(){
-<<<<<<< HEAD
-=======
       console.log('oopla notification')
->>>>>>> f47c732d4858221206ecd6d82c13652edd862529
       this.$store.dispatch({ type: "checkIfLogin" });
     }
     
