@@ -86,6 +86,7 @@ export default {
             this.bookMsg = "Invatation sent, waiting for reply";
             this.sent = true;
             this.$store.dispatch({ type: "sendRequest", reservation, sitter });
+            this.$socket.emit('notifications',sitter._id)
           }
         });
     },
