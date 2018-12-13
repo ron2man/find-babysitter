@@ -40,7 +40,7 @@
 
     <footer class="main-background flex align-items-center flex-space-evenly outline-second-color">
       <!-- CONECTED -->
-      <template v-if="currUser">
+      <template v-if="currUser" class="footer-items">
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
         <p class="second-color">|</p>
@@ -189,6 +189,10 @@ header {
 
 .login-icon {
   margin-top: 20px;
+}
+
+.footer-items ,p:hover{
+  cursor: pointer;
 }
 
 .login-txt {
