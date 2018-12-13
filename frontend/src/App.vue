@@ -55,7 +55,7 @@
       <template v-else>
         <p class="login-txt" @click="checkIfLogin">Login</p>
         <p class="second-color">|</p>
-        <p>Signup</p>
+        <p class="signup-txt">Signup</p>
       </template>
       <!-- <div class="login">Login</div> -->
     </footer>
@@ -139,7 +139,7 @@ export default {
 }
 
 .logo-img{
-      height: 44px;
+    height: 44px;
     margin-top: 4px;
 }
 #app {
@@ -194,6 +194,14 @@ header {
 .login-txt {
   font-size: 16px;
   line-height: 2;
+}
+
+.login-txt:hover{
+cursor: pointer;
+}
+
+.signup-txt:hover{
+  cursor: pointer;
 }
 
 .right-nav-items {
