@@ -2,7 +2,7 @@
 
 <template>
   <section>
-    <img class="login-bcg" src="@/assets/images/login2.png">
+    <img class="login-bcg" src="@/assets/images/login3.jpg">
     <div class="login-container flex column">
       <h1 class="login-title">LOG IN</h1>
       <form @submit.prevent="checkUser" class="flex column">
@@ -42,7 +42,6 @@
         <div class="container-login-form-btn">
           <button class="login-form-btn">Login</button>
         </div>
-         
 
         <!-- <span v-if="isWrong">worng credinatls</span> -->
         <p class="sign-in">not yet registered?
@@ -59,9 +58,9 @@ import BusService, { SITTER_DET } from "@/service/EventBusService.js";
 
 export default {
   name: "LoginPage",
-   created() {
+  created() {
     BusService.$on(SITTER_DET, payload => {
-      console.log('evetbbus',payload);
+      console.log("evetbbus", payload);
     });
   },
   data() {
@@ -73,7 +72,7 @@ export default {
       isWrong: false
     };
   },
- 
+
   methods: {
     checkUser() {
       this.$store
@@ -85,16 +84,14 @@ export default {
           if (!user) {
             this.isWrong = true;
           } else {
-            this.$socket.emit('createMyOwnRoom',user._id)
+            this.$socket.emit("createMyOwnRoom", user._id);
             this.isWrong = false;
-            const path = this.$route.query.path
-            if (path) return this.$router.push(path)
+            const path = this.$route.query.path;
+            if (path) return this.$router.push(path);
             // if (user.type === "parent") this.$router.push(-1);
             if (user.type === "parent") this.$router.push("/");
             else if (user.type === "sitter")
-              this.$router.push(
-                `/baby/profile/${user.username}/notifications`
-              );
+              this.$router.push(`/baby/profile/${user.username}/notifications`);
           }
         });
     }
@@ -109,16 +106,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-  width: 500px;
-  overflow: hidden;
-  padding: 55px 55px 37px 55px;
 
-  background: #9152f8;
-  background: -webkit-linear-gradient(top, #7579ff, #b224ef);
-  background: -o-linear-gradient(top, #7579ff, #b224ef);
-  background: -moz-linear-gradient(top, #7579ff, #b224ef);
-  background: linear-gradient(top, #7579ff, #b224ef);
+.login-container {
+  max-width: 370px;
+  min-width: 215px;
+  overflow: hidden;
+  background: palegoldenrod;
+  padding: 55px 55px 37px 55px;
+  opacity: 0.9;
   width: 50%;
   margin: 0 auto;
   margin-top: 50px;
@@ -137,10 +132,16 @@ export default {
 }
 
 .login-form-btn {
+  width: 200px;
+  margin: 0 auto;
+  border: none;
+  background-color: #d0da9e;
+  border-radius: 15px;
+  line-height: 40px;
+  margin-bottom: 10px;
   font-size: 16px;
   color: #555555;
   line-height: 1.2;
-
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -151,16 +152,9 @@ export default {
   padding: 0 20px;
   min-width: 120px;
   height: 50px;
-  border-radius: 25px;
-
-  background: #9152f8;
-  background: -webkit-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -o-linear-gradient(bottom, #7579ff, #b224ef);
-  background: -moz-linear-gradient(bottom, #7579ff, #b224ef);
-  background: linear-gradient(bottom, #7579ff, #b224ef);
+  border-radius: 15px;
   position: relative;
   z-index: 1;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -174,12 +168,11 @@ export default {
   z-index: -1;
   width: 100%;
   height: 100%;
-  border-radius: 25px;
-  background-color: #fff;
+  border-radius: 15px;
+  background-color: beige;
   top: 0;
   left: 0;
   opacity: 1;
-
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
@@ -188,20 +181,11 @@ export default {
 
 .login-form-btn:hover {
   color: #fff;
+  cursor: pointer;
 }
 
 .login-form-btn:hover:before {
   opacity: 0;
-}
-
-button {
-  width: 200px;
-  margin: 0 auto;
-  border: none;
-  background-color: rgb(235, 194, 194);
-  border-radius: 5px;
-  line-height: 40px;
-  margin-bottom: 10px;
 }
 
 .wrap-input {
@@ -210,8 +194,6 @@ button {
   border-bottom: 2px solid rgba(255, 255, 255, 0.24);
   margin-bottom: 30px;
 }
-
-// [ Input ]*/
 
 .wrap-input {
   width: 100%;
@@ -223,16 +205,14 @@ button {
 .input {
   font-family: Poppins-Regular;
   font-size: 16px;
-  color: #fff;
+  color: #5a6b69;
   line-height: 1.2;
   display: block;
   width: 100%;
   height: 45px;
-  background: transparent;
-  // padding: 0 5px 0 38px;
+
 }
 
-/*---------------------------------------------*/
 .focus-input {
   position: absolute;
   display: block;
@@ -251,6 +231,8 @@ button {
 
 .login-title {
   margin-bottom: 40px;
+  font-size: 2rem;
+  color: #947f7c;
 }
 
 .focus-input::before,
@@ -275,6 +257,7 @@ button {
 
 .pwd-forgot {
   margin-bottom: 20px;
+  color: #a26ea1;
 }
 
 .login-bcg {
@@ -286,5 +269,19 @@ button {
   left: 0;
   z-index: -1;
   object-fit: cover;
+}
+
+@media only screen and (min-width: 600px) {
+  .login-bcg {
+    width: 70%;
+  }
+
+  .login-container {
+    margin: 0;
+    position: fixed;
+    top: 117px;
+    right: 23px;
+    opacity: 1;
+  }
 }
 </style>

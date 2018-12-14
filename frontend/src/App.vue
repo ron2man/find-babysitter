@@ -40,7 +40,7 @@
 
     <footer class="main-background flex align-items-center flex-space-evenly outline-second-color">
       <!-- CONECTED -->
-      <template v-if="currUser">
+      <template v-if="currUser" class="footer-items">
         <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
         <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
         <p class="second-color">|</p>
@@ -55,7 +55,7 @@
       <template v-else>
         <p class="login-txt" @click="checkIfLogin">Login</p>
         <p class="second-color">|</p>
-        <p>Signup</p>
+        <p class="signup-txt">Signup</p>
       </template>
       <!-- <div class="login">Login</div> -->
     </footer>
@@ -139,7 +139,7 @@ export default {
 }
 
 .logo-img{
-      height: 44px;
+    height: 44px;
     margin-top: 4px;
 }
 #app {
@@ -191,9 +191,21 @@ header {
   margin-top: 20px;
 }
 
+.footer-items ,p:hover{
+  cursor: pointer;
+}
+
 .login-txt {
   font-size: 16px;
   line-height: 2;
+}
+
+.login-txt:hover{
+cursor: pointer;
+}
+
+.signup-txt:hover{
+  cursor: pointer;
 }
 
 .right-nav-items {
