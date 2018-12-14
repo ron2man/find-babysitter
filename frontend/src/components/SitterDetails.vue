@@ -27,59 +27,56 @@
 
     <div class="schedule"></div>
 
-    <div class="about">
-      <div class="about-box">
-        <h2 class="about-head">About</h2>
-        <p class="date">{{sitter.joinedAt}}</p>
-        <div class="rank">
-          <i class="fas fa-medal"></i>
-          <p class="qualification-expa">{{sitter.description}}</p>
+    <div class="about-conatainer flex column">
+      <div class="about">
+        <div class="about-box">
+          <h2 class="about-head">About</h2>
+          <p class="date">{{sitter.joinedAt}}</p>
+          <div class="rank">
+            <i class="fas fa-medal"></i>
+            <p class="qualification-expa">{{sitter.description}}</p>
+          </div>
+          <div class="about-details">
+            <p class="about-details-item">Looking for: {{sitter.time}}</p>
+            <p class="about-details-item description">{{sitter.about}}</p>
+            <span class="head-span">education:</span>
+            <p class="about-details-item">highschool</p>
+            <span class="head-span">Language:</span>
+            <span
+              class="about-details-item"
+              v-for="(language,i) in sitter.languages"
+              :key="i"
+            >{{language}}</span>
+          </div>
         </div>
-        <div class="about-details">
-          <p class="about-details-item">Looking for: {{sitter.time}}</p>
-          <p class="about-details-item description">{{sitter.about}}</p>
-          <span class="head-span">education:</span>
-          <p class="about-details-item">highschool</p>
-          <span class="head-span">Language:</span>
-          <span
-            class="about-details-item"
-            v-for="(language,i) in sitter.languages"
-            :key="i"
-          >{{language}}</span>
-        </div>
-      </div>
-      <div class="font-awsome-box">
-        <h2 class="about-head">Credentials</h2>
-        <div class="icon-box" :class="{black: sitter.license}">
-          <i class="fas fa-id-card item-awsome"></i>
-          <span>Has driver License</span>
-        </div>
-        <div class="icon-box" :class="{black: sitter.vehicle}">
-          <i class="fas fa-car item-awsome"></i>
-          <span>Has car</span>
-        </div>
-        <div class="icon-box" :class="{black: sitter.smoking}">
-          <i class="fas fa-smoking item-awsome"></i>
-          <span>Smoking</span>
-        </div>
-        <div class="icon-box" :class="{black: sitter.medical}">
-          <i class="fas fa-briefcase-medical item-awsome"></i>
-          <span>Medical treatment</span>
-        </div>
-        <div class="icon-box" :class="{black: sitter.recomandation}">
-          <i class="fas fa-file item-awsome"></i>
-          <span>Has recomendation</span>
-        </div>
-        <div class="icon-box" :class="{black: sitter.clen}">
-          <i class="fas fa-broom item-awsome"></i>
-          <span>Clean</span>
+        <div class="font-awsome-box flex justify-content-center">
+          <div class="icon-box" :class="{black: sitter.license}" title="Has driver License">
+            <i class="fas fa-id-card item-awsome"></i>
+          </div>
+          <div class="icon-box" :class="{black: sitter.vehicle}">
+            <i class="fas fa-car item-awsome" title="Has car"></i>
+          </div>
+          <div class="icon-box" :class="{black: sitter.smoking}" title="Smoking">
+            <i class="fas fa-smoking item-awsome"></i>
+          </div>
+          <div class="icon-box" :class="{black: sitter.medical}" title="Medical treatment">
+            <i class="fas fa-briefcase-medical item-awsome"></i>
+          </div>
+          <div class="icon-box" :class="{black: sitter.recomandation}" title="Has recomendation">
+            <i class="fas fa-file item-awsome"></i>
+          </div>
+          <div class="icon-box" :class="{black: sitter.clen}" title="Clean">
+            <i class="fas fa-broom item-awsome"></i>
+          </div>
         </div>
       </div>
-    </div>
-    <h2 class="about-head">Reviews</h2>
-    <div class="reviews-box">
-      <p class="review" v-for="review in sitter.reviews" :key="review.txt">"{{review.txt}}"</p>
-      <i class="fas fa-star orange stars" v-for="(n,i) in getNumberOfStars" :key="i"></i>
+      <div class="reviews-wrap">
+      <h2 class="about-head">Reviews</h2>
+        <div class="reviews-box">
+          <p class="review" v-for="review in sitter.reviews" :key="review.txt">"{{review.txt}}"</p>
+          <i class="fas fa-star orange stars" v-for="(n,i) in getNumberOfStars" :key="i"></i>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -113,7 +110,8 @@ export default {
     sendMessage(sitter) {
       this.$store.dispatch({ type: "checkLogin" }).then(user => {
         if (!user) this.$router.push("/login");
-        else this.$router.push(`/baby/profile/parent/${sitter.username}/contact`);
+        else
+          this.$router.push(`/baby/profile/parent/${sitter.username}/contact`);
       });
     }
   },
@@ -152,11 +150,9 @@ img {
 }
 
 .sitter-name {
-    color: #ffb480;
-    font-weight: bold;
+  color: #ffb480;
+  font-weight: bold;
 }
-
-
 
 .btn {
   height: 40px;
@@ -172,6 +168,10 @@ img {
 .about-box {
   border: 1px solid black;
   padding: 20px;
+  margin: 5px;
+  margin-bottom: 20px;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
 .about-head {
@@ -179,7 +179,7 @@ img {
   margin-bottom: 20px;
   font-weight: bold;
   color: #ffb480;
-  }
+}
 
 .date {
   text-align: left;
@@ -216,13 +216,11 @@ img {
   line-height: 22px;
 }
 
-.about-box {
-  margin: 5px;
-  margin-bottom: 20px;
-}
-
 .font-awsome-box {
   margin: 5px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .icon-box {
@@ -231,6 +229,7 @@ img {
   line-height: 60px;
   text-align: left;
   color: rgb(185, 185, 185);
+  width: 97px;
 }
 
 .item-awsome {
@@ -280,10 +279,9 @@ img {
   line-height: 22px;
 }
 
- .fa-medal{
-  color:#a26ea1;
-
- }
+.fa-medal {
+  color: #a26ea1;
+}
 
 .fa-medal:before {
   line-height: 60px;
@@ -294,5 +292,31 @@ img {
   margin-bottom: 20px;
 }
 
+@media only screen and (min-width: 800px) {
+  .about {
+    display: flex;
+  }
+  .font-awsome-box {
+    flex-direction: column;
+  }
+}
 
+@media only screen and (min-width: 1000px) {
+  .about {
+    flex-direction: column;
+    max-width: 575px;
+  }
+
+  .about-conatainer {
+    flex-direction: row;
+  }
+
+  .font-awsome-box {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .reviews-wrap{
+    margin: 0 auto;
+  }
+}
 </style>

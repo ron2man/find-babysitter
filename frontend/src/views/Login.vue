@@ -257,6 +257,7 @@ export default {
 
 .pwd-forgot {
   margin-bottom: 20px;
+  color: #a26ea1;
 }
 
 .login-bcg {

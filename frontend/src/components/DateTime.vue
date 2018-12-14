@@ -1,5 +1,5 @@
 <template>
-  <section class="date-time flex column">
+  <section class="date-time flex wrap">
     <datepicker class="date-picker" :inline="true" v-model="date" :format="customFormatter" :highlighted="highlighted"></datepicker>
     <div class="time-container">
       <div class="inputs time-start">
