@@ -144,9 +144,11 @@ export default {
 }
 
 img {
-  height: 120px;
-  margin: 30px;
-  border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    margin: 30px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .sitter-name {
@@ -292,12 +294,22 @@ img {
   margin-bottom: 20px;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 700px) {
   .about {
     display: flex;
   }
   .font-awsome-box {
     flex-direction: column;
+  }
+
+  .summery-container{
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  img{
+     height: 140px;
+    width: 140px;
   }
 }
 
