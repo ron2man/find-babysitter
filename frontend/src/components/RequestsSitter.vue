@@ -1,6 +1,6 @@
 <template>
   <section v-if="sitter">
-    <div class="request">
+    <!-- <div class="request">
       <div class="request-item ">
           <div class="flex align-items-center flex-space-evenly">
         <div class="from">Gabi</div>
@@ -13,10 +13,23 @@
           <i class="fas fa-times"></i>
         </div>
     </div>
+    </div> -->
+        <div v-if="sitter.type === 'parent'"
+      class="requests-item-container"
+      v-for="(reservation,i) in sitter.reservations"
+      :key="i"
+      :class="getClass(reservation)"
+    >
+      <i class="fas fa-comments message-awsome"></i>
+      <p class="notice-head">Sitter: {{reservation.to}}</p>
+      <p class="notice-head">From: {{getTime(reservation.start)}}</p>
+      <p class="notice-head">To: {{getTime(reservation.end)}}</p>
+      <p class="notice-head">date: {{reservation.date}}</p>
+      <p class="notice-head">Status: {{reservation.status}}</p>
     </div>
 
-    <!-- {{sitter.reservations}} -->
-    <div  v-if="sitter"
+
+    <div   v-if="sitter.type === 'sitter'"
       class="requests-item-container"
       v-for="(reservation,i) in sitter.reservations"
       :key="i">
@@ -50,6 +63,9 @@ export default {
     answerReservation(reservation, status) {
       this.$store.dispatch({ type: "request", reservation,status});
     },
+        getTime(timeStamp) {
+      return moment(timeStamp).format("hh:mm");
+    }
   },
   computed: {
     sitter() {
