@@ -1,14 +1,7 @@
 <template>
-<<<<<<< HEAD
-  <section v-if="sitter">
-    <!-- <div class="request">
-      <div class="request-item ">
-=======
-  <section>
     <section class="requests-header">
       <div class="request">
         <div class="request-item">
->>>>>>> 920f13901bf4840de314bbcf3e15a16b0e2c739b
           <div class="flex align-items-center flex-space-evenly">
             <div class="notice-head">{{currUser.type==='parent' ? 'Sitter' : 'Parent'}}</div>
             <div class="notice-head">date</div>
