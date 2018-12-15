@@ -41,7 +41,6 @@
             <i class="fas fa-times" @click="answerReservation(reservation,'decline')"></i>
           </div>
         </div>
-<<<<<<< HEAD
     </div>
     </div> -->
         <div v-if="sitter.type === 'parent'"
@@ -77,53 +76,6 @@
         @click="answerReservation(reservation,'decline')"
       >Declined</button>
     </div>
-=======
-      </div>
-    </section>
-
-    <!-- {{sitter.reservations}} -->
-    <section v-else>
-      <div
-        class="request"
-        v-if="currUser"
-        v-for="(reservation,i) in currUser.reservations"
-        :key="i"
-      >
-        <div class="request-item">
-          <div class="flex align-items-center flex-space-evenly">
-            <div class="notice-head">{{reservation.from}}</div>
-            <div class="notice-head">{{reservation.date}}</div>
-            <div class="notice-head">{{reservation.start | formatTime}}</div>
-            <div class="notice-head">{{reservation.end | formatTime}}</div>
-          </div>
-          <div class="buttons flex flex-space-evenly">
-            <i class="fas fa-check" @click="answerReservation(reservation,'confirmed')"></i>
-            <i class="fas fa-times" @click="answerReservation(reservation,'decline')"></i>
-          </div>
-        </div>
-      </div>
-      <!-- <div
-        v-if="sitter"
-        class="requests-item-container"
-        v-for="(reservation,i) in currUser.reservations"
-        :key="i"
-      >
-        <i class="fas fa-comments message-awsome"></i>
-        <p class="notice-head">Parent: {{reservation.from}}</p>
-        <p class="notice-head">date: {{reservation.date}}</p>
-        <p class="notice-head">From: {{reservation.start | formatTime}}</p>
-        <p class="notice-head">To: {{reservation.end | formatTime}}</p>
-        <button
-          class="notification-item approve"
-          @click="answerReservation(reservation,'confirmed')"
-        >Approve</button>
-        <button
-          class="notification-item declined"
-          @click="answerReservation(reservation,'decline')"
-        >Declined</button>
-      </div> -->
-    </section>
->>>>>>> 920f13901bf4840de314bbcf3e15a16b0e2c739b
   </section>
 </template>
 
