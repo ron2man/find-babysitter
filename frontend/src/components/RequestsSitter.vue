@@ -91,14 +91,10 @@ export default {
       else return { red: true };
     },
     answerReservation(reservation, status) {
-<<<<<<< HEAD
       this.$store.dispatch({ type: "request", reservation,status});
     },
         getTime(timeStamp) {
       return moment(timeStamp).format("hh:mm");
-=======
-      this.$store.dispatch({ type: "request", reservation, status });
->>>>>>> 920f13901bf4840de314bbcf3e15a16b0e2c739b
     }
   },
   computed: {
