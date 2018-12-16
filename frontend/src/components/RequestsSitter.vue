@@ -1,5 +1,4 @@
 <template>
-  <section>
     <section class="requests-header">
       <div class="request">
         <div class="request-item">
@@ -35,51 +34,41 @@
             <i class="fas fa-times" @click="answerReservation(reservation,'decline')"></i>
           </div>
         </div>
-      </div>
-    </section>
+    </div>
+    </div> -->
+        <div v-if="sitter.type === 'parent'"
+      class="requests-item-container"
+      v-for="(reservation,i) in sitter.reservations"
+      :key="i"
+      :class="getClass(reservation)"
+    >
+      <i class="fas fa-comments message-awsome"></i>
+      <p class="notice-head">Sitter: {{reservation.to}}</p>
+      <p class="notice-head">From: {{getTime(reservation.start)}}</p>
+      <p class="notice-head">To: {{getTime(reservation.end)}}</p>
+      <p class="notice-head">date: {{reservation.date}}</p>
+      <p class="notice-head">Status: {{reservation.status}}</p>
+    </div>
 
-    <!-- {{sitter.reservations}} -->
-    <section v-else>
-      <div
-        class="request"
-        v-if="currUser"
-        v-for="(reservation,i) in currUser.reservations"
-        :key="i"
-      >
-        <div class="request-item">
-          <div class="flex align-items-center flex-space-evenly">
-            <div class="notice-head">{{reservation.from}}</div>
-            <div class="notice-head">{{reservation.date}}</div>
-            <div class="notice-head">{{reservation.start | formatTime}}</div>
-            <div class="notice-head">{{reservation.end | formatTime}}</div>
-          </div>
-          <div class="buttons flex flex-space-evenly">
-            <i class="fas fa-check" @click="answerReservation(reservation,'confirmed')"></i>
-            <i class="fas fa-times" @click="answerReservation(reservation,'decline')"></i>
-          </div>
-        </div>
-      </div>
-      <!-- <div
-        v-if="sitter"
-        class="requests-item-container"
-        v-for="(reservation,i) in currUser.reservations"
-        :key="i"
-      >
-        <i class="fas fa-comments message-awsome"></i>
-        <p class="notice-head">Parent: {{reservation.from}}</p>
-        <p class="notice-head">date: {{reservation.date}}</p>
-        <p class="notice-head">From: {{reservation.start | formatTime}}</p>
-        <p class="notice-head">To: {{reservation.end | formatTime}}</p>
-        <button
-          class="notification-item approve"
-          @click="answerReservation(reservation,'confirmed')"
-        >Approve</button>
-        <button
-          class="notification-item declined"
-          @click="answerReservation(reservation,'decline')"
-        >Declined</button>
-      </div> -->
-    </section>
+
+    <div   v-if="sitter.type === 'sitter'"
+      class="requests-item-container"
+      v-for="(reservation,i) in sitter.reservations"
+      :key="i">
+      <i class="fas fa-comments message-awsome"></i>
+      <p class="notice-head">Parent: {{reservation.from}}</p>
+      <p class="notice-head">date: {{reservation.date}}</p>
+      <p class="notice-head">From: {{reservation.start | formatTime}}</p>
+      <p class="notice-head">To: {{reservation.end | formatTime}}</p>
+      <button
+        class="notification-item approve"
+        @click="answerReservation(reservation,'confirmed')"
+      >Approve</button>
+      <button
+        class="notification-item declined"
+        @click="answerReservation(reservation,'decline')"
+      >Declined</button>
+    </div>
   </section>
 </template>
 
@@ -95,7 +84,10 @@ export default {
       else return { red: true };
     },
     answerReservation(reservation, status) {
-      this.$store.dispatch({ type: "request", reservation, status });
+      this.$store.dispatch({ type: "request", reservation,status});
+    },
+        getTime(timeStamp) {
+      return moment(timeStamp).format("hh:mm");
     }
   },
   computed: {

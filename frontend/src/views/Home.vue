@@ -56,7 +56,8 @@ export default {
 .hero {
   position: relative;
   height: calc(100vh - 400px);
-  background: linear-gradient(
+  background: 
+  linear-gradient(
       rgba(87, 11, 185, 0.15),
       rgba(87, 11, 185, 0.15),
       rgba(0, 0, 0, 0.65),
