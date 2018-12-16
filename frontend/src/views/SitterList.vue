@@ -5,22 +5,22 @@
         Filter
         <i class="fas fa-caret-down"></i>
       </p>
-      <p>|</p>
+      <!-- <p>|</p>
       <p @click="toggleFilter" class="main-color">
         Filter
         <i class="fas fa-caret-down"></i>
-      </p>
+      </p>-->
     </div>
     <div class="list">
       <div class="search" v-if="isSortOpen">
         <search2></search2>
       </div>
-      <div class="search shown" >
+      <div class="search shown">
         <search2></search2>
       </div>
       <!-- <hr> -->
       <div class="grid-container">
-        <second-filter v-if="isFilterOpen" class="filter"></second-filter>
+        <second-filter class="filter"></second-filter>
 
         <div class="cards">
           <sitter-card v-if="sitters" v-for="(sitter,i) in sitters" :sitter="sitter" :key="i"></sitter-card>
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       //START FILTER - SORT - CONTAINER
-      isFilterOpen: false,
+      isFilterOpen: true,
       isSortOpen: false
       //END FILTER - SORT - CONTAINER
     };
@@ -79,10 +79,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
- .search.shown{
-    display: none;
-  }
+.search.shown {
+  display: none;
+}
 
 .filter-sort-container {
   padding: 15px;
@@ -106,6 +105,9 @@ export default {
   .grid-container {
     display: grid;
     grid-template-areas: "menu main main main";
+    width: 70%;
+    float: right;
+
     // grid-gap: 5px;
     // padding: 10px;
   }
@@ -126,9 +128,12 @@ export default {
 }
 @media (min-width: 1250px) {
   .grid-container {
-    border: 1px solid #ccc;
+    // border: 1px solid #ccc;
     max-width: 1250px;
     margin: 0 auto;
+    width: 85%;
+    float: right;
+    margin-right: 50px;
     // grid-gap:10px;
   }
   .cards {
@@ -142,11 +147,8 @@ export default {
     display: none;
   }
 
-  .search.shown{
-    display:block;
+  .search.shown {
+    display: block;
   }
- 
-
-
 }
 </style>

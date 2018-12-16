@@ -269,14 +269,24 @@ button {
 }
 
 @media (min-width: 900px) {
-  //   .filter.filter {
-  //  display: grid;
-  //   background-color: #814040;
-  //   }
+    .filter.filter {
+      height: 85%;
+      top: 43px;
+      left: 315px;
+      position: absolute;
+      top: 145px;
+      z-index: 0;
+      left: 379px;
+      width: 340px;
+    }
 
   .grid-container[data-v-3c7b02fb] {
     display: grid;
     grid-template-areas: "menu main main main";
+  }
+ 
+  .filter .btn-filer{
+    display: none;
   }
 }
 </style>

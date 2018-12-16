@@ -138,6 +138,10 @@ export default {
   src: url('../public/fonts/Pacifico/Pacifico.ttf');
 }
 
+.profile-image:hover{
+cursor: pointer;
+}
+
 .logo-img{
     height: 44px;
     margin-top: 4px;
