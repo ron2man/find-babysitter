@@ -24,8 +24,8 @@
       </div>
 
       <!-- FILTER isMEDICAL -->
-      <div class="medical">
-        <p class="prefs-title">Preference:</p>
+      <p class="prefs-title">Pick preference:</p>
+      <div class="medical flex">
         <div class="filter-pref-item">
           <label for="medical" :class="{black: secondFilter.isMedical}">
             <input
@@ -124,7 +124,8 @@ export default {
   methods: {
     setFilter() {
       this.$store.dispatch("setFilterProperty", this.secondFilter);
-      this.setSort()
+      this.setSort();
+      this.useFilter();
     },
     setSort() {
       sortBy: "",
@@ -150,21 +151,21 @@ export default {
   margin-top: 40px;
 }
 .filter.filter {
-  width: 65%;
-  background-color: #ffff9d;
+  width: 80%;
+  background-color: #f5f5f5;
   color: black;
 }
 
 .filter {
   .full-name input {
-    background-color: #c0a1a1;
-        color: white;
-    }
+    background-color: gainsboro;
+    color: white;
+  }
   .btn-filer {
     display: flex;
     position: fixed;
-    left: 270px;
-    top: 330px;
+    left: 110%;
+    bottom: 50px;
     color: black;
     z-index: 3;
     background-color: rgb(192, 161, 161);
@@ -234,8 +235,8 @@ export default {
   margin-bottom: 10px;
 }
 .filter-pref-item {
-  border: solid 1px blueviolet;
-  width: 130px;
+  border: solid 1px gainsboro;
+  width: 90px;
   margin: 0 auto;
   border-radius: 5px;
   color: #c79c9c;
@@ -251,24 +252,31 @@ export default {
   .sort-item {
     width: 200px;
   }
-  
-
 }
-      button {
-      margin: 0 auto;
-      background-color: #ffb480;
-      width: 150px;
-      border-radius: 5px;
-    }
+button {
+  margin: 0 auto;
+  background-color: #d0afd6;
+  width: 150px;
+  border-radius: 5px;
+}
 
 .el-input .el-input__inner {
-    background-color: #c0a1a1; 
-     border-radius: 10px;
+  background: whitesmoke;
 }
 
 .black {
-  color: black;
+  color: #d0afd6;
 }
 
+@media (min-width: 900px) {
+  //   .filter.filter {
+  //  display: grid;
+  //   background-color: #814040;
+  //   }
 
+  .grid-container[data-v-3c7b02fb] {
+    display: grid;
+    grid-template-areas: "menu main main main";
+  }
+}
 </style>

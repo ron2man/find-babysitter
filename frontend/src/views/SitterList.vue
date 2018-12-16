@@ -1,16 +1,21 @@
 <template>
   <section v-if="this.sitters">
     <div class="filter-sort-container second-background flex flex-space-evenly">
-      <p @click="toggleSort" class="main-color">Sort
+      <p @click="toggleSort" class="main-color">
+        Filter
         <i class="fas fa-caret-down"></i>
       </p>
       <p>|</p>
-      <p @click="toggleFilter" class="main-color">Filter
+      <p @click="toggleFilter" class="main-color">
+        Filter
         <i class="fas fa-caret-down"></i>
       </p>
     </div>
     <div class="list">
       <div class="search" v-if="isSortOpen">
+        <search2></search2>
+      </div>
+      <div class="search shown" >
         <search2></search2>
       </div>
       <!-- <hr> -->
@@ -74,6 +79,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+ .search.shown{
+    display: none;
+  }
+
 .filter-sort-container {
   padding: 15px;
 }
@@ -115,18 +125,28 @@ export default {
   }
 }
 @media (min-width: 1250px) {
-    .grid-container {
-      border: 1px solid #ccc;
+  .grid-container {
+    border: 1px solid #ccc;
     max-width: 1250px;
     margin: 0 auto;
     // grid-gap:10px;
-    }
+  }
   .cards {
-    
     // grid-template-columns: auto auto auto;
     grid-gap: 15px;
     // box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
     //   0 12px 20px 0 rgba(0, 0, 0, 0.19);
   }
+
+  .filter-sort-container {
+    display: none;
+  }
+
+  .search.shown{
+    display:block;
+  }
+ 
+
+
 }
 </style>
