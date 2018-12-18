@@ -1,6 +1,6 @@
 <template>
   <div class="filter" :class="{ active: isOpen }">
-    <p class="filter-title">Filter By:</p>
+    <p class="filter-title">{{(windowWidth > 680) ? 'Filter By:' : ''}}</p>
     <div class="btn-filer" @click="useFilter">
       <i class="fas fa-filter filter-item"></i>
     </div>
@@ -26,8 +26,7 @@
       <!-- FILTER isMEDICAL -->
       <p class="prefs-title">Pick preference:</p>
       <div class="medical flex">
-        <div class="filter-pref-item">
-          <label for="medical" :class="{black: secondFilter.isMedical}">
+          <label class="filter-pref-item" for="medical" :class="{black: secondFilter.isMedical}">
             <input
               class="input-check-item"
               v-model="secondFilter.isMedical"
@@ -38,11 +37,9 @@
             <p>Medical treatment</p>
             <i class="fas fa-briefcase-medical item-awsome"></i>
           </label>
-        </div>
 
         <br>
-        <div class="filter-pref-item">
-          <label for="non-smoker" :class="{black: secondFilter.isNonSmoking}">
+          <label class="filter-pref-item" for="non-smoker" :class="{black: secondFilter.isNonSmoking}">
             <input
               class="input-check-item"
               v-model="secondFilter.isNonSmoking"
@@ -53,11 +50,9 @@
             <p>Non Smoker</p>
             <i class="fas fa-smoking item-awsome"></i>
           </label>
-        </div>
 
         <br>
-        <div class="filter-pref-item">
-          <label for="cleaner" :class="{black: secondFilter.isCleaner}">
+          <label  class="filter-pref-item" for="cleaner" :class="{black: secondFilter.isCleaner}">
             <input
               class="input-check-item"
               v-model="secondFilter.isCleaner"
@@ -68,7 +63,6 @@
             <p>Cleaner</p>
             <i class="fas fa-broom"></i>
           </label>
-        </div>
       </div>
 
       <el-select class="sort-item" v-model="sortBy" clearable placeholder="Sort">
@@ -80,7 +74,7 @@
         ></el-option>
       </el-select>
 
-      <button @click="setFilter">Send</button>
+      <button class="btn-send" @click="setFilter">Send</button>
     </div>
   </div>
 </template>
@@ -123,8 +117,11 @@ export default {
   },
   methods: {
     setFilter() {
+      
+      
       this.$store.dispatch("setFilterProperty", this.secondFilter);
       this.setSort();
+      if(window.innerWidth >680) return 
       this.useFilter();
     },
     setSort() {
@@ -133,6 +130,12 @@ export default {
     },
     useFilter() {
       this.isOpen = !this.isOpen;
+    }
+  },
+  computed:{
+
+    windowWidth(){
+      return window.innerWidth
     }
   },
 
@@ -152,8 +155,14 @@ export default {
 }
 .filter.filter {
   width: 80%;
+  height: 92%;
   background-color: #f5f5f5;
   color: black;
+  padding: 15px;
+  height: 84%;
+  top: 41px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .filter {
@@ -173,6 +182,7 @@ export default {
     width: 40px;
     border-radius: 50%;
     justify-content: center;
+    transition:0.4s;
   }
 
   .filter-item {
@@ -182,9 +192,18 @@ export default {
   .btn-filer :hover {
     cursor: pointer;
   }
+  .btn-send{
+    transition: 0.4s;
+  }
+
+  .btn-send:hover{
+        cursor: pointer;
+        background: #a26ea1;
+        color:white;
+
+  }
 
   transition: 0.3s;
-  // max-width: 100%;
   background-color: black;
   color: white;
   margin-top: 10px;
@@ -197,9 +216,7 @@ export default {
   z-index: 1;
   transform: translate(-105%);
   div {
-    // max-width: 90%;
-    // margin: 0 auto;
-    margin-bottom: 17px;
+    margin-bottom: 15px;
     input {
       background-color: white;
       width: 80%;
@@ -225,6 +242,11 @@ export default {
 }
 .filter.active {
   transform: translate(0);
+  .btn-filer{
+    left: 80%;
+    bottom: 6px;
+
+  }
 }
 
 .input-check-item {
@@ -234,12 +256,15 @@ export default {
 .prefs-title {
   margin-bottom: 10px;
 }
+
 .filter-pref-item {
   border: solid 1px gainsboro;
   width: 90px;
   margin: 0 auto;
   border-radius: 5px;
   color: #c79c9c;
+
+ 
 
   p {
     font-size: 20px;
@@ -253,6 +278,9 @@ export default {
     width: 200px;
   }
 }
+ .filter-pref-item :hover{
+    cursor: pointer;
+  }
 button {
   margin: 0 auto;
   background-color: #d0afd6;
@@ -270,7 +298,6 @@ button {
 
 @media (min-width: 900px) {
     .filter.filter {
-      height: 85%;
       top: 43px;
       left: 315px;
       position: absolute;
@@ -278,6 +305,7 @@ button {
       z-index: 0;
       left: 379px;
       width: 340px;
+      padding: 20px;
     }
 
   .grid-container[data-v-3c7b02fb] {

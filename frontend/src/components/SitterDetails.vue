@@ -21,7 +21,8 @@
     </div>
     <hr>
 
-    <date-time :sitter="sitter"></date-time>
+    <Button class="btn-book-open" @click="openDate" v-if="isBookButtonOpen">Book Now!</Button>
+    <date-time v-if="isBookOpen" :sitter="sitter"></date-time>
 
     <hr>
 
@@ -90,7 +91,9 @@ export default {
   },
   data() {
     return {
-      currSitter: ""
+      currSitter: "",
+      isBookOpen:false,
+      isBookButtonOpen:true
     };
   },
   created() {
@@ -113,6 +116,10 @@ export default {
         else
           this.$router.push(`/baby/profile/parent/${sitter.username}/contact`);
       });
+    },
+    openDate(){
+      this.isBookOpen = !this.isBookOpen
+      this.isBookButtonOpen = !this.isBookButtonOpen
     }
   },
   computed: {
@@ -186,6 +193,17 @@ img {
 .date {
   text-align: left;
   margin-bottom: 20px;
+}
+
+.btn-book-open{
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 72px;
+  width: 130px;
+  background-color: #951555;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s all;
 }
 
 .rank {

@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/js/about.dbc2d5ba.js"
   },
   {
-    "revision": "d9b6ef4f8da141f1469f",
-    "url": "/css/app.f9d51d94.css"
+    "revision": "f566bf2e674e4bd22567",
+    "url": "/css/app.d1ac667f.css"
   },
   {
-    "revision": "d9b6ef4f8da141f1469f",
-    "url": "/js/app.14b5f24d.js"
+    "revision": "f566bf2e674e4bd22567",
+    "url": "/js/app.e85d18d2.js"
   },
   {
     "revision": "2f081db650896b65063e",
@@ -24,16 +24,24 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.8d74cea4.js"
   },
   {
-    "revision": "668dd84b68cc6382dd12cbb704eb6121",
-    "url": "/img/babysitter.668dd84b.jpg"
-  },
-  {
     "revision": "2fad952a20fbbcfd1bf2ebb210dccf7a",
     "url": "/fonts/element-icons.2fad952a.woff"
   },
   {
     "revision": "6f0a76321d30f3c8120915e57f7bd77e",
     "url": "/fonts/element-icons.6f0a7632.ttf"
+  },
+  {
+    "revision": "324944d6dae53ea48a648b1d44ec78c3",
+    "url": "/fonts/Pacifico.324944d6.ttf"
+  },
+  {
+    "revision": "c465d12c44b62fb9c8ec62b8ec572d7f",
+    "url": "/img/logo.c465d12c.png"
+  },
+  {
+    "revision": "668dd84b68cc6382dd12cbb704eb6121",
+    "url": "/img/babysitter.668dd84b.jpg"
   },
   {
     "revision": "695b4b6096d7de773dfb1bc69b9ee536",
@@ -84,12 +92,12 @@ self.__precacheManifest = [
     "url": "/fonts/fa-brands-400.b69de69a.ttf"
   },
   {
-    "revision": "48f54f63d7711d0912a9a10205538fc4",
-    "url": "/fonts/fa-solid-900.48f54f63.ttf"
-  },
-  {
     "revision": "f29ad0031ad2c1c14b771ce504e2bfa7",
     "url": "/fonts/fa-solid-900.f29ad003.eot"
+  },
+  {
+    "revision": "48f54f63d7711d0912a9a10205538fc4",
+    "url": "/fonts/fa-solid-900.48f54f63.ttf"
   },
   {
     "revision": "0c41971339b9fc5b1cefb0abad1e2e69",
@@ -104,8 +112,24 @@ self.__precacheManifest = [
     "url": "/img/fa-solid-900.4478b4d7.svg"
   },
   {
-    "revision": "8dd0675c97bff258c95071d26c829c73",
+    "revision": "b1caf70798a92903cc1a9cef221070cb",
+    "url": "/img/login3.b1caf707.jpg"
+  },
+  {
+    "revision": "92796e9889cb13ab80bd1780dcfb19c3",
     "url": "/index.html"
+  },
+  {
+    "revision": "324944d6dae53ea48a648b1d44ec78c3",
+    "url": "/fonts/Pacifico/Pacifico.ttf"
+  },
+  {
+    "revision": "c465d12c44b62fb9c8ec62b8ec572d7f",
+    "url": "/logo.png"
+  },
+  {
+    "revision": "866202af22b12f1db59f0db1d35ba089",
+    "url": "/logo2.png"
   },
   {
     "revision": "b8008505e3e054984526bdabf088cc83",
@@ -114,6 +138,10 @@ self.__precacheManifest = [
   {
     "revision": "735ab4f94fbcd57074377afca324c813",
     "url": "/robots.txt"
+  },
+  {
+    "revision": "1c4600ae28252c0f827751c5ef880077",
+    "url": "/img/pacifier.png"
   },
   {
     "revision": "512bc5493adb7f714cf6af07b59704cd",
