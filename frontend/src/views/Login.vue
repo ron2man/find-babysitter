@@ -4,7 +4,7 @@
   <section>
     <img class="login-bcg" src="@/assets/images/login3.jpg">
     <div class="login-container flex column">
-      <h1 class="login-title">LOG IN</h1>
+      <h1 class="login-title">LOGIN</h1>
       <form @submit.prevent="checkUser" class="flex column">
         <div class="wrap-input validate-input">
           <input
