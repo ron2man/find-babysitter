@@ -1,35 +1,12 @@
 <template>
-  <div id="app">
-    <!-- OLD HEADER -->
+  <!-- DISABLE - SELECT - THE USER CANNOT SELECT TEXT - SETTINGS => STYLE.SCSS -->
+  <div id="app" class="disable-select">
+  
     <!-- START HEADER -->
-    <!-- <header class="flex flex-space-between align-items-center"> -->
-    <!-- <div> -->
-    <!-- <router-link @click="checkIfLogin"> -->
-    <!-- <div class="flex column"> -->
-    <!-- <i class="fas fa-user login-icon" @click="goToProfile"></i> -->
-    <!-- </div> -->
-    <!-- <span class="welcome-title" v-if="currUser">Hello {{currUser.name}}</span> -->
-    <!-- </router-link> -->
-    <!-- </div> -->
-    <!-- <h1 class="logo">
-        <router-link to="/">BabySitter</router-link>
-      </h1>  
-      <nav class="right-nav-items flex flex-space-between align-items-center">
-      <h2 class="login-txt" @click="checkIfLogin">{{(currUser)? 'Logout' : 'Login'}}</h2>
-        <i class="fas fa-bars"></i>
-      </nav>
-    </header>-->
-    <!-- END OLD HEADER -->
-    <header class="flex border-bottom-second-color main-background">
-      <nav>
-        <i class="fas fa-bars"></i>
-      </nav>
-      
-      <h1 class="logo">
-        <router-link to="/"><img class="logo-img" src="../public/logo.png"></router-link>
-      </h1>
-    </header>
-
+    <HeaderCmp></HeaderCmp>
+    <!-- END HEADER -->
+  
+  
     <main>
       <div v-if="isLoading" class="loader-container">
         <div class="lds-dual-ring"></div>
@@ -37,19 +14,27 @@
       <router-view v-else></router-view>
     </main>
 
-
     <footer class="main-background flex align-items-center flex-space-evenly outline-second-color">
       <!-- CONECTED -->
       <template v-if="currUser" class="footer-items">
-        <div class="profile-image main" :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }" @click="goToProfile" ></div>
-        <p class="name" @click="goToProfile" >Hey {{currUser.name.fName}}</p>
+        <div
+          class="profile-image main"
+          :style="{backgroundImage: 'url(' + currUser.imgUrl + ')' }"
+          @click="goToProfile"
+        ></div>
+        <p class="name" @click="goToProfile">Hey {{currUser.name.fName}}</p>
         <p class="second-color">|</p>
-        <p class="messages" @click="goToProfile" ><i class="fas fa-comments"></i> <span>{{getUnredNotificationLength()}}</span></p>
+        <p class="messages" @click="goToProfile">
+          <i class="fas fa-comments"></i>
+          <span>{{getUnredNotificationLength()}}</span>
+        </p>
         <p class="second-color">|</p>
-        <p class="schedules" @click="goToProfile" ><i class="fas fa-calendar-alt"></i> <span>{{currUser.reservations.length}}</span></p>
+        <p class="schedules" @click="goToProfile">
+          <i class="fas fa-calendar-alt"></i>
+          <span>{{currUser.reservations.length}}</span>
+        </p>
         <p class="second-color">|</p>
         <p class="logout" @click="checkIfLogin">Logout</p>
-
       </template>
       <!-- BEFORE LOGIN -->
       <template v-else>
@@ -64,29 +49,41 @@
 
 <script>
 import Menu from "./components/Menu.vue";
+import HeaderCmp from "./components/App/Header";
 
 export default {
   components: {
+    HeaderCmp,
     Menu
   },
   data() {
     return {};
   },
-  mounted(){
+  mounted() {
+    console.log(
+      "%c  ",
+      "font-size: 176px; background: url(https://ih1.redbubble.net/image.15114079.5257/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1u2.jpg) no-repeat;"
+    );
+    console.log(
+      "%c App Created Succusfully ->  \n It's all good, man",
+      "color:black;background-color:#a26ea1;font-size:1.2em"
+    );
+
     // INJECT NOTIFICATIONS TO DOCUMENT>TITLE
-    if (this.currUser) document.title = `Find a BabySitter (${this.currUser.reservations.length + this.currUser.notifications.length})`
-    else document.title = 'Find a BabySitter'
+    console.log(this.currUser);
+    if (this.currUser)
+      document.title = `Find a BabySitter (${this.currUser.reservations.length +
+        this.currUser.notifications.length})`;
+    else document.title = "Find a BabySitter";
   },
   created() {
     this.$store.dispatch({ type: "getsittersList" });
     this.$store.dispatch({ type: "checkIfLogin" });
   },
-  sockets:{
-    getNotifactions(){
+  sockets: {
+    getNotifactions() {
       this.$store.dispatch({ type: "checkIfLogin" });
     }
-    
-
   },
   methods: {
     checkIfLogin() {
@@ -101,24 +98,25 @@ export default {
         this.curFrUser = this.$store.getters.setLoginUser;
       }
     },
-    getUnredNotificationLength(){
-            var unreadSum = this.currUser.notifications.filter(notice => notice.isRead === false)
-            return unreadSum.length
-           },
+    getUnredNotificationLength() {
+      var unreadSum = this.currUser.notifications.filter(
+        notice => notice.isRead === false
+      );
+      return unreadSum.length;
+    },
     goToProfile() {
       if (!this.currUser) this.$router.push("/login");
       else if (this.currUser.type === "sitter")
         this.$router.push(
           // `/baby/profile/sitter/${this.currUser.username}/notifications`
           `/baby/profile/${this.currUser.username}`
-        )
+        );
       else if (this.currUser.type === "parent")
         this.$router.push(
           // `/baby/profile/parent/${this.currUser.username}/notifications`
           `/baby/profile/${this.currUser.username}`
         );
-    },
-    
+    }
   },
   computed: {
     currUser() {
@@ -133,69 +131,28 @@ export default {
 
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: pacifico;
-  src: url('../public/fonts/Pacifico/Pacifico.ttf');
+.profile-image:hover {
+  cursor: pointer;
 }
 
-.profile-image:hover{
-cursor: pointer;
-}
-
-.logo-img{
-    height: 44px;
-    margin-top: 4px;
-}
 #app {
-  font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   text-decoration: none;
 }
-header {
-  font-size: 1.5em;
-  text-decoration: none;
-  height: 50px;
-  line-height: 50px;
-  padding: 0 15px;
-  color: white;
-  
-  h1 {
-    font-family: pacifico;
-    a,
-    a:active,
-    a:hover {
-      color: white;
-      text-decoration: none;
-    }
-  }
-  nav {
-    padding-right: 20px;
-  }
-}
 
-#nav {
-  padding: 0 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+// .welcome-title {
+//   text-decoration: none;
+//   margin-left: 20px;
+// }
 
-.welcome-title {
-  text-decoration: none;
-  margin-left: 20px;
-}
+// .login-icon {
+//   margin-top: 20px;
+// }
 
-.login-icon {
-  margin-top: 20px;
-}
-
-.footer-items ,p:hover{
+.footer-items,
+p:hover {
   cursor: pointer;
 }
 
@@ -204,17 +161,17 @@ header {
   line-height: 2;
 }
 
-.login-txt:hover{
-cursor: pointer;
-}
-
-.signup-txt:hover{
+.login-txt:hover {
   cursor: pointer;
 }
 
-.right-nav-items {
-  width: 100px;
+.signup-txt:hover {
+  cursor: pointer;
 }
+
+// .right-nav-items {
+//   width: 100px;
+// }
 
 .loader-container {
   height: 50vh;
@@ -267,7 +224,7 @@ footer {
     align-self: center;
     margin: 0 5px;
   }
-  .name{
+  .name {
     text-transform: capitalize;
   }
   i {

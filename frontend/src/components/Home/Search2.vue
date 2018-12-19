@@ -32,7 +32,7 @@
     </div>
 
     <div class="button">
-      <button @click="setFilter">Search</button>
+      <button @click="setFilter">Find Sitter</button>
     </div>
   </div>
 </template>

@@ -1,5 +1,31 @@
 @import '_vars';
 
+
+
+
+
+.hide-on-mobile{
+display:none;
+}
+
+@media (min-width: 767px){
+    .show-on-mobile{ 
+    display: none;
+    }
+    .hide-on-mobile{
+        display: block;
+    }
+
+}
+
+.max-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    widows: 100%;
+    box-sizing: border-box;
+}
+
+
 // FLEX
 .flex {
     display: flex;
