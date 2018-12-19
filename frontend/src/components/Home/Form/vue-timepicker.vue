@@ -430,7 +430,7 @@ export default {
 
 <template>
   <span class="time-picker">
-    <input
+    <input style="width:100px"
       class="display-time"
       :id="id"
       v-model="displayTime"
@@ -499,11 +499,10 @@ export default {
   input[type="text"],
   input[type="password"] {
     background: none;
+    box-sizing: border-box;
     border: none;
-    width: 100%;
-    height: 2em;
-    line-height: 2em;
-    font-size: 1.2em;
+    
+    font-size: 1rem;
     color: rgb(136, 136, 136);
     outline: none;
     text-align: center;
@@ -524,13 +523,10 @@ export default {
   box-sizing: border-box;
 }
 
-/* .time-picker input.display-time {
-  border: 0px solid #d2d2d2;
-  width: 10em;
-  height: 2.2em;
-  padding: 0.3em 0.5em;
-  font-size: 1em;
-} */
+.time-picker input.display-time {
+  /* border: 0px solid #d2d2d2; */
+  /* width: 100px; */
+}
 
 .time-picker .clear-btn {
   position: absolute;
@@ -622,7 +618,7 @@ export default {
 
 .time-picker .dropdown ul li.active,
 .time-picker .dropdown ul li.active:hover {
-  background: #00d9bd;
+  background: #a26ea1;
   color: #fff;
 }
 

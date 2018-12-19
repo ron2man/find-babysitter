@@ -13,10 +13,10 @@
     </div>
     <div class="list">
       <div class="search" v-if="isSortOpen">
-        <search2></search2>
+        <!-- <search2></search2> -->
       </div>
       <div class="search shown">
-        <search2></search2>
+        <!-- <search2></search2> -->
       </div>
       <!-- <hr> -->
       <div class="grid-container">
