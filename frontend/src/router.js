@@ -76,35 +76,32 @@ export default new Router({
       // name: 'notifications',
       // component: Inbox,
     },
-    {
-      path: '/baby/profile/parent/:userName',
-      name: 'parentProfile',
-      component: ParentProfile,
-      children: [
-        { path: 'notifications', name: 'notifications', component: Inbox },
-        // { path: 'notifications', name: 'notifications', component: Notifications },
-        { path: 'details', name: 'details', component: UserDetails },
-        { path: 'contact', name: 'contact', component: ChatContact },
-        { path: 'requests', name: 'requests', component: RequestsParent },
-        { path: 'schedule', name: 'schedule', component: Schedule }
-        // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
-      ]
-    },
+    // {
+    //   path: '/baby/profile/parent/:userName',
+    //   name: 'parentProfile',
+    //   component: ParentProfile,
+    //   children: [
+    //     { path: 'notifications', name: 'notifications', component: Inbox },
+    //     { path: 'details', name: 'details', component: UserDetails },
+    //     { path: 'contact', name: 'contact', component: ChatContact },
+    //     { path: 'requests', name: 'requests', component: RequestsParent },
+    //     { path: 'schedule', name: 'schedule', component: Schedule }
+    //   ]
+    // },
    
-    {
-      path: '/baby/profile/sitter/:userName',
-      name: 'sitterProfile',
-      component: SitterProfile,
-      children: [
-        { path: 'notifications', name: 'notifications', component: Inbox },
-        { path: 'details', name: 'details', component: UserDetails },
-        { path: 'contact', name: 'contact', component: ChatContact },
-        { path: 'requests', name: 'requests', component: RequestsSitter },
-        { path: 'schedule', name: 'schedule', component: Schedule }
+    // {
+    //   path: '/baby/profile/sitter/:userName',
+    //   name: 'sitterProfile',
+    //   component: SitterProfile,
+    //   children: [
+    //     { path: 'notifications', name: 'notifications', component: Inbox },
+    //     { path: 'details', name: 'details', component: UserDetails },
+    //     { path: 'contact', name: 'contact', component: ChatContact },
+    //     { path: 'requests', name: 'requests', component: RequestsSitter },
+    //     { path: 'schedule', name: 'schedule', component: Schedule }
 
-        // { path: 'sceduale', name: 'sceduale', component: ScedualeZone }
-      ]
-    },
+    //   ]
+    // },
     
     
     {

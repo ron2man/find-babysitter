@@ -1,0 +1,23 @@
+@import '_vars';
+
+
+// DISABLE SELECT TEXT ON APP WITH CSS - ADD TO APP MAIN DIV CLASS
+.disable-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently supported by any browser but < IE9 */
+}
+
+a,a:active,
+a:hover{
+    text-decoration: none;
+    color: $second-color;
+
+    &:hover{
+        color:white;
+
+    }
+  }
