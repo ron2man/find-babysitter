@@ -7,8 +7,8 @@
         </router-link>
 
         <nav class="flex flex-space-between">
-       <router-link class="hide-on-mobile" tag="a" to="/">BabySitters</router-link>
-       <router-link class="hide-on-mobile" tag="a" to="/">About</router-link>
+       <router-link class="hide-on-mobile" tag="a" to="/baby/list">BabySitters</router-link>
+       <router-link class="hide-on-mobile" tag="a" to="/about">About</router-link>
        <div class="flex">
        <router-link class="hide-on-mobile" tag="a" to="/">Login </router-link>
        <p  class="hide-on-mobile" style="padding:0 10px">|</p>

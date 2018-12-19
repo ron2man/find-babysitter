@@ -2,7 +2,7 @@
   <div class="home">
     <!-- START HERO SECTION -->
     <section class="hero">
-      <div class="container-head flex flex-space-evenly">
+      <div class="container-head max-width flex flex-sp1ace-evenly">
         <div class="headlines">
           <h2>
             <i class="fas fa-child"></i> Find a BabySitter
@@ -10,30 +10,15 @@
           <!-- <br class="show-in-mobile"> -->
           <h3>by Location, Time and Rating</h3>
         </div>
-        <div class="search">
-          <div>
-            <i class="fas fa-map-marker-alt"> </i> <i class="fas fa-check"></i> <i class="fas fa-crosshairs"></i> Where
-          </div>
-          <div class="shalosh" style="margin-right:20px;">
-            <i class="far fa-calendar-alt"> </i> When
-          </div>
-          <div class="shalosh" style="margin-right:10px;">
-            <i class="far fa-clock"> </i> Starts
-          </div>
-          <div class="shalosh">
-            <i class="fas fa-clock"> </i> Ends
-          </div>
-          <br>
-          <button>Find a BabySitter</button>
+
+        <div class="search-container">
+          <Search2></Search2>
+          <router-link class="btn" tag="button" to="/baby/list">Find a BabySitter</router-link>
+          <!-- <button class="btn">Find a BabySitter</button> -->
         </div>
       </div>
     </section>
     <!-- END HERO SECTION -->
-    <!-- START SEARCH SECTION -->
-    <!-- <section class="search">
-        <Search2></Search2>
-    </section>-->
-    <!-- END SEARCH SECTION -->
     <!-- START SECOND SECTION -->
     <section class="top-sisters">
       <TopSitters></TopSitters>
@@ -52,7 +37,7 @@
 
 <script>
 // @ is an alias to /src
-import Search from "@/components/Home/Search.vue";
+// import Search from "@/components/Home/Search.vue";
 import Search2 from "@/components/Home/Search2.vue";
 import TopSitters from "@/components/Home/TopSitters.vue";
 import HowManyUsed from "@/components/Home/HowManyUsed.vue";
@@ -60,7 +45,7 @@ import HowManyUsed from "@/components/Home/HowManyUsed.vue";
 export default {
   name: "home",
   components: {
-    Search,
+    // Search,
     Search2,
     TopSitters,
     HowManyUsed
@@ -82,7 +67,7 @@ export default {
 .hero {
   display: flex;
   position: relative;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 200px);
   background: linear-gradient(
       rgba(87, 11, 185, 0.15),
       rgba(87, 11, 185, 0.15),
@@ -97,45 +82,46 @@ export default {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-position: 25% 25%;
+  background-position: 50% 25%;
   .headlines {
+    padding-bottom: 25px;
+
     font-family: "Alfa Slab One", cursive;
+      background: linear-gradient(
+      rgba(0, 0, 0  , 0.15),
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.95)
+    )
     // position: absolute;
     // width: 100%;
 
     // bottom: 0;
   }
   .container-head {
-    // display: flex;
-    justify-content: space-evenly;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    border: 1px solid red;
-    // position: absolute;
-    align-items: flex-end;
-    // bottom: 0;
+    justify-content: flex-end;
+    flex-direction: column;
+    // align-items: flex-end;
   }
-  .search {
-    width: 320px;
-    // height: 200px;
-    background-color: rgba(0, 0, 0, 0.3);
-    div {
-      background-color: #ccc;
-      padding: 10px;
-      margin: 10px 0;
-      min-width: 248px;
-      max-width: 248px;
-      text-align: left;
-      i{
-        padding-right: 5px;
-      }
+  @media (min-width: 767px) {
+    .headlines{
+      background: none;
     }
-    .shalosh {
-      width: 30%;
-      min-width: 48px;
-      max-width: 70px;
-      display: inline-block;
+    .container-head {
+      justify-content: space-around;
+      align-items: flex-end;
+
+      flex-direction: row;
+      display: flex;
+    }
+  }
+  .search-container {
+    margin: 0 auto;
+    width: 340px;
+    .btn {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
     }
   }
 

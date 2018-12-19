@@ -21,3 +21,11 @@ a:hover{
 
     }
   }
+
+  button.btn{
+      background-color: $main-color;
+      color:white;
+      text-transform: capitalize;
+      font-weight: 700;
+      font-size:1.5em;
+  }
